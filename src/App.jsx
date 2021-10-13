@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './styles/main.scss';
-import routes from './routes';
+import { routes } from './routes';
 
 const HomePage = lazy(() => import('./pages/Home'));
 const SignInPage = lazy(() => import('./pages/SignIn'));
