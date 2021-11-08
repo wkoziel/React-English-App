@@ -3,4 +3,6 @@ export const routes = {
    signIn: '/sign-in',
    signUp: '/sign-up',
    lessons: '/lessons',
+   repeat: '/repeat',
+   profile: '/profile',
 };

@@ -1,9 +1,13 @@
 import React from 'react';
+import Navbar from '../components/Navbar';
 import { routes } from '../routes';
-import { Redirect } from 'react-router';
 
 const Home = () => {
-   return <Redirect to={routes.lessons} />;
+   return (
+      <>
+         <Navbar active={0} />
+      </>
+   );
 };
 
 export default Home;

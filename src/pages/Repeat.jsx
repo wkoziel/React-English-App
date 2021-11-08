@@ -1,12 +1,12 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 
-const Lessons = () => {
+const Repeat = () => {
    return (
       <>
-         <Navbar active={1} />
+         <Navbar active={2} />
       </>
    );
 };
 
-export default Lessons;
+export default Repeat;

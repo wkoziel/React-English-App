@@ -1,12 +1,12 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 
-const Lessons = () => {
+const Profile = () => {
    return (
       <>
-         <Navbar active={1} />
+         <Navbar active={3} />
       </>
    );
 };
 
-export default Lessons;
+export default Profile;
