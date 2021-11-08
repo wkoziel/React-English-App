@@ -1,7 +1,9 @@
 import React from 'react';
+import { routes } from '../routes';
+import { Redirect } from 'react-router';
 
 const Home = () => {
-   return <div>Strona główna</div>;
+   return <Redirect to={routes.lessons} />;
 };
 
 export default Home;
