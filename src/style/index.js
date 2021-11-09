@@ -6,6 +6,7 @@ export const colors = {
    green: '#14DFAE',
    gray: '#757575',
    lightGray: '#EDEDED',
+   darkGray: '#4D4D4D',
    white: '#FFFFFF',
    black: '#353535',
    yellow: '#D3D63F',
@@ -17,9 +18,19 @@ export const fonts = {
 };
 
 export const GlobalStyle = styled.body`
-   height: 100vh;
    background-color: ${colors.lightGray};
    font-family: ${fonts.lato};
+   color: ${colors.black};
+
+   ul {
+      text-decoration: none;
+   }
+
+   a:link,
+   a:visited {
+      text-decoration: none;
+      color: inherit;
+   }
 
    .container {
       padding: 2rem 0;

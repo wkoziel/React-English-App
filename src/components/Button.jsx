@@ -13,8 +13,9 @@ const Button = ({ onClick = null, type = 'button', label = '', width = 200 }) =>
 };
 
 const StyledButton = styled.button`
+   display: block;
    position: relative;
-   border: 1px solid ${colors.green};
+   border: 3px solid ${colors.green};
    display: flex;
    font-family: ${fonts.nova};
    justify-content: space-between;
