@@ -21,6 +21,7 @@ export const GlobalStyle = styled.body`
    background-color: ${colors.lightGray};
    font-family: ${fonts.lato};
    color: ${colors.black};
+   height: 100vh;
 
    ul {
       text-decoration: none;
