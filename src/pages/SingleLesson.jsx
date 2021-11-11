@@ -116,10 +116,14 @@ const Style = styled.div`
 
    .Back {
       grid-area: Back;
+      align-self: center;
+      justify-self: center;
    }
 
    .Lesson {
       grid-area: Lesson;
+      align-self: center;
+      justify-self: center;
    }
 
    .Card {
