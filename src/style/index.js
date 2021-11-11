@@ -17,11 +17,10 @@ export const fonts = {
    lato: "'Lato', sans-serif",
 };
 
-export const GlobalStyle = styled.body`
+export const GlobalStyle = styled.div`
    background-color: ${colors.lightGray};
    font-family: ${fonts.lato};
    color: ${colors.black};
-   height: 100vh;
 
    ul {
       text-decoration: none;

@@ -39,7 +39,7 @@ const Lessons = () => {
                <h1>Wszystkie lekcje</h1>
                <div className="lessons">
                   {lessons.map((l, i) => (
-                     <Link to="/">
+                     <Link to={`/lesson/${i}`}>
                         <div className="lesson">
                            <h2>{i}.</h2>
                            <div className="title">

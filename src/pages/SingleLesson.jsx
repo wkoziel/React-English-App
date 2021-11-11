@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar';
 import { routes } from '../routes';
 import { colors } from '../style';
 import bird from '../assets/bird.svg';
+import Button from '../components/Button';
 
 const SingleLesson = () => {
    const { id } = useParams();
@@ -43,8 +44,16 @@ const SingleLesson = () => {
                </p>
                <img src={bird} alt="" />
             </div>
-            <div className="Nauka">Wybór lekcji</div>
-            <div className="Test">Test</div>
+            <div className="Nauka">
+               <h2>Wybierz sposób nauki:</h2>
+               <Button label="Fiszki" />
+               <Button label="Wpisywanie" />
+               <Button label="Quiz" />
+            </div>
+            <div className="Test">
+               <h2>Rozpocznij test umiejętności:</h2>
+               <Button label="Rozpocznij test" whiteArrow />
+            </div>
          </Style>
       </>
    );
@@ -57,14 +66,14 @@ const Style = styled.div`
    @media screen and (min-width: 600px) {
       display: grid;
       grid-template-columns: 0.4fr 1.4fr 0.4fr 0.4fr;
-      grid-template-rows: 0.6fr 1.7fr 0.7fr;
-      gap: 2rem 0px;
+      grid-template-rows: 0.6fr 4fr 2fr;
+      gap: 2rem 2rem;
       grid-auto-flow: row;
       grid-template-areas:
          'Back Top Top Lesson'
          'Card Card Nauka Nauka'
          'Card Card Test Test';
-      align-items: center;
+      align-items: stretch;
       justify-content: center;
    }
 
@@ -119,18 +128,70 @@ const Style = styled.div`
       background-color: ${colors.white};
       border-radius: 20px;
       padding: 0 3rem;
-      align-self: stretch;
-      span {
-         color: ${colors.green};
+      position: relative;
+
+      display: grid;
+      grid-template-rows: 1fr 5fr;
+
+      h1 {
+         justify-self: center;
+         align-self: center;
+
+         span {
+            margin-left: 1.5rem;
+            color: ${colors.green};
+         }
+      }
+
+      p {
+         font-size: 1.5em;
+         align-self: start;
+         justify-self: center;
+      }
+
+      img {
+         position: absolute;
+         bottom: 0;
+         right: 3rem;
       }
    }
 
    .Nauka {
       grid-area: Nauka;
+      background-color: ${colors.white};
+      border-radius: 20px;
+      padding: 1rem 2rem;
+
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      justify-self: stretch h2 {
+         margin-bottom: 1rem;
+      }
+
+      button {
+         width: 100%;
+         padding: 1rem;
+      }
    }
 
    .Test {
       grid-area: Test;
+      background-color: ${colors.white};
+      border-radius: 20px;
+
+      padding: 1rem 2rem;
+
+      h2 {
+         margin-bottom: 1rem;
+      }
+
+      button {
+         width: 100%;
+         padding: 1rem;
+         background-color: ${colors.green};
+         color: ${colors.white};
+      }
    }
 `;
 
