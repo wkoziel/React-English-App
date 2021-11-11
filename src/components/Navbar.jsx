@@ -89,12 +89,10 @@ const Style = styled.nav`
 
       &:hover {
          transform: translateY(-2px);
-         box-shadow: 0 10px 6px -6px ${colors.gray};
       }
 
       &:active {
          transform: translateY(2px);
-         box-shadow: 0 5px 10px -6px #777;
       }
    }
 `;

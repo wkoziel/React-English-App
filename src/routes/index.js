@@ -5,4 +5,5 @@ export const routes = {
    lessons: '/lessons',
    repeat: '/repeat',
    profile: '/profile',
+   singleLesson: '/lesson/:id',
 };

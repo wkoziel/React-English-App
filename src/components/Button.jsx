@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors, fonts } from '../style';
 import arrow from '../assets/arrow-green.svg';
+import whitearrow from '../assets/arrow-white.svg';
 
-const Button = ({ onClick = null, type = 'button', label = '', width = 200 }) => {
+const Button = ({ onClick = null, type = 'button', label = '', whiteArrow = false }) => {
    return (
-      <StyledButton type={type} onClick={onClick} style={{ width: width + 'px' }}>
+      <StyledButton type={type} onClick={onClick}>
          <h1 style={{ fontWeight: 'normal' }}>{label}</h1>
-         <img src={arrow} alt="Arrow right" />
+         {whiteArrow ? <img src={whitearrow} alt="Arrow right" /> : <img src={arrow} alt="Arrow right" />}
       </StyledButton>
    );
 };

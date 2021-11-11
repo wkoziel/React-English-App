@@ -9,6 +9,7 @@ const SignUpPage = lazy(() => import('./pages/SignUp'));
 const Lessons = lazy(() => import('./pages/Lessons'));
 const Repeat = lazy(() => import('./pages/Repeat'));
 const Profile = lazy(() => import('./pages/Profile'));
+const SingleLesson = lazy(() => import('./pages/SingleLesson'));
 
 const App = () => (
    <GlobalStyle>
@@ -21,6 +22,7 @@ const App = () => (
                <Route path={routes.lessons} component={Lessons} />
                <Route path={routes.repeat} component={Repeat} />
                <Route path={routes.profile} component={Profile} />
+               <Route path={routes.singleLesson} component={SingleLesson} />
             </Switch>
          </Suspense>
       </BrowserRouter>
