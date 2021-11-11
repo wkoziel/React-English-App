@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { routes } from './routes';
 import { GlobalStyle } from './style';
+import Loading from './components/Loading';
 
 const HomePage = lazy(() => import('./pages/Home'));
 const SignInPage = lazy(() => import('./pages/SignIn'));
@@ -15,7 +16,7 @@ const Typing = lazy(() => import('./pages/Typing/Typing'));
 const App = () => (
    <GlobalStyle>
       <BrowserRouter>
-         <Suspense fallback={<div>Loading...</div>}>
+         <Suspense fallback={<Loading />}>
             <Switch>
                <Route path={routes.home} component={HomePage} exact />
                <Route path={routes.signIn} component={SignInPage} />
