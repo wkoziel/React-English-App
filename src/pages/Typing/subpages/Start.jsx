@@ -34,7 +34,7 @@ const Start = ({ onSubmit = null }) => {
                   </div>
                   <div className="Settings">
                      <RadioButtons
-                        label="Pierwszy język:"
+                        label="Język pisania:"
                         options={languageOptions}
                         selected={selectedLanguage}
                         setSelected={setSelectedLanguage}
