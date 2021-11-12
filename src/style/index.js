@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 export const colors = {
    purple: '#C33FC6',
@@ -17,10 +17,12 @@ export const fonts = {
    lato: "'Lato', sans-serif",
 };
 
-export const GlobalStyle = styled.div`
-   background-color: ${colors.lightGray};
-   font-family: ${fonts.lato};
-   color: ${colors.black};
+export const GlobalStyle = createGlobalStyle`
+   body{
+      background-color: ${colors.lightGray};
+      font-family: ${fonts.lato};
+      color: ${colors.black};
+   }
 
    ul {
       text-decoration: none;
@@ -34,7 +36,6 @@ export const GlobalStyle = styled.div`
 
    .container {
       padding: 2rem 0;
-      width: 100vw;
       margin: 0 auto;
       width: 90vw;
    }

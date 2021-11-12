@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import styled from 'styled-components';
 import Navbar from '../../components/Navbar';
+import Main from './subpages/Main';
 import Start from './subpages/Start';
 
 const initialState = {
@@ -14,7 +15,7 @@ const actions = {
 const reducer = (state, action) => {
    switch (action.type) {
       case actions.nextStep:
-         return { ...state, step: action.payload };
+         return { ...state, step: state.step + 1, ...action.payload };
       default:
          throw Error('No matching action');
    }
@@ -23,12 +24,18 @@ const reducer = (state, action) => {
 const Typing = () => {
    const [state, dispatch] = useReducer(reducer, initialState);
 
+   const onSubmit = (data) => {
+      dispatch({ type: actions.nextStep, payload: data });
+   };
+
    const renderStep = (step) => {
       switch (step) {
          case 0:
-            return <Start />;
+            return <Start onSubmit={onSubmit} />;
+         case 1:
+            return <Main language={state?.selectedLanguage} times={state?.selectedLanguage} />;
          default:
-            return <div>Error</div>;
+            return <div>Nie ma takiej podstrony</div>;
       }
    };
 

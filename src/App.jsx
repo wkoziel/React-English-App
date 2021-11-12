@@ -14,22 +14,21 @@ const SingleLesson = lazy(() => import('./pages/SingleLesson'));
 const Typing = lazy(() => import('./pages/Typing/Typing'));
 
 const App = () => (
-   <GlobalStyle>
-      <BrowserRouter>
-         <Suspense fallback={<Loading />}>
-            <Switch>
-               <Route path={routes.home} component={HomePage} exact />
-               <Route path={routes.signIn} component={SignInPage} />
-               <Route path={routes.signUp} component={SignUpPage} />
-               <Route path={routes.lessons} component={Lessons} />
-               <Route path={routes.repeat} component={Repeat} />
-               <Route path={routes.profile} component={Profile} />
-               <Route path={routes.singleLesson} component={SingleLesson} exact />
-               <Route path={routes.typing} component={Typing} />
-            </Switch>
-         </Suspense>
-      </BrowserRouter>
-   </GlobalStyle>
+   <BrowserRouter>
+      <Suspense fallback={<Loading />}>
+         <GlobalStyle />
+         <Switch>
+            <Route path={routes.home} component={HomePage} exact />
+            <Route path={routes.signIn} component={SignInPage} />
+            <Route path={routes.signUp} component={SignUpPage} />
+            <Route path={routes.lessons} component={Lessons} />
+            <Route path={routes.repeat} component={Repeat} />
+            <Route path={routes.profile} component={Profile} />
+            <Route path={routes.singleLesson} component={SingleLesson} exact />
+            <Route path={routes.typing} component={Typing} />
+         </Switch>
+      </Suspense>
+   </BrowserRouter>
 );
 
 export default App;

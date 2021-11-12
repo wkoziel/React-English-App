@@ -4,11 +4,13 @@ import { colors, fonts } from '../style';
 import arrow from '../assets/arrow-green.svg';
 import whitearrow from '../assets/arrow-white.svg';
 
-const Button = ({ onClick = null, type = 'button', label = '', whiteArrow = false }) => {
+const Button = ({ onClick = null, type = 'button', label = '', whiteArrow = false, noArrow = false }) => {
    return (
       <StyledButton type={type} onClick={onClick}>
          <h1 style={{ fontWeight: 'normal' }}>{label}</h1>
-         {whiteArrow ? <img src={whitearrow} alt="Arrow right" /> : <img src={arrow} alt="Arrow right" />}
+         {!noArrow && (
+            <>{whiteArrow ? <img src={whitearrow} alt="Arrow right" /> : <img src={arrow} alt="Arrow right" />}</>
+         )}
       </StyledButton>
    );
 };
