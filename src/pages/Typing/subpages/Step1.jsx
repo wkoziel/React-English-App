@@ -7,10 +7,10 @@ import Typing from '../../../assets/typing.svg';
 import RadioButtons from '../../../components/RadioButtons';
 import Button from '../../../components/Button';
 
-const timesOptions = ['1 razie', '2 razach', '3 razach'];
+const timesOptions = ['2 razach', '3 razach', '4 razach'];
 const languageOptions = ['Polski', 'Angielski'];
 
-const Start = ({ onSubmit = null }) => {
+const Step1 = ({ onSubmit = null }) => {
    const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
    const [selectedTimes, setSelectedTimes] = useState(timesOptions[0]);
 
@@ -26,6 +26,7 @@ const Start = ({ onSubmit = null }) => {
             <div className="Top"></div>
             <div className="Main">
                <div className="subcontainer">
+                  {/* MAIN */}
                   <div className="Welcome">
                      <h1>Rozpocznij naukę przez wpisywanie!</h1>
                   </div>
@@ -60,6 +61,7 @@ const Start = ({ onSubmit = null }) => {
                         }
                      />
                   </div>
+                  {/* MAIN END */}
                </div>
             </div>
          </div>
@@ -68,7 +70,6 @@ const Start = ({ onSubmit = null }) => {
 };
 
 const Style = styled.div`
-   overflow-y: hidden;
    .container {
       display: grid;
       grid-template-columns: 0.4fr 2.2fr 0.4fr;
@@ -147,4 +148,4 @@ const Style = styled.div`
    }
 `;
 
-export default Start;
+export default Step1;

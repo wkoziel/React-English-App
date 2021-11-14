@@ -60,7 +60,6 @@ const SingleLesson = () => {
 };
 
 const Style = styled.div`
-   width: 100vw;
    display: grid;
 
    @media screen and (min-width: 600px) {

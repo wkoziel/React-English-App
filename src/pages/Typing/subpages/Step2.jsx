@@ -1,41 +1,89 @@
-import React, { useState, useEffect } from 'react';
+import React, { useReducer, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import GoBack from '../../../components/GoBack';
 import LessonTitle from '../../../components/LessonTitle';
 import { colors } from '../../../style';
 
-const tempData = [
-   {
-      english: 'dog',
-      lesson_id: 3,
-      polish: 'pies',
-      word_id: 4,
-   },
-   {
-      english: 'cat',
-      lesson_id: 3,
-      polish: 'kot',
-      word_id: 5,
-   },
-   {
-      english: 'duck',
-      lesson_id: 3,
-      polish: 'kaczka',
-      word_id: 6,
-   },
-];
+const initialState = {
+   words: [],
+   word: {},
+   good: 0,
+   wrong: 0,
+   showAnswer: false,
+};
 
-const Main = ({ language = null, times = null }) => {
-   const [words, setWords] = useState([]);
-   const [selectedWord, setSelectedWord] = useState(0);
+const actions = {
+   setWord: 'setWord',
+   addCurrent: 'addCurrent',
+};
+
+const reducer = (state, action) => {
+   switch (action.type) {
+      case actions.setWord:
+         return { ...state, ...action.payload };
+      case actions.reloadWords:
+         return { ...state, ...action.payload };
+      default:
+         return new Error('No matching action');
+   }
+};
+
+const Step2 = ({ times = null, data = null, nextStep = null }) => {
+   const [state, dispatch] = useReducer(reducer, initialState);
+   const [input, setInput] = useState('');
+
+   const inputBorderRef = useRef();
 
    useEffect(() => {
-      if (language === 0) {
-         setWords(tempData.map((word) => ({ display: word.english, type: word.polish })));
+      const firstWord = data[0];
+      dispatch({ type: actions.setWord, payload: { words: data, word: firstWord } });
+   }, []);
+
+   const onKeyPressHandler = (e) => {
+      if (e.code === 'Enter') checkInput();
+   };
+
+   const checkInput = () => {
+      let tempWords,
+         good = state.good,
+         wrong = state.wrong;
+      if (input === state.word.type) {
+         console.log('input correct');
+         inputBorderRef.current.style.borderColor = colors.green;
+         good = good + 1;
+         if (state.word.correct < times) {
+            tempWords = state.words.map((word) =>
+               word.id === state.word.id ? { ...word, correct: word.correct + 1 } : word,
+            );
+         } else {
+            tempWords = state.words.map((word) => (word.id === state.word.id ? { ...word, learned: true } : word));
+         }
       } else {
-         setWords(tempData.map((word) => ({ display: word.polish, type: word.english })));
+         console.log('input incorrect');
+         inputBorderRef.current.style.borderColor = colors.red;
+         tempWords = state.words;
+         wrong = wrong + 1;
       }
-   }, [language]);
+
+      let nextWord = state.words.find((word) => word.id > state.word.id && state.word.learned === false);
+      if (nextWord === undefined) {
+         nextWord = state.words.find((word) => word.learned === false);
+      }
+      //Następny krok
+
+      setTimeout(() => {
+         if (nextWord === state.word) {
+            nextStep();
+         }
+
+         dispatch({
+            type: actions.reloadWords,
+            payload: { words: tempWords, word: nextWord, good, wrong },
+         });
+         setInput('');
+         inputBorderRef.current.style.borderColor = colors.lightGray;
+      }, 2000);
+   };
 
    return (
       <Style>
@@ -46,29 +94,47 @@ const Main = ({ language = null, times = null }) => {
             <div className="Title">
                <LessonTitle label="1. Greetings" />
             </div>
-            <div className="Top"></div>
+            <div className="Top">
+               {state.word.correct} / {times + 1}
+            </div>
             <div className="Main">
+               {/* MAIN */}
                <div className="subcontainer">
                   <div className="Good">
-                     <h2>3</h2>
+                     <h2>{state.good}</h2>
                      <div className="good"></div>
                   </div>
                   <div className="Wrong">
-                     <h2>3</h2>
+                     <h2>{state.wrong}</h2>
                      <div className="bad"></div>
                   </div>
                   <div className="Questions">
-                     <h1>Pytanie 2 / 25</h1>
+                     <h1>
+                        Pytanie {state?.word?.id + 1} / {data.length}
+                     </h1>
                   </div>
                   <div className="Word">
-                     <h1>Word</h1>
+                     <h1>{state.word?.display}</h1>
+                     {state.showAnswer && (
+                        <>
+                           <hr />
+                           <h1>{state.word.type}</h1>
+                        </>
+                     )}
                   </div>
-                  <div className="Input">
-                     <input type="text" placeholder="Twoja definicja" />
+                  <div className="Input" ref={inputBorderRef}>
+                     <input
+                        type="text"
+                        placeholder="Twoja definicja"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyPress={onKeyPressHandler}
+                     />
                      <p>Wpisz definicje</p>
                   </div>
                </div>
             </div>
+            {/* MAIN END */}
          </div>
       </Style>
    );
@@ -99,6 +165,8 @@ const Style = styled.div`
 
    .Top {
       grid-area: Top;
+      align-self: center;
+      justify-self: center;
    }
 
    .Main {
@@ -163,10 +231,15 @@ const Style = styled.div`
       .Word {
          grid-area: Word;
          display: flex;
+         flex-direction: column;
          align-items: center;
          justify-content: center;
          text-align: center;
-
+         hr {
+            border: 1px ${colors.lightGray} solid;
+            width: 50%;
+            margin: 0.5rem 0;
+         }
          font-size: 2rem;
       }
 
@@ -205,4 +278,4 @@ const Style = styled.div`
    }
 `;
 
-export default Main;
+export default Step2;

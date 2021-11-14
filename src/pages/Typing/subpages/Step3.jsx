@@ -1,0 +1,58 @@
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import GoBack from '../../../components/GoBack';
+import LessonTitle from '../../../components/LessonTitle';
+import { colors } from '../../../style';
+
+const Step3 = () => {
+   return (
+      <Style>
+         <div className="container">
+            <div className="Back">
+               <GoBack label="Powrót do lekcji" link="/" />
+            </div>
+            <div className="Title">
+               <LessonTitle label="1. Greetings" />
+            </div>
+            <div className="Top"></div>
+            <div className="Main"></div>
+         </div>
+      </Style>
+   );
+};
+
+const Style = styled.div`
+   .container {
+      display: grid;
+      grid-template-columns: 0.4fr 2.2fr 0.4fr;
+      grid-template-rows: 0.3fr 1.8fr;
+      gap: 1rem 0px;
+      grid-auto-flow: row;
+      align-items: center;
+      justify-content: center;
+      grid-template-areas:
+         'Back Top Title'
+         'Main Main Main';
+   }
+
+   .Back {
+      grid-area: Back;
+   }
+
+   .Title {
+      grid-area: Title;
+   }
+
+   .Top {
+      grid-area: Top;
+   }
+
+   .Main {
+      grid-area: Main;
+      padding: 1rem 2rem;
+      background-color: ${colors.white};
+      border-radius: 20px;
+   }
+`;
+
+export default Step3;

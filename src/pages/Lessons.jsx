@@ -59,7 +59,6 @@ const Lessons = () => {
 };
 
 const Style = styled.div`
-   width: 100vw;
    display: grid;
    gap: 0.5rem;
 

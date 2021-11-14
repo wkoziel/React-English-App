@@ -45,3 +45,24 @@ export const lessons = [
       lesson_name: 'animals',
    },
 ];
+
+export const exampleWords = [
+   {
+      english: 'dog',
+      lesson_id: 3,
+      polish: 'pies',
+      word_id: 4,
+   },
+   {
+      english: 'cat',
+      lesson_id: 3,
+      polish: 'kot',
+      word_id: 5,
+   },
+   {
+      english: 'duck',
+      lesson_id: 3,
+      polish: 'kaczka',
+      word_id: 6,
+   },
+];
