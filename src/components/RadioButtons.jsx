@@ -33,7 +33,7 @@ const Style = styled.div`
    .option {
       display: flex;
       gap: 0.75em;
-      padding-left: 1rem;
+      padding-left: 2rem;
       align-items: center;
 
       label {
@@ -55,6 +55,7 @@ const Style = styled.div`
       border: 0.15em solid currentColor;
       border-radius: 50%;
       transform: translateY(-0.075em);
+      cursor: pointer;
 
       display: grid;
       place-content: center;

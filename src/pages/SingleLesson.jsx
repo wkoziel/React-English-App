@@ -50,7 +50,7 @@ const SingleLesson = () => {
                <h2>Wybierz sposób nauki:</h2>
                <Button label="Fiszki" onClick={() => history.push(location.pathname + '/typing')} />
                <Button label="Wpisywanie" onClick={() => history.push(location.pathname + '/typing')} />
-               <Button label="Quiz" onClick={() => history.push(location.pathname + '/typing')} />
+               <Button label="Quiz" onClick={() => history.push(location.pathname + '/quiz')} />
             </div>
             <div className="Test">
                <h2>Rozpocznij test umiejętności:</h2>

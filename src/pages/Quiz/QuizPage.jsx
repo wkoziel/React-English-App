@@ -1,9 +1,9 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
-import Step2 from './subpages/Step2';
-import Step1 from './subpages/Step1';
-import Step3 from './subpages/Step3';
 import { exampleWords } from '../../data';
+import Step1 from './subpages/Step1';
+import Step2 from './subpages/Step2';
+import Step3 from './subpages/Step3';
 
 const initialState = {
    step: 0,
@@ -28,7 +28,7 @@ const reducer = (state, action) => {
    }
 };
 
-const Typing = () => {
+const Quiz = () => {
    const [state, dispatch] = useReducer(reducer, initialState);
 
    useEffect(() => {
@@ -37,7 +37,11 @@ const Typing = () => {
       } catch (error) {}
    }, []);
 
-   const submitStep1 = (data) => {
+   const nextStep = () => {
+      dispatch({ type: actions.nextStep });
+   };
+
+   const submitStep = (data) => {
       if (data.selectedLanguage === 0) {
          const tempData = state.data.map((word, index) => ({
             id: index,
@@ -60,16 +64,12 @@ const Typing = () => {
       dispatch({ type: actions.nextStep });
    };
 
-   const nextStep = () => {
-      dispatch({ type: actions.nextStep });
-   };
-
    const renderStep = (step) => {
       switch (step) {
          case 0:
-            return <Step1 onSubmit={submitStep1} />;
+            return <Step1 onSubmit={submitStep} />;
          case 1:
-            return <Step2 data={state.data} times={state.selectedTimes} nextStep={nextStep} />;
+            return <Step2 data={state.data} nextStep={nextStep} />;
          case 2:
             return <Step3 />;
          default:
@@ -78,11 +78,11 @@ const Typing = () => {
    };
 
    return (
-      <div className="page">
+      <>
          <Navbar active={1} />
          {renderStep(state.step)}
-      </div>
+      </>
    );
 };
 
-export default Typing;
+export default Quiz;
