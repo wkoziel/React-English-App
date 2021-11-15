@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
+import Congratulations from '../../../components/Congratulations';
 import GoBack from '../../../components/GoBack';
 import LessonTitle from '../../../components/LessonTitle';
-import { colors } from '../../../style';
+import { routes } from '../../../routes';
 
 const Step3 = () => {
    return (
       <Style>
          <div className="container">
             <div className="Back">
-               <GoBack label="Powrót do lekcji" link="/" />
+               <GoBack label="Powrót do lekcji" link={routes.lessons} />
             </div>
             <div className="Title">
                <LessonTitle label="1. Greetings" />
             </div>
             <div className="Top"></div>
-            <div className="Main"></div>
+            <div className="Main">
+               <Congratulations />
+            </div>
          </div>
       </Style>
    );
@@ -49,9 +51,6 @@ const Style = styled.div`
 
    .Main {
       grid-area: Main;
-      padding: 1rem 2rem;
-      background-color: ${colors.white};
-      border-radius: 20px;
    }
 `;
 

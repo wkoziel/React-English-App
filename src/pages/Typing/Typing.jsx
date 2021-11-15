@@ -7,7 +7,7 @@ import Step3 from './subpages/Step3';
 import { exampleWords } from '../../data';
 
 const initialState = {
-   step: 2,
+   step: 0,
 };
 
 const actions = {
@@ -79,13 +79,11 @@ const Typing = () => {
    };
 
    return (
-      <>
+      <div className="page">
          <Navbar active={1} />
-         <Style>{renderStep(state.step)}</Style>
-      </>
+         {renderStep(state.step)}
+      </div>
    );
 };
-
-const Style = styled.div``;
 
 export default Typing;

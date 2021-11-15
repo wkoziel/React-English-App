@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router';
 import styled from 'styled-components';
 import GoBack from '../components/GoBack';
 import LessonTitle from '../components/LessonTitle';
@@ -11,8 +11,10 @@ import Button from '../components/Button';
 
 const SingleLesson = () => {
    const { id } = useParams();
+   const history = useHistory();
+   const location = useLocation();
    return (
-      <>
+      <div className="page">
          <Navbar active={1} />
          <Style className="container">
             <div className="Top">
@@ -46,16 +48,16 @@ const SingleLesson = () => {
             </div>
             <div className="Nauka">
                <h2>Wybierz sposób nauki:</h2>
-               <Button label="Fiszki" />
-               <Button label="Wpisywanie" />
-               <Button label="Quiz" />
+               <Button label="Fiszki" onClick={() => history.push(location.pathname + '/typing')} />
+               <Button label="Wpisywanie" onClick={() => history.push(location.pathname + '/typing')} />
+               <Button label="Quiz" onClick={() => history.push(location.pathname + '/typing')} />
             </div>
             <div className="Test">
                <h2>Rozpocznij test umiejętności:</h2>
-               <Button label="Rozpocznij test" whiteArrow />
+               <Button label="Rozpocznij test" whiteArrow onClick={() => history.push(location.pathname + '/typing')} />
             </div>
          </Style>
-      </>
+      </div>
    );
 };
 

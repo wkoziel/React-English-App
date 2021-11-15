@@ -22,6 +22,7 @@ export const GlobalStyle = createGlobalStyle`
       background-color: ${colors.lightGray};
       font-family: ${fonts.lato};
       color: ${colors.black};
+      transition: all 0.2s;
    }
 
    ul {
@@ -46,4 +47,48 @@ export const GlobalStyle = createGlobalStyle`
       border-radius: 28px;
       padding: 0.5rem 1rem;
    }
+
+   .page{
+      height: 100vh;
+   }
+
+   .white-box{
+      padding: 1rem 2rem;
+      background-color: ${colors.white};
+      border-radius: 20px;
+   }
+
+   /* UTILITY */
+   .flex-center{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+   }
+
+   /* TYPOGRAPHY */
+   .text-1{
+      font-size: 1rem;
+   }
+
+   .text-15{
+      font-size: 1.5rem;
+   }
+   
+   .text-2{
+      font-size: 2rem;
+   }
+
+   .text-3{
+      font-size: 3rem;
+   }
+
+   .text-4{
+      font-size: 4rem;
+   }
+
+   .text-5{
+      font-size: 5rem;
+   }
+
 `;

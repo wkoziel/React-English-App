@@ -6,6 +6,7 @@ import { colors } from '../../../style';
 import Typing from '../../../assets/typing.svg';
 import RadioButtons from '../../../components/RadioButtons';
 import Button from '../../../components/Button';
+import { routes } from '../../../routes';
 
 const timesOptions = ['2 razach', '3 razach', '4 razach'];
 const languageOptions = ['Polski', 'Angielski'];
@@ -18,7 +19,7 @@ const Step1 = ({ onSubmit = null }) => {
       <Style>
          <div className="container">
             <div className="Back">
-               <GoBack label="Powrót do lekcji" link="/" />
+               <GoBack label="Powrót do lekcji" link={routes.lessons} />
             </div>
             <div className="Title">
                <LessonTitle label="1. Greetings" />

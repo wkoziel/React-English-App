@@ -1,7 +1,9 @@
 import React, { useReducer, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import CorrectAnswers from '../../../components/CorrectAnswers';
 import GoBack from '../../../components/GoBack';
 import LessonTitle from '../../../components/LessonTitle';
+import { routes } from '../../../routes';
 import { colors } from '../../../style';
 
 const initialState = {
@@ -9,19 +11,15 @@ const initialState = {
    word: {},
    good: 0,
    wrong: 0,
-   showAnswer: false,
 };
 
 const actions = {
-   setWord: 'setWord',
-   addCurrent: 'addCurrent',
+   updateState: 'updateState',
 };
 
 const reducer = (state, action) => {
    switch (action.type) {
-      case actions.setWord:
-         return { ...state, ...action.payload };
-      case actions.reloadWords:
+      case actions.updateState:
          return { ...state, ...action.payload };
       default:
          return new Error('No matching action');
@@ -31,12 +29,13 @@ const reducer = (state, action) => {
 const Step2 = ({ times = null, data = null, nextStep = null }) => {
    const [state, dispatch] = useReducer(reducer, initialState);
    const [input, setInput] = useState('');
+   const [showAnswer, setShowAnswer] = useState(false);
 
    const inputBorderRef = useRef();
 
    useEffect(() => {
       const firstWord = data[0];
-      dispatch({ type: actions.setWord, payload: { words: data, word: firstWord } });
+      dispatch({ type: actions.updateState, payload: { words: data, word: firstWord } });
    }, []);
 
    const onKeyPressHandler = (e) => {
@@ -69,19 +68,19 @@ const Step2 = ({ times = null, data = null, nextStep = null }) => {
       if (nextWord === undefined) {
          nextWord = state.words.find((word) => word.learned === false);
       }
-      //Następny krok
-
+      setShowAnswer(true);
       setTimeout(() => {
          if (nextWord === state.word) {
             nextStep();
+         } else {
+            dispatch({
+               type: actions.updateState,
+               payload: { words: tempWords, word: nextWord, good, wrong },
+            });
+            setInput('');
+            inputBorderRef.current.style.borderColor = colors.lightGray;
+            setShowAnswer(false);
          }
-
-         dispatch({
-            type: actions.reloadWords,
-            payload: { words: tempWords, word: nextWord, good, wrong },
-         });
-         setInput('');
-         inputBorderRef.current.style.borderColor = colors.lightGray;
       }, 2000);
    };
 
@@ -89,13 +88,13 @@ const Step2 = ({ times = null, data = null, nextStep = null }) => {
       <Style>
          <div className="container">
             <div className="Back">
-               <GoBack label="Powrót do lekcji" link="/" />
+               <GoBack label="Powrót do lekcji" link={routes.lessons} />
             </div>
             <div className="Title">
                <LessonTitle label="1. Greetings" />
             </div>
             <div className="Top">
-               {state.word.correct} / {times + 1}
+               <CorrectAnswers correct={state?.word?.correct} answers={times + 1} />
             </div>
             <div className="Main">
                {/* MAIN */}
@@ -115,10 +114,10 @@ const Step2 = ({ times = null, data = null, nextStep = null }) => {
                   </div>
                   <div className="Word">
                      <h1>{state.word?.display}</h1>
-                     {state.showAnswer && (
+                     {showAnswer && (
                         <>
                            <hr />
-                           <h1>{state.word.type}</h1>
+                           <h1 style={{ color: colors.green }}>{state.word.type}</h1>
                         </>
                      )}
                   </div>
