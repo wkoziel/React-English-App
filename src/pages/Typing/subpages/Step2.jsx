@@ -100,11 +100,11 @@ const Step2 = ({ times = null, data = null, nextStep = null }) => {
                {/* MAIN */}
                <div className="subcontainer">
                   <div className="Good">
-                     <h2>{state.good}</h2>
+                     <h2>{state?.good}</h2>
                      <div className="good"></div>
                   </div>
                   <div className="Wrong">
-                     <h2>{state.wrong}</h2>
+                     <h2>{state?.wrong}</h2>
                      <div className="bad"></div>
                   </div>
                   <div className="Questions">
@@ -113,11 +113,11 @@ const Step2 = ({ times = null, data = null, nextStep = null }) => {
                      </h1>
                   </div>
                   <div className="Word">
-                     <h1>{state.word?.display}</h1>
+                     <h1>{state?.word?.display}</h1>
                      {showAnswer && (
                         <>
                            <hr />
-                           <h1 style={{ color: colors.green }}>{state.word.type}</h1>
+                           <h1 style={{ color: colors.green }}>{state?.word?.type}</h1>
                         </>
                      )}
                   </div>
