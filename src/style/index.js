@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 export const colors = {
    purple: '#C33FC6',
@@ -17,10 +17,13 @@ export const fonts = {
    lato: "'Lato', sans-serif",
 };
 
-export const GlobalStyle = styled.div`
-   background-color: ${colors.lightGray};
-   font-family: ${fonts.lato};
-   color: ${colors.black};
+export const GlobalStyle = createGlobalStyle`
+   body{
+      background-color: ${colors.lightGray};
+      font-family: ${fonts.lato};
+      color: ${colors.black};
+      transition: all 0.2s;
+   }
 
    ul {
       text-decoration: none;
@@ -34,7 +37,6 @@ export const GlobalStyle = styled.div`
 
    .container {
       padding: 2rem 0;
-      width: 100vw;
       margin: 0 auto;
       width: 90vw;
    }
@@ -45,4 +47,48 @@ export const GlobalStyle = styled.div`
       border-radius: 28px;
       padding: 0.5rem 1rem;
    }
+
+   .page{
+      height: 100vh;
+   }
+
+   .white-box{
+      padding: 1rem 2rem;
+      background-color: ${colors.white};
+      border-radius: 20px;
+   }
+
+   /* UTILITY */
+   .flex-center{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+   }
+
+   /* TYPOGRAPHY */
+   .text-1{
+      font-size: 1rem;
+   }
+
+   .text-15{
+      font-size: 1.5rem;
+   }
+   
+   .text-2{
+      font-size: 2rem;
+   }
+
+   .text-3{
+      font-size: 3rem;
+   }
+
+   .text-4{
+      font-size: 4rem;
+   }
+
+   .text-5{
+      font-size: 5rem;
+   }
+
 `;

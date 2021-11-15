@@ -6,4 +6,5 @@ export const routes = {
    repeat: '/repeat',
    profile: '/profile',
    singleLesson: '/lesson/:id',
+   typing: '/lesson/:id/typing',
 };
