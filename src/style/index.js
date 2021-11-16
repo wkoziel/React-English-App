@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export const colors = {
    purple: '#C33FC6',
-   red: '#FF0000',
+   red: 'hsla(0, 100%, 50%, 0.7)',
    green: '#14DFAE',
    gray: '#757575',
    lightGray: '#EDEDED',
