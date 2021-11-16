@@ -8,4 +8,5 @@ export const routes = {
    singleLesson: '/lesson/:id',
    typing: '/lesson/:id/typing',
    quiz: '/lesson/:id/quiz',
+   flashcards: '/lesson/:id/flashcards',
 };

@@ -48,7 +48,7 @@ const SingleLesson = () => {
             </div>
             <div className="Nauka">
                <h2>Wybierz sposób nauki:</h2>
-               <Button label="Fiszki" onClick={() => history.push(location.pathname + '/typing')} />
+               <Button label="Fiszki" onClick={() => history.push(location.pathname + '/flashcards')} />
                <Button label="Wpisywanie" onClick={() => history.push(location.pathname + '/typing')} />
                <Button label="Quiz" onClick={() => history.push(location.pathname + '/quiz')} />
             </div>
