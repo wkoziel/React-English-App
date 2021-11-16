@@ -74,7 +74,7 @@ const Style = styled.div`
    .container {
       display: grid;
       grid-template-columns: 0.4fr 2.2fr 0.4fr;
-      grid-template-rows: 0.3fr 1.8fr;
+      grid-template-rows: 0.1fr 1.8fr;
       gap: 1rem 0px;
       grid-auto-flow: row;
       align-items: center;
@@ -107,7 +107,7 @@ const Style = styled.div`
          grid-template-columns: 1fr 1fr;
          grid-template-rows: 0.5fr 2fr 0.8fr;
          grid-auto-flow: row;
-         padding: 1rem 4rem;
+         gap: 1rem 2rem;
          grid-template-areas:
             'Welcome Welcome'
             'Image Settings'
