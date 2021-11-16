@@ -3,7 +3,7 @@ import Navbar from '../../components/Navbar';
 import Step2 from './subpages/Step2';
 import Step1 from './subpages/Step1';
 import Step3 from './subpages/Step3';
-import { exampleWords } from '../../data';
+import { exampleWords } from '../../data/data';
 
 const initialState = {
    step: 0,

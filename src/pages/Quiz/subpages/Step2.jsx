@@ -4,7 +4,7 @@ import LessonTitle from '../../../components/LessonTitle';
 import { routes } from '../../../routes';
 import Quiz from '../../../components/Quiz';
 
-const Step3 = ({ data = null }) => {
+const Step3 = ({ data = null, nextStep = null }) => {
    return (
       <Style>
          <div className="container">
@@ -16,7 +16,7 @@ const Step3 = ({ data = null }) => {
             </div>
             <div className="Top"></div>
             <div className="Main">
-               <Quiz data={data} />
+               <Quiz data={data} nextStep={nextStep} />
             </div>
          </div>
       </Style>

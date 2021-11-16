@@ -4,7 +4,7 @@ import image from '../assets/lessons.svg';
 import Button from '../components/Button';
 import styled from 'styled-components';
 import { colors } from '../style';
-import { lessons } from '../data';
+import { lessons } from '../data/data';
 import { Link } from 'react-router-dom';
 import arrow from '../assets/arrow-green.svg';
 

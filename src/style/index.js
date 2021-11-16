@@ -49,7 +49,7 @@ export const GlobalStyle = createGlobalStyle`
    }
 
    .page{
-      height: 100vh;
+      height: 100vh !important;
    }
 
    .white-box{
@@ -89,6 +89,10 @@ export const GlobalStyle = createGlobalStyle`
 
    .text-5{
       font-size: 5rem;
+   }
+
+   h1:first-letter{
+      text-transform: capitalize;
    }
 
 `;
