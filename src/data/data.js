@@ -65,4 +65,16 @@ export const exampleWords = [
       polish: 'kaczka',
       word_id: 6,
    },
+   {
+      english: 'cow',
+      lesson_id: 3,
+      polish: 'krowa',
+      word_id: 6,
+   },
+   {
+      english: 'bird',
+      lesson_id: 3,
+      polish: 'ptak',
+      word_id: 6,
+   },
 ];

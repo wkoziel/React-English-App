@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export const colors = {
    purple: '#C33FC6',
-   red: '#FF0000',
+   red: 'hsla(0, 100%, 50%, 0.7)',
    green: '#14DFAE',
    gray: '#757575',
    lightGray: '#EDEDED',
@@ -49,7 +49,7 @@ export const GlobalStyle = createGlobalStyle`
    }
 
    .page{
-      height: 100vh;
+      height: 100vh !important;
    }
 
    .white-box{
@@ -89,6 +89,10 @@ export const GlobalStyle = createGlobalStyle`
 
    .text-5{
       font-size: 5rem;
+   }
+
+   h1:first-letter{
+      text-transform: capitalize;
    }
 
 `;

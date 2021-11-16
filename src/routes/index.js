@@ -7,4 +7,5 @@ export const routes = {
    profile: '/profile',
    singleLesson: '/lesson/:id',
    typing: '/lesson/:id/typing',
+   quiz: '/lesson/:id/quiz',
 };

@@ -12,6 +12,7 @@ const Repeat = lazy(() => import('./pages/Repeat'));
 const Profile = lazy(() => import('./pages/Profile'));
 const SingleLesson = lazy(() => import('./pages/SingleLesson'));
 const Typing = lazy(() => import('./pages/Typing/Typing'));
+const Quiz = lazy(() => import('./pages/Quiz/QuizPage'));
 
 const App = () => (
    <BrowserRouter>
@@ -26,6 +27,7 @@ const App = () => (
             <Route path={routes.profile} component={Profile} />
             <Route path={routes.singleLesson} component={SingleLesson} exact />
             <Route path={routes.typing} component={Typing} />
+            <Route path={routes.quiz} component={Quiz} />
          </Switch>
       </Suspense>
    </BrowserRouter>
