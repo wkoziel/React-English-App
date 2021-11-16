@@ -72,7 +72,8 @@ const Style = styled.div`
    .container {
       display: grid;
       grid-template-columns: 0.4fr 2.2fr 0.4fr;
-      grid-template-rows: 0.1fr 0.9fr;
+      grid-template-rows: 0.2fr 0.8fr;
+      gap: 1rem 1rem;
       grid-auto-flow: row;
       align-items: center;
       justify-content: center;
@@ -95,7 +96,6 @@ const Style = styled.div`
 
    .Main {
       grid-area: Main;
-      padding: 1rem 2rem;
       background-color: ${colors.white};
       border-radius: 20px;
 
@@ -103,8 +103,10 @@ const Style = styled.div`
          display: grid;
          grid-template-columns: 1fr 1fr;
          grid-template-rows: 0.5fr 2fr 0.8fr;
+         align-items: center;
+         justify-content: center;
+         gap: 1rem 1rem;
          grid-auto-flow: row;
-         padding: 1rem 4rem;
          grid-template-areas:
             'Welcome Welcome'
             'Image Settings'
@@ -115,6 +117,7 @@ const Style = styled.div`
          grid-area: Welcome;
          justify-self: center;
          font-size: 1.7em;
+         margin-bottom: 1rem;
       }
 
       .Image {
@@ -125,13 +128,13 @@ const Style = styled.div`
       .Settings {
          grid-area: Settings;
          display: grid;
-         grid-template-columns: 1fr 1.1fr;
+         grid-template-columns: 1fr 1fr;
          align-items: center;
          justify-content: center;
-
+         padding: 2rem 1rem;
+         width: 90%;
          border: 3px solid ${colors.green};
          border-radius: 20px;
-         padding: 1rem;
       }
 
       .Button {
