@@ -117,11 +117,11 @@ const Style = styled.button`
       grid-template-columns: 0.5fr 1fr 0.5fr;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
 
       hr {
          border: 1px solid ${colors.lightGray};
          width: 100%;
+         margin: 1rem 0;
       }
 
       h1:nth-child(3) {
