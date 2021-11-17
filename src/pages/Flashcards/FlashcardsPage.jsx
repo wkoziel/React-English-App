@@ -59,7 +59,10 @@ const FlashcardsPage = () => {
             correct: 0,
             learned: false,
          }));
-         dispatch({ type: actions.prepareData, payload: { data: tempData, selectedTimes: data.selectedTimes + 1 } });
+         dispatch({
+            type: actions.prepareData,
+            payload: { data: tempData, selectedTimes: data.selectedTimes + 1, selectedLanguage: data.selectedLanguage },
+         });
       }
       dispatch({ type: actions.nextStep });
    };
@@ -69,7 +72,14 @@ const FlashcardsPage = () => {
          case 0:
             return <Step1 onSubmit={submitStep} />;
          case 1:
-            return <Step2 data={state.data} nextStep={nextStep} />;
+            return (
+               <Step2
+                  data={state.data}
+                  nextStep={nextStep}
+                  times={state.selectedTimes}
+                  bothSides={state.selectedLanguage === 2}
+               />
+            );
          case 2:
             return <Step3 />;
          default:
