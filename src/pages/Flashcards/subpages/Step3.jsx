@@ -1,10 +1,10 @@
 import styled from 'styled-components';
+import Congratulations from '../../../components/Congratulations';
 import GoBack from '../../../components/GoBack';
 import LessonTitle from '../../../components/LessonTitle';
 import { routes } from '../../../routes';
-import Quiz from '../../../components/Quiz';
 
-const Step2 = ({ data = null, nextStep = null }) => {
+const Step3 = () => {
    return (
       <Style>
          <div className="container">
@@ -16,7 +16,7 @@ const Step2 = ({ data = null, nextStep = null }) => {
             </div>
             <div className="Top"></div>
             <div className="Main">
-               <Quiz data={data} nextStep={nextStep} />
+               <Congratulations />
             </div>
          </div>
       </Style>
@@ -54,4 +54,4 @@ const Style = styled.div`
    }
 `;
 
-export default Step2;
+export default Step3;
