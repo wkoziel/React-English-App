@@ -11,7 +11,7 @@ const links = [
    { name: 'Profil', route: routes.profile },
 ];
 
-const Navbar = ({ logo = 'Limi', active = null }) => {
+const Navbar = ({ logo = 'Logo', active = null }) => {
    return (
       <Style>
          <div className="flex">
