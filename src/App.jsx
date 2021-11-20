@@ -14,6 +14,7 @@ const SingleLesson = lazy(() => import('./pages/SingleLesson'));
 const Typing = lazy(() => import('./pages/Typing/Typing'));
 const Quiz = lazy(() => import('./pages/Quiz/QuizPage'));
 const Flashcards = lazy(() => import('./pages/Flashcards/FlashcardsPage'));
+const ErrorPage = lazy(() => import('./pages/ErrorPage'));
 
 const App = () => (
    <BrowserRouter>
@@ -30,6 +31,7 @@ const App = () => (
             <Route path={routes.typing} component={Typing} />
             <Route path={routes.quiz} component={Quiz} />
             <Route path={routes.flashcards} component={Flashcards} />
+            <Route path="*" component={ErrorPage} />
          </Switch>
       </Suspense>
    </BrowserRouter>
