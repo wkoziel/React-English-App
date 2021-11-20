@@ -7,7 +7,7 @@ import whitearrow from '../assets/arrow-white.svg';
 const Button = ({ onClick = null, type = 'button', label = '', whiteArrow = false, noArrow = false }) => {
    return (
       <StyledButton type={type} onClick={onClick}>
-         <h1 style={{ fontWeight: 'normal' }}>{label}</h1>
+         <h1>{label}</h1>
          {!noArrow && (
             <>{whiteArrow ? <img src={whitearrow} alt="Arrow right" /> : <img src={arrow} alt="Arrow right" />}</>
          )}
@@ -22,6 +22,7 @@ const StyledButton = styled.button`
    gap: 10px;
    border: 3px solid ${colors.green};
    color: ${colors.green};
+   width: fit-content;
 
    font-family: ${fonts.nova};
    background-color: ${colors.white};
@@ -29,6 +30,10 @@ const StyledButton = styled.button`
    padding: 0.5rem 1rem;
    cursor: pointer;
    transition: 0.2s all;
+
+   h1 {
+      font-weight: normal;
+   }
    &:hover {
       transform: translateY(-2px);
    }

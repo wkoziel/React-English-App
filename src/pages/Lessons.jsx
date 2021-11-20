@@ -98,7 +98,7 @@ const Style = styled.div`
 
    .slowka {
       font-size: 1.9em;
-      color: ${colors.darkGray};
+      color: ${colors.gray4};
       span {
          color: ${colors.green};
       }
