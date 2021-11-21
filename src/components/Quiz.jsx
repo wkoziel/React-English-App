@@ -28,6 +28,8 @@ const Quiz = ({ data = null, times = 0, nextStep = null }) => {
    const [state, dispatch] = useReducer(reducer, initialState);
    const [displayedWords, setDisplayedWords] = useState([]);
    const [showAnswers, setShowAnswers] = useState(false);
+   const [lockInput, setLockInput] = useState(false);
+   const [learned, setLearned] = useState(0);
 
    useEffect(() => {
       const firstWord = data[0];
@@ -54,6 +56,7 @@ const Quiz = ({ data = null, times = 0, nextStep = null }) => {
          wrong = state.wrong;
 
       setShowAnswers(true);
+      setLockInput(true);
       if (state.word.type === answer) {
          good = good + 1;
          if (state.word.correct < times)
@@ -72,12 +75,20 @@ const Quiz = ({ data = null, times = 0, nextStep = null }) => {
       setTimeout(() => {
          if (nextWord === undefined) nextStep();
          console.log(nextWord);
-         dispatch({ type: actions.updateState, payload: { words: tempWords, word: nextWord, good, wrong } });
+         dispatch({
+            type: actions.updateState,
+            payload: { words: tempWords, word: nextWord, good, wrong },
+         });
          setShowAnswers(false);
+         setLockInput(false);
       }, 2000);
    };
 
-   useEffect(() => generateButtons(), [state]);
+   useEffect(() => {
+      generateButtons();
+      const learned = state.words.reduce((acc, curr) => (curr.learned ? (acc += 1) : acc), 0);
+      setLearned(learned);
+   }, [state]);
 
    const generateButtons = () => {
       if (showAnswers) {
@@ -87,6 +98,7 @@ const Quiz = ({ data = null, times = 0, nextStep = null }) => {
                className={`option ${word.type === state.word?.type ? 'goodAnswer' : 'wrongAnswer'}`}
                key={index}
                onClick={() => checkAnswer(word?.type)}
+               disabled={lockInput}
             >
                <h2>{word?.type}</h2>
                {word.type === state.word?.type ? <img src={correct} alt="" /> : <img src={wrong} alt="" />}
@@ -113,8 +125,14 @@ const Quiz = ({ data = null, times = 0, nextStep = null }) => {
                <div className="bad"></div>
             </div>
             <div className="Questions">
-               <div className="circle">
-                  <h1>15s</h1>
+               <div className="stats">
+                  <h1>{learned}</h1>
+                  <h3>Nauczonych</h3>
+                  <h1>{state?.words.length - learned || 0}</h1>
+                  <h3>Do nauczenia</h3>
+                  <h4>
+                     {state?.word.correct} / {times + 1}
+                  </h4>
                </div>
             </div>
             <div className="Word">
@@ -188,10 +206,6 @@ const Style = styled.div`
          align-items: center;
          justify-content: center;
          color: ${colors.green};
-
-         h1 {
-            font-size: 2.5rem;
-         }
       }
    }
 
@@ -204,7 +218,7 @@ const Style = styled.div`
       justify-content: center;
 
       hr {
-         border: 1px ${colors.lightGray} solid;
+         border: 1px ${colors.gray1} solid;
          width: 50%;
          margin: 0.5rem 0;
       }
@@ -216,7 +230,7 @@ const Style = styled.div`
 
       p {
          font-size: 1rem;
-         color: ${colors.gray};
+         color: ${colors.gray3};
          position: absolute;
          bottom: 0;
       }
@@ -234,7 +248,7 @@ const Style = styled.div`
 
       .option {
          background-color: ${colors.white};
-         border: 1px solid ${colors.lightGray};
+         border: 1px solid ${colors.gray2};
          border-left: 10px solid ${colors.green};
          border-radius: 10px;
          padding: 1.5rem;
@@ -249,6 +263,7 @@ const Style = styled.div`
             font-family: ${fonts.nova};
             font-weight: 500;
             text-transform: capitalize;
+            color: ${colors.gray4};
          }
 
          &:hover {
@@ -259,12 +274,15 @@ const Style = styled.div`
    .goodAnswer {
       border-left: none;
       border: 3px solid ${colors.green} !important;
+      color: ${colors.gray4};
    }
 
    .wrongAnswer {
       border-left: none;
       border: 3px solid ${colors.red} !important;
-      color: ${colors.lightGray};
+      h2 {
+         color: ${colors.gray1} !important;
+      }
    }
 `;
 

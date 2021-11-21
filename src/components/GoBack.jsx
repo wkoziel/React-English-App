@@ -10,7 +10,7 @@ const GoBack = ({ label = null, link = null }) => {
       <Button onClick={() => history.goBack()}>
          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <img src={arrow} alt="Black arrow back" />
-            <h3 style={{ color: colors.darkGray }}>{label}</h3>
+            <h3 style={{ color: colors.gray4 }}>{label}</h3>
          </div>
       </Button>
    );

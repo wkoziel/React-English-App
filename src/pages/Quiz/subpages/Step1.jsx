@@ -9,11 +9,11 @@ import Button from '../../../components/Button';
 import { routes } from '../../../routes';
 
 const languageOptions = ['Polski', 'Angielski'];
-const timeOptions = ['Brak czasu', '10 sekund', '30 sekund'];
+const timesOptions = ['2 razach', '3 razach', '4 razach'];
 
 const Step1 = ({ onSubmit = null }) => {
    const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
-   const [selectedTime, setSelectedTime] = useState(timeOptions[0]);
+   const [selectedTimes, setSelectedTimes] = useState(timesOptions[0]);
 
    return (
       <Style>
@@ -42,10 +42,11 @@ const Step1 = ({ onSubmit = null }) => {
                         onChange={(e) => setSelectedLanguage(e.target.value)}
                      />
                      <RadioButtons
-                        label="Czas na odpowiedź:"
-                        options={timeOptions}
-                        selected={selectedTime}
-                        onChange={(e) => setSelectedTime(e.target.value)}
+                        label="Zaliczone po:"
+                        options={timesOptions}
+                        selected={selectedTimes}
+                        setSelected={setSelectedTimes}
+                        onChange={(e) => setSelectedTimes(e.target.value)}
                      />
                   </div>
                   <div className="Button">
@@ -54,7 +55,7 @@ const Step1 = ({ onSubmit = null }) => {
                         noArrow
                         onClick={() =>
                            onSubmit({
-                              selectedTimes: timeOptions.indexOf(selectedTime),
+                              selectedTimes: timesOptions.indexOf(selectedTimes),
                               selectedLanguage: languageOptions.indexOf(selectedLanguage),
                            })
                         }

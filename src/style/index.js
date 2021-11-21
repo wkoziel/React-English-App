@@ -20,7 +20,7 @@ export const fonts = {
 
 export const GlobalStyle = createGlobalStyle`
    body{
-      background-color: ${colors.lightGray};
+      background-color: ${colors.gray1};
       font-family: ${fonts.lato};
       color: ${colors.black};
       transition: all 0.2s;
