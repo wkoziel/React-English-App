@@ -59,6 +59,7 @@ const Lessons = () => {
 };
 
 const Style = styled.div`
+   padding-top: 2rem;
    display: grid;
    gap: 0.5rem;
 

@@ -20,6 +20,7 @@ const Button = styled.button`
    border: none;
    background: none;
    cursor: pointer;
+   padding: 1rem 0 0;
 `;
 
 export default GoBack;

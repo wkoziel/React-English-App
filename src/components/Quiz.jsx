@@ -4,6 +4,7 @@ import { colors, fonts } from '../style';
 import correct from '../assets/correct-small.png';
 import wrong from '../assets/wrong-small.svg';
 import { shuffle } from '../helpers';
+import CorrectAnswers from '../components/CorrectAnswers';
 
 const initialState = {
    words: [],
@@ -125,14 +126,12 @@ const Quiz = ({ data = null, times = 0, nextStep = null }) => {
                <div className="bad"></div>
             </div>
             <div className="Questions">
-               <div className="stats">
-                  <h1>{learned}</h1>
+               <div className="stats box">
+                  <h1 className="green">{learned}</h1>
                   <h3>Nauczonych</h3>
-                  <h1>{state?.words.length - learned || 0}</h1>
+                  <h1 className="yellow">{state?.words.length - learned || 0}</h1>
                   <h3>Do nauczenia</h3>
-                  <h4>
-                     {state?.word.correct} / {times + 1}
-                  </h4>
+                  <CorrectAnswers correct={state?.word.correct} answers={times + 1} />
                </div>
             </div>
             <div className="Word">
@@ -146,12 +145,13 @@ const Quiz = ({ data = null, times = 0, nextStep = null }) => {
 };
 
 const Style = styled.div`
-   height: 70vh;
+   height: 100%;
    .quiz {
-      height: 60%;
+      height: 100%;
       display: grid;
       grid-template-columns: 0.5fr 2.1fr 0.4fr;
-      grid-template-rows: 0.1fr 1.9fr;
+      grid-template-rows: 0.1fr auto;
+      justify-content: stretch;
       grid-auto-flow: row;
       grid-template-areas:
          'Good Questions Wrong'
@@ -191,7 +191,6 @@ const Style = styled.div`
 
    .Questions {
       grid-area: Questions;
-      position: relative;
       .circle {
          position: absolute;
          background-color: ${colors.white};
@@ -206,6 +205,33 @@ const Style = styled.div`
          align-items: center;
          justify-content: center;
          color: ${colors.green};
+      }
+
+      .stats {
+         position: absolute;
+         top: 10vh;
+         height: 10vh;
+         left: 50%;
+         transform: translate(-50%, 0);
+         display: flex;
+         align-items: center;
+         gap: 10px;
+
+         h3 {
+            font-weight: normal;
+         }
+
+         p {
+            font-size: 18px;
+         }
+
+         .green {
+            color: ${colors.green};
+         }
+
+         .yellow {
+            color: ${colors.yellow};
+         }
       }
    }
 

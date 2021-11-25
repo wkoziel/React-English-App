@@ -62,12 +62,14 @@ const SingleLesson = () => {
 };
 
 const Style = styled.div`
+   padding-top: 2rem;
+   height: 100%;
    display: grid;
 
    @media screen and (min-width: 600px) {
       display: grid;
       grid-template-columns: 0.4fr 1.4fr 0.4fr 0.4fr;
-      grid-template-rows: 0.6fr 4fr 2fr;
+      grid-template-rows: 0.1fr 0.8fr 0.1fr;
       gap: 2rem 2rem;
       grid-auto-flow: row;
       grid-template-areas:

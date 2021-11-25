@@ -37,7 +37,6 @@ export const GlobalStyle = createGlobalStyle`
    }
 
    .container {
-      padding: 2rem 0;
       margin: 0 auto;
       width: 90vw;
    }
