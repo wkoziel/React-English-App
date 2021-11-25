@@ -25,6 +25,8 @@ const Step2 = ({ data = null, nextStep = null, times = null }) => {
 
 const Style = styled.div`
    height: 100%;
+   position: relative;
+
    .container {
       height: 100%;
       display: grid;

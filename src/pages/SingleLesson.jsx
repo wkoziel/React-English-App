@@ -14,60 +14,65 @@ const SingleLesson = () => {
    const history = useHistory();
    const location = useLocation();
    return (
-      <div className="page">
+      <>
          <Navbar active={1} />
-         <Style className="container">
-            <div className="Top">
-               <div className="words">
-                  <span>25</span>
-                  <h3>Nowych pojęć</h3>
+         <Style>
+            <div className="container">
+               <div className="Top">
+                  <div className="words">
+                     <span>25</span>
+                     <h3>Nowych pojęć</h3>
+                  </div>
+                  <div className="percent">
+                     <span>15%</span>
+                     <h3>Poziom opanowania</h3>
+                  </div>
                </div>
-               <div className="percent">
-                  <span>15%</span>
-                  <h3>Poziom opanowania</h3>
+               <div className="Back">
+                  <GoBack label=" Powrót do lekcji" link={routes.lessons} />
                </div>
-            </div>
-            <div className="Back">
-               <GoBack label=" Powrót do lekcji" link={routes.lessons} />
-            </div>
-            <div className="Lesson">
-               <LessonTitle label="1. Greetings" /> {/*Do podmiany*/}
-            </div>
-            <div className="Card">
-               <h1>
-                  Lekcja 1 <span>Greetings</span>
-               </h1>
-               <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere. Praesent
-                  id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                  turpis egestas. Sed sed ultricies libero. Nunc sed aliquam magna. Praesent dapibus ullamcorper ex ut
-                  viverra. Nulla mattis, nulla a dictum laoreet, augue nibh iaculis lorem, sit amet ullamcorper metus
-                  elit eget dolor. Aenean lacinia orci id mollis vestibulum.{' '}
-               </p>
-               <img src={bird} alt="" />
-            </div>
-            <div className="Nauka">
-               <h2>Wybierz sposób nauki:</h2>
-               <Button label="Fiszki" onClick={() => history.push(location.pathname + '/flashcards')} />
-               <Button label="Wpisywanie" onClick={() => history.push(location.pathname + '/typing')} />
-               <Button label="Quiz" onClick={() => history.push(location.pathname + '/quiz')} />
-            </div>
-            <div className="Test">
-               <h2>Rozpocznij test umiejętności:</h2>
-               <Button label="Rozpocznij test" whiteArrow onClick={() => history.push(location.pathname + '/typing')} />
+               <div className="Lesson">
+                  <LessonTitle label="1. Greetings" /> {/*Do podmiany*/}
+               </div>
+               <div className="Card">
+                  <h1>
+                     Lekcja 1 <span>Greetings</span>
+                  </h1>
+                  <p>
+                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere.
+                     Praesent id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada
+                     fames ac turpis egestas. Sed sed ultricies libero. Nunc sed aliquam magna. Praesent dapibus
+                     ullamcorper ex ut viverra. Nulla mattis, nulla a dictum laoreet, augue nibh iaculis lorem, sit amet
+                     ullamcorper metus elit eget dolor. Aenean lacinia orci id mollis vestibulum.{' '}
+                  </p>
+                  <img src={bird} alt="" />
+               </div>
+               <div className="Nauka">
+                  <h2>Wybierz sposób nauki:</h2>
+                  <Button label="Fiszki" onClick={() => history.push(location.pathname + '/flashcards')} />
+                  <Button label="Wpisywanie" onClick={() => history.push(location.pathname + '/typing')} />
+                  <Button label="Quiz" onClick={() => history.push(location.pathname + '/quiz')} />
+               </div>
+               <div className="Test">
+                  <h2>Rozpocznij test umiejętności:</h2>
+                  <Button
+                     label="Rozpocznij test"
+                     whiteArrow
+                     onClick={() => history.push(location.pathname + '/typing')}
+                  />
+               </div>
             </div>
          </Style>
-      </div>
+      </>
    );
 };
 
 const Style = styled.div`
    padding-top: 2rem;
-   height: 100%;
-   display: grid;
-
-   @media screen and (min-width: 600px) {
+   height: 90vh;
+   .container {
       display: grid;
+      height: 100%;
       grid-template-columns: 0.4fr 1.4fr 0.4fr 0.4fr;
       grid-template-rows: 0.1fr 0.8fr 0.1fr;
       gap: 2rem 2rem;
@@ -171,8 +176,12 @@ const Style = styled.div`
 
       display: flex;
       flex-direction: column;
+      align-items: stretch;
       gap: 0.5rem;
-      justify-self: stretch h2 {
+      justify-self: stretch;
+      align-self: stretch;
+
+      h2 {
          margin-bottom: 1rem;
       }
 
@@ -186,7 +195,6 @@ const Style = styled.div`
       grid-area: Test;
       background-color: ${colors.white};
       border-radius: 20px;
-
       padding: 1rem 2rem;
 
       h2 {

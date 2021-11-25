@@ -146,6 +146,7 @@ const Quiz = ({ data = null, times = 0, nextStep = null }) => {
 
 const Style = styled.div`
    height: 100%;
+
    .quiz {
       height: 100%;
       display: grid;
@@ -209,13 +210,13 @@ const Style = styled.div`
 
       .stats {
          position: absolute;
-         top: 10vh;
-         height: 10vh;
+         top: 10px;
          left: 50%;
          transform: translate(-50%, 0);
          display: flex;
          align-items: center;
          gap: 10px;
+         padding: 1rem 5rem;
 
          h3 {
             font-weight: normal;

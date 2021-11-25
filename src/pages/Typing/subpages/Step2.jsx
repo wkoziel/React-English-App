@@ -140,11 +140,12 @@ const Step2 = ({ times = null, data = null, nextStep = null }) => {
 };
 
 const Style = styled.div`
-   overflow-y: hidden;
+   height: 90vh;
    .container {
+      height: 100%;
       display: grid;
       grid-template-columns: 0.4fr 2.2fr 0.4fr;
-      grid-template-rows: 0.3fr 1.8fr;
+      grid-template-rows: 0.05fr 0.95fr;
       gap: 1rem 0px;
       grid-auto-flow: row;
       align-items: center;
@@ -173,8 +174,10 @@ const Style = styled.div`
       padding: 1rem 2rem;
       background-color: ${colors.white};
       border-radius: 20px;
+      height: 100%;
 
       .subcontainer {
+         height: 100%;
          display: grid;
          grid-template-columns: 0.5fr 2.1fr 0.4fr;
          grid-template-rows: 0.4fr 4fr 0.6fr;
@@ -223,7 +226,6 @@ const Style = styled.div`
          grid-area: Questions;
          text-align: center;
          color: ${colors.green};
-
          padding-top: 1.5rem;
       }
 

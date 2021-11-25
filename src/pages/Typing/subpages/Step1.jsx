@@ -71,10 +71,12 @@ const Step1 = ({ onSubmit = null }) => {
 };
 
 const Style = styled.div`
+   height: 90vh;
    .container {
+      height: 100%;
       display: grid;
       grid-template-columns: 0.4fr 2.2fr 0.4fr;
-      grid-template-rows: 0.1fr 1.8fr;
+      grid-template-rows: 0.1fr 0.9fr;
       gap: 1rem 0px;
       grid-auto-flow: row;
       align-items: center;
@@ -101,8 +103,10 @@ const Style = styled.div`
       padding: 1rem 2rem;
       background-color: ${colors.white};
       border-radius: 20px;
+      height: 100%;
 
       .subcontainer {
+         height: 100%;
          display: grid;
          grid-template-columns: 1fr 1fr;
          grid-template-rows: 0.5fr 2fr 0.8fr;
