@@ -50,6 +50,10 @@ const Style = styled.nav`
    justify-content: space-between;
    padding: 0.2rem 3rem;
 
+   * {
+      margin-bottom: 0;
+   }
+
    .flex {
       display: flex;
       align-items: center;

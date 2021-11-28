@@ -1,177 +1,137 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import image from '../assets/lessons.svg';
 import Button from '../components/Button';
 import styled from 'styled-components';
 import { colors } from '../style';
-import { lessons } from '../data/data';
 import { Link } from 'react-router-dom';
 import arrow from '../assets/arrow-green.svg';
+import { getAllLessons } from '../api/api';
+import Loading from '../components/Loading';
 
 const Lessons = () => {
+   const [isLoading, setIsLoading] = useState(true);
+   const [allLessons, setAllLessons] = useState([]);
+
+   useEffect(() => {
+      const fetchData = async () => {
+         try {
+            const response = await getAllLessons();
+            if (response.data) setAllLessons(response.data);
+         } catch (error) {
+            console.error(error);
+         } finally {
+            setIsLoading(false);
+         }
+      };
+      fetchData();
+   }, []);
+
    return (
       <>
          <Navbar active={1} />
-         <Style className="container">
-            {/* BOX 1 */}
-            <div className="box box-1">
-               <h2 className="top cel">Osiągnij swój wyznaczony cel!</h2>
-               <img className="right" src={image} alt="Kobieta z notatkami" />
-               <h2 className="bottom slowka">
-                  Pozostało <span>25</span> słówek do opanowania
-               </h2>
-            </div>
-
-            {/* BOX 2 */}
-            <div className="box box-1 padding">
-               <h2 className="top nauka">Kontynuuj naukę</h2>
-               {/* TODO: Label w buttonie wzlędem ostaniej lekcji */}
-               <div className="right circle">
-                  <h1 className="procent">25%</h1>
+         {isLoading ? (
+            <Loading />
+         ) : (
+            <Style className="container">
+               <div className="small-box box">
+                  <h2>Osiągnij swój wyznaczony cel!</h2>
+                  <img className="right woman-img" src={image} alt="Kobieta z notatkami" />
+                  <h3>
+                     Pozostało <span className="green">25</span> słówek do opanowania
+                  </h3>
                </div>
-               <div className="bottom button">
-                  <Button label="Lekcja 24" />
-               </div>
-            </div>
 
-            {/* BOX 3 */}
-            <div className="box-3">
-               <h1>Wszystkie lekcje</h1>
-               <div className="lessons">
-                  {lessons.map((l, i) => (
-                     <Link to={`/lesson/${i}`}>
-                        <div className="lesson">
-                           <h2>{i}.</h2>
-                           <div className="title">
-                              <h2>{l.lesson_name}</h2>
-                              <h4>25 pojęć</h4> {/*Kolumna z ilością pojęć*/}
+               <div className="small-box box">
+                  <h2>Kontynuuj naukę</h2>
+                  <div className="right circle">
+                     <h1 className="procent">25%</h1>
+                  </div>
+                  <div className="bottom button">
+                     <Button label="Lekcja 24" />
+                  </div>
+               </div>
+
+               {/* BOX 3 */}
+               <div className="big-box">
+                  <h2>Wszystkie lekcje</h2>
+                  <div className="lessons">
+                     {allLessons.map((l) => (
+                        <Link key={l.lesson_id} to={`/lesson/${l.lesson_id}`}>
+                           <div className="lesson box">
+                              <h2>{l.lesson_id + 1}.</h2>
+                              <div className="title">
+                                 <h3 className="no-margin">{l.lesson_name}</h3>
+                                 <h5 className="no-margin">{l.words_count} nowych pojęć</h5>
+                              </div>
+                              <h2 className="end">100%</h2> {/*Kolumna z procentami*/}
+                              <img className="end" src={arrow} alt="Arrow right" />
                            </div>
-                           <h2 className="perc">100%</h2> {/*Kolumna z procentami*/}
-                           <img src={arrow} alt="Arrow right" />
-                        </div>
-                     </Link>
-                  ))}
+                        </Link>
+                     ))}
+                  </div>
                </div>
-            </div>
-         </Style>
+            </Style>
+         )}
       </>
    );
 };
 
 const Style = styled.div`
-   padding-top: 2rem;
    display: grid;
-   gap: 0.5rem;
+   grid-template-columns: 1fr 1fr;
+   gap: 1rem;
 
-   @media screen and (min-width: 600px) {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-   }
-
-   .box-1 {
+   .small-box {
       display: grid;
       grid-template-columns: 5fr 2.5fr;
-      grid-template-rows: 1fr auto 1fr;
-      max-height: 200px;
-      overflow: hidden;
-
-      .top {
-         margin-top: 1rem;
-         align-self: start;
-      }
-      .bottom {
-         grid-row-start: 3;
-         align-self: end;
-         margin-bottom: 1rem;
-      }
+      grid-template-rows: auto;
+      padding: 1rem 1.5rem;
       .right {
-         grid-row: span 3;
-         align-self: center;
+         grid-row: span 2;
+         margin: auto;
       }
    }
 
-   // BOX 1
-   .cel {
-      font-size: 1.75em;
-      color: ${colors.green};
-   }
-
-   .slowka {
-      font-size: 1.9em;
-      color: ${colors.gray4};
-      span {
-         color: ${colors.green};
-      }
-   }
-
-   // BOX 2
-   .nauka {
-      font-size: 1.9rem;
-   }
-
-   .button {
-      button {
-         width: 300px !important;
-         height: 70px !important;
-      }
-   }
-
-   .padding {
-      padding: 1rem 2rem 1rem 3rem;
-   }
-
-   .circle {
-      border-radius: 50%;
-      border: 0.4rem solid ${colors.green};
-      height: 10em;
-      width: 10em;
-      align-self: center;
-      justify-self: center;
-
-      display: flex;
-      align-items: center;
+   .small-box:nth-child(2) {
       justify-content: center;
-
-      h1 {
-         font-size: 2.75rem;
+      align-items: center;
+      text-align: center;
+      div {
+         display: flex;
+         margin: auto;
       }
    }
 
-   // BOX 3
-   .box-3 {
+   .small-box .woman-img {
+      width: 100%;
+      height: auto;
+   }
+
+   .big-box {
       grid-column: 1 / span 2;
       margin-top: 1.5rem;
 
       .lessons {
          margin-top: 1.5rem;
-
          display: flex;
          flex-direction: column;
          gap: 1rem;
       }
 
       .lesson {
-         width: 100%;
-         background-color: ${colors.white};
-         height: 80px;
          border-radius: 10px;
-         border: 3px solid rgba(0, 0, 0, 0.05);
          display: grid;
-         grid-template-columns: 40px auto auto 50px;
+         grid-template-columns: max-content max-content 1fr 50px;
          align-items: center;
-         padding: 0 2rem;
+         justify-content: flex-start;
+         gap: 0 0.5rem;
 
-         h2 {
-            text-transform: capitalize;
-            justify-self: start;
+         .title {
+            display: inline-block;
          }
 
-         .perc {
-            justify-self: end;
-         }
-
-         img {
+         .end {
             justify-self: end;
          }
       }
