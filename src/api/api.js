@@ -11,3 +11,7 @@ const instance = axios.create({
 });
 
 export const getAllLessons = () => instance.get('lessons/getall');
+
+export const getLessonData = (lessonID) => instance.get(`lessons/${lessonID}`);
+
+export const getLessonWords = (lessonID) => instance.get(`words/${lessonID}`);

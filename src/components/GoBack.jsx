@@ -8,10 +8,8 @@ const GoBack = ({ label = null, link = null }) => {
    const history = useHistory();
    return (
       <Button onClick={() => history.goBack()}>
-         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <img src={arrow} alt="Black arrow back" />
-            <h3 style={{ color: colors.gray4 }}>{label}</h3>
-         </div>
+         <img src={arrow} alt="Black arrow back" />
+         <h4>{label}</h4>
       </Button>
    );
 };
@@ -20,7 +18,12 @@ const Button = styled.button`
    border: none;
    background: none;
    cursor: pointer;
-   padding: 1rem 0 0;
+   display: flex;
+   align-items: center;
+   h4 {
+      display: inline !important;
+   }
+   color: ${colors.gray4};
 `;
 
 export default GoBack;

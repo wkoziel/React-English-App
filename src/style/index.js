@@ -16,14 +16,14 @@ export const colors = {
 
 export const fonts = {
    nova: "'Nova Round', cursive",
-   lato: "'Lato', sans-serif",
+   lato: 'Arial, Helvetica, sans-serif',
 };
 
 export const GlobalStyle = createGlobalStyle`
    // GLOBAL
    body{
       background-color: ${colors.background};
-      font-family: ${fonts.lato};
+      font-family: Arial, Helvetica, sans-serif;
       color: ${colors.black};
       transition: all 0.2s;
    }
@@ -53,7 +53,7 @@ export const GlobalStyle = createGlobalStyle`
    }
 
    .page{
-      min-height: calc(100vh - 10rem);
+      min-height: 90vh;
    }
 
    .white-box{
@@ -85,7 +85,6 @@ export const GlobalStyle = createGlobalStyle`
    h1, h2, h3, h4,h5 {
       line-height: 1.25;
       margin: 0.75rem;
-
       &::first-letter{
          text-transform: capitalize;
       }
