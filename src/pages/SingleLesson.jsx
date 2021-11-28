@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router';
 import styled from 'styled-components';
 import GoBack from '../components/GoBack';
@@ -8,194 +8,147 @@ import { routes } from '../routes';
 import { colors } from '../style';
 import bird from '../assets/bird.svg';
 import Button from '../components/Button';
+import Loading from '../components/Loading';
+import { getLessonData } from '../api/api';
 
 const SingleLesson = () => {
+   const [isLoading, setIsLoading] = useState(true);
+   const [lesson, setLesson] = useState({});
    const { id } = useParams();
    const history = useHistory();
    const location = useLocation();
+
+   useEffect(() => {
+      const fetchData = async () => {
+         try {
+            const response = await getLessonData(id);
+            if (response.data) setLesson(response.data);
+         } catch (error) {
+            console.error(error);
+         } finally {
+            setIsLoading(false);
+         }
+      };
+      fetchData();
+   }, []);
+
    return (
-      <div className="page">
+      <>
          <Navbar active={1} />
-         <Style className="container">
-            <div className="Top">
-               <div className="words">
-                  <span>25</span>
-                  <h3>Nowych pojęć</h3>
-               </div>
-               <div className="percent">
-                  <span>15%</span>
-                  <h3>Poziom opanowania</h3>
-               </div>
-            </div>
-            <div className="Back">
-               <GoBack label=" Powrót do lekcji" link={routes.lessons} />
-            </div>
-            <div className="Lesson">
-               <LessonTitle label="1. Greetings" /> {/*Do podmiany*/}
-            </div>
-            <div className="Card">
-               <h1>
-                  Lekcja 1 <span>Greetings</span>
-               </h1>
-               <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere. Praesent
-                  id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                  turpis egestas. Sed sed ultricies libero. Nunc sed aliquam magna. Praesent dapibus ullamcorper ex ut
-                  viverra. Nulla mattis, nulla a dictum laoreet, augue nibh iaculis lorem, sit amet ullamcorper metus
-                  elit eget dolor. Aenean lacinia orci id mollis vestibulum.{' '}
-               </p>
-               <img src={bird} alt="" />
-            </div>
-            <div className="Nauka">
-               <h2>Wybierz sposób nauki:</h2>
-               <Button label="Fiszki" onClick={() => history.push(location.pathname + '/flashcards')} />
-               <Button label="Wpisywanie" onClick={() => history.push(location.pathname + '/typing')} />
-               <Button label="Quiz" onClick={() => history.push(location.pathname + '/quiz')} />
-            </div>
-            <div className="Test">
-               <h2>Rozpocznij test umiejętności:</h2>
-               <Button label="Rozpocznij test" whiteArrow onClick={() => history.push(location.pathname + '/typing')} />
-            </div>
+         <Style className="container page">
+            {isLoading ? (
+               <Loading />
+            ) : (
+               <>
+                  <GoBack label=" Powrót do lekcji" link={routes.lessons} />
+                  <div className="stats box">
+                     <div>
+                        <h3>
+                           <strong className="green">25 </strong>
+                           Nowych pojęć
+                        </h3>
+                     </div>
+                     <div>
+                        <h3>
+                           <strong className="purple">15% </strong>
+                           Poziom opanowania
+                        </h3>
+                     </div>
+                  </div>
+                  <LessonTitle label={`${lesson.lesson_name}`} />
+                  <div className="lesson box">
+                     <h1>
+                        Lekcja {lesson.lesson_id + 1} <span className="green">{lesson.lesson_name}</span>
+                     </h1>
+                     <h4>{lesson.description}</h4>
+                     <img src={bird} alt="" />
+                  </div>
+                  <div className="right-column">
+                     <div className="box buttons">
+                        <h4>Wybierz sposób nauki:</h4>
+                        <Button
+                           label="Fiszki"
+                           onClick={() => history.push(location.pathname + '/flashcards')}
+                           styles={{ width: '100%' }}
+                        />
+                        <Button
+                           label="Wpisywanie"
+                           onClick={() => history.push(location.pathname + '/typing')}
+                           styles={{ width: '100%' }}
+                        />
+                        <Button
+                           label="Quiz"
+                           onClick={() => history.push(location.pathname + '/quiz')}
+                           styles={{ width: '100%' }}
+                        />
+                     </div>
+                     <div className="box buttons test">
+                        <h4>Rozpocznij test umiejętności:</h4>
+                        <Button
+                           label="Rozpocznij test"
+                           whiteArrow
+                           onClick={() => history.push(location.pathname + '/typing')}
+                           styles={{ width: '100%' }}
+                        />
+                     </div>
+                  </div>
+               </>
+            )}
          </Style>
-      </div>
+      </>
    );
 };
 
 const Style = styled.div`
    display: grid;
+   grid-template-columns: 1fr 3fr 1fr;
+   grid-template-rows: 0.5fr auto;
+   gap: 1rem 1rem;
 
-   @media screen and (min-width: 600px) {
-      display: grid;
-      grid-template-columns: 0.4fr 1.4fr 0.4fr 0.4fr;
-      grid-template-rows: 0.6fr 4fr 2fr;
-      gap: 2rem 2rem;
-      grid-auto-flow: row;
-      grid-template-areas:
-         'Back Top Top Lesson'
-         'Card Card Nauka Nauka'
-         'Card Card Test Test';
-      align-items: stretch;
-      justify-content: center;
-   }
-
-   .Top {
-      grid-area: Top;
-      background-color: ${colors.white};
-      width: 80%;
-      justify-self: center;
+   .stats {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       align-items: center;
-      height: 80px;
-      padding: 0 3rem;
-      border-radius: 20px;
-
-      .words,
-      .percent {
-         display: flex;
-         align-items: center;
-
-         h3 {
-            font-weight: normal;
-            font-size: 1.5rem;
-         }
-         span {
-            font-size: 2rem;
-            margin-right: 1rem;
-            font-weight: bold;
-         }
-      }
-
-      .words span {
-         color: ${colors.green};
-      }
-
-      .percent span {
-         color: ${colors.purple};
+      color: ${colors.gray4};
+      h3 {
+         font-weight: normal;
       }
    }
 
-   .Back {
-      grid-area: Back;
+   .lesson {
+      grid-column: span 2;
       align-self: center;
-      justify-self: center;
-   }
-
-   .Lesson {
-      grid-area: Lesson;
-      align-self: center;
-      justify-self: center;
-   }
-
-   .Card {
-      grid-area: Card;
-      width: 100%;
-      background-color: ${colors.white};
-      border-radius: 20px;
-      padding: 0 3rem;
-      position: relative;
-
       display: grid;
-      grid-template-rows: 1fr 5fr;
+      grid-template-rows: 0.3fr 0.7fr;
+      position: relative;
+      height: 100%;
+      margin-right: 2rem;
 
       h1 {
-         justify-self: center;
+         text-transform: capitalize;
          align-self: center;
-
-         span {
-            margin-left: 1.5rem;
-            color: ${colors.green};
-         }
+         text-align: center;
       }
 
-      p {
-         font-size: 1.5em;
-         align-self: start;
-         justify-self: center;
+      h4 {
+         color: ${colors.gray3};
       }
 
       img {
          position: absolute;
          bottom: 0;
-         right: 3rem;
+         right: 10%;
       }
    }
 
-   .Nauka {
-      grid-area: Nauka;
-      background-color: ${colors.white};
-      border-radius: 20px;
-      padding: 1rem 2rem;
+   .right-column {
+      display: grid;
+      grid-template-rows: 60% 40%;
 
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      justify-self: stretch h2 {
-         margin-bottom: 1rem;
-      }
-
-      button {
-         width: 100%;
-         padding: 1rem;
-      }
-   }
-
-   .Test {
-      grid-area: Test;
-      background-color: ${colors.white};
-      border-radius: 20px;
-
-      padding: 1rem 2rem;
-
-      h2 {
-         margin-bottom: 1rem;
-      }
-
-      button {
-         width: 100%;
-         padding: 1rem;
-         background-color: ${colors.green};
-         color: ${colors.white};
+      .buttons {
+         display: flex;
+         flex-direction: column;
+         justify-content: space-around;
       }
    }
 `;

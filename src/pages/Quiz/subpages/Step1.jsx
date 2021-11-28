@@ -9,11 +9,11 @@ import Button from '../../../components/Button';
 import { routes } from '../../../routes';
 
 const languageOptions = ['Polski', 'Angielski'];
-const timeOptions = ['Brak czasu', '10 sekund', '30 sekund'];
+const timesOptions = ['2 razach', '3 razach', '4 razach'];
 
 const Step1 = ({ onSubmit = null }) => {
    const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
-   const [selectedTime, setSelectedTime] = useState(timeOptions[0]);
+   const [selectedTimes, setSelectedTimes] = useState(timesOptions[0]);
 
    return (
       <Style>
@@ -42,10 +42,11 @@ const Step1 = ({ onSubmit = null }) => {
                         onChange={(e) => setSelectedLanguage(e.target.value)}
                      />
                      <RadioButtons
-                        label="Czas na odpowiedź:"
-                        options={timeOptions}
-                        selected={selectedTime}
-                        onChange={(e) => setSelectedTime(e.target.value)}
+                        label="Zaliczone po:"
+                        options={timesOptions}
+                        selected={selectedTimes}
+                        setSelected={setSelectedTimes}
+                        onChange={(e) => setSelectedTimes(e.target.value)}
                      />
                   </div>
                   <div className="Button">
@@ -54,7 +55,7 @@ const Step1 = ({ onSubmit = null }) => {
                         noArrow
                         onClick={() =>
                            onSubmit({
-                              selectedTimes: timeOptions.indexOf(selectedTime),
+                              selectedTimes: timesOptions.indexOf(selectedTimes),
                               selectedLanguage: languageOptions.indexOf(selectedLanguage),
                            })
                         }
@@ -69,10 +70,12 @@ const Step1 = ({ onSubmit = null }) => {
 };
 
 const Style = styled.div`
+   height: 90vh;
    .container {
+      height: 100%;
       display: grid;
       grid-template-columns: 0.4fr 2.2fr 0.4fr;
-      grid-template-rows: 0.2fr 0.8fr;
+      grid-template-rows: 0.1fr 0.9fr;
       gap: 1rem 1rem;
       grid-auto-flow: row;
       align-items: center;
@@ -98,11 +101,13 @@ const Style = styled.div`
       grid-area: Main;
       background-color: ${colors.white};
       border-radius: 20px;
-
+      height: inherit;
       .subcontainer {
+         height: inherit;
+         padding: 1rem 0;
          display: grid;
          grid-template-columns: 1fr 1fr;
-         grid-template-rows: 0.5fr 2fr 0.8fr;
+         grid-template-rows: 0.5fr 2fr 0.3fr;
          align-items: center;
          justify-content: center;
          gap: 1rem 1rem;
@@ -123,6 +128,10 @@ const Style = styled.div`
       .Image {
          grid-area: Image;
          justify-self: center;
+         height: 100%;
+         img {
+            height: 100%;
+         }
       }
 
       .Settings {
@@ -131,10 +140,10 @@ const Style = styled.div`
          grid-template-columns: 1fr 1fr;
          align-items: center;
          justify-content: center;
-         padding: 2rem 1rem;
          width: 90%;
          border: 3px solid ${colors.green};
          border-radius: 20px;
+         height: 90%;
       }
 
       .Button {

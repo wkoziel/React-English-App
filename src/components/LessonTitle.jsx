@@ -1,12 +1,20 @@
 import React from 'react';
+import styled from 'styled-components';
 import { colors } from '../style';
 
 const LessonTitle = ({ label = null }) => {
    return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-         <h3 style={{ color: colors.darkGray }}>{label}</h3>
-      </div>
+      <Style>
+         <h4>{label}</h4>
+      </Style>
    );
 };
+
+const Style = styled.div`
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   color: ${colors.gray4};
+`;
 
 export default LessonTitle;

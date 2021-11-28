@@ -69,7 +69,7 @@ const Quiz = () => {
          case 0:
             return <Step1 onSubmit={submitStep} />;
          case 1:
-            return <Step2 data={state.data} nextStep={nextStep} />;
+            return <Step2 data={state.data} nextStep={nextStep} times={state.selectedTimes} />;
          case 2:
             return <Step3 />;
          default:

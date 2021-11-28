@@ -78,10 +78,10 @@ const Typing = () => {
    };
 
    return (
-      <div className="page">
+      <>
          <Navbar active={1} />
          {renderStep(state.step)}
-      </div>
+      </>
    );
 };
 

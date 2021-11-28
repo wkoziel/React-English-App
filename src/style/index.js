@@ -4,24 +4,26 @@ export const colors = {
    purple: '#C33FC6',
    red: 'hsla(0, 100%, 50%, 0.7)',
    green: '#14DFAE',
-   gray1: '#EDEDED',
-   gray3: '#757575',
+   yellow: '#D3D63F',
+   background: '#EDEDED',
+   gray1: '#cccccc',
    gray2: '#888888',
+   gray3: '#757575',
    gray4: '#4D4D4D',
    white: '#FFFFFF',
    black: '#353535',
-   yellow: '#D3D63F',
 };
 
 export const fonts = {
    nova: "'Nova Round', cursive",
-   lato: "'Lato', sans-serif",
+   lato: 'Arial, Helvetica, sans-serif',
 };
 
 export const GlobalStyle = createGlobalStyle`
+   // GLOBAL
    body{
-      background-color: ${colors.lightGray};
-      font-family: ${fonts.lato};
+      background-color: ${colors.background};
+      font-family: Arial, Helvetica, sans-serif;
       color: ${colors.black};
       transition: all 0.2s;
    }
@@ -36,8 +38,9 @@ export const GlobalStyle = createGlobalStyle`
       color: inherit;
    }
 
+   //UTILITIS
    .container {
-      padding: 2rem 0;
+      padding: 1rem 0;
       margin: 0 auto;
       width: 90vw;
    }
@@ -50,7 +53,7 @@ export const GlobalStyle = createGlobalStyle`
    }
 
    .page{
-      height: 100vh !important;
+      min-height: 90vh;
    }
 
    .white-box{
@@ -59,41 +62,86 @@ export const GlobalStyle = createGlobalStyle`
       border-radius: 20px;
    }
 
-   /* UTILITY */
    .flex-center{
       display: flex;
-      flex-direction: column;
+      margin: auto auto;
+   }
+
+   .no-margin{
+      margin: 0;
+   }
+
+   .circle {
+      border-radius: 50%;
+      border: 0.4rem solid ${colors.green};
+      height: 12rem;
+      width: 12rem;
+      display: flex;
       align-items: center;
       justify-content: center;
    }
 
-   /* TYPOGRAPHY */
-   .text-1{
-      font-size: 1rem;
+   //TYPOGRAPHY
+   h1, h2, h3, h4,h5 {
+      line-height: 1.25;
+      margin: 0.75rem;
+      &::first-letter{
+         text-transform: capitalize;
+      }
    }
 
-   .text-15{
-      font-size: 1.5rem;
+   h1 {
+      font-size: 2.5rem;
    }
-   
-   .text-2{
+
+   h2 {
       font-size: 2rem;
    }
 
-   .text-3{
-      font-size: 3rem;
+   h3 {
+   font-size: 1.5rem;
    }
 
-   .text-4{
-      font-size: 4rem;
+   h4 {
+   font-size: 1.25rem;
    }
 
-   .text-5{
-      font-size: 5rem;
+   h5 {
+   font-size: 1rem;
    }
 
-   h1:first-letter{
-      text-transform: capitalize;
+   p {
+   margin-bottom: 1.25rem;
    }
 
+   @media screen and (min-width: 800px) {
+      h1 {
+         font-size: 3rem;
+      }
+      h2 {
+         font-size: 2.5rem;
+      }
+      h3 {
+         font-size: 2rem;
+      }
+      h4 {
+         font-size: 1.5rem;
+      }
+      h5 {
+         font-size: 1.25rem;
+      }
+   }
+
+   .green{
+      color: ${colors.green}
+   }
+   .red{
+      color: ${colors.red}
+   }
+   .yellow{
+      color: ${colors.yellow}
+   }
+   .purple{
+      color: ${colors.purple}
+   }
 `;

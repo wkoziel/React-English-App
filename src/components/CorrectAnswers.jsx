@@ -6,7 +6,7 @@ const CorrectAnswers = ({ correct = null, answers = null }) => {
    const dots = [];
    for (let i = 0; i < answers; i++) {
       if (i < correct) dots.push(<div key={i} className="full"></div>);
-      else dots.push(<div key={i} className="circle"></div>);
+      else dots.push(<div key={i} className="circlex"></div>);
    }
    return (
       <Style>
@@ -21,7 +21,7 @@ const Style = styled.div`
    align-items: center;
    gap: 0.7rem;
 
-   .circle {
+   .circlex {
       border: 1px solid ${colors.green};
       width: 20px;
       border-radius: 50%;
