@@ -9,7 +9,7 @@ const GoBack = ({ label = null, link = null }) => {
    return (
       <Button onClick={() => history.goBack()}>
          <img src={arrow} alt="Black arrow back" />
-         <h4>{label}</h4>
+         <h5>{label}</h5>
       </Button>
    );
 };
@@ -20,7 +20,7 @@ const Button = styled.button`
    cursor: pointer;
    display: flex;
    align-items: center;
-   h4 {
+   h5 {
       display: inline !important;
    }
    color: ${colors.gray4};

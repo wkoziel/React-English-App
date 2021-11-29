@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const apiKey = 'jgxOiHVRakum42fV22873f0QTGLHSXoV';
+const apiKey = process.env.REACT_APP_KEY;
 
 const instance = axios.create({
-   baseURL: `https://limiapi.azurewebsites.net/api/`,
+   baseURL: process.env.REACT_APP_API,
    headers: {
       'Content-Type': 'application/json',
       'X-Api-Key': apiKey,
@@ -15,3 +15,5 @@ export const getAllLessons = () => instance.get('lessons/getall');
 export const getLessonData = (lessonID) => instance.get(`lessons/${lessonID}`);
 
 export const getLessonWords = (lessonID) => instance.get(`words/${lessonID}`);
+
+export const signIn = (data) => instance.post('users/add', data);

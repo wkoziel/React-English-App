@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../style';
 
-const TextInput = ({ type = 'text', label = '', placeholder = '' }) => {
+const TextInput = React.forwardRef(({ type = 'text', label = '', placeholder = '', name = '' }, ref) => {
    return (
       <Style>
          <label>{label}:</label>
-         <input type={type} placeholder={placeholder}></input>
+         <input {...ref(name, { required: true })} type={type} placeholder={placeholder}></input>
       </Style>
    );
-};
+});
 
 const Style = styled.div`
    display: flex;

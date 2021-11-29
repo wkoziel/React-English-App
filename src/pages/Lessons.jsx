@@ -3,11 +3,12 @@ import Navbar from '../components/Navbar';
 import image from '../assets/lessons.svg';
 import Button from '../components/Button';
 import styled from 'styled-components';
-import { colors } from '../style';
 import { Link } from 'react-router-dom';
 import arrow from '../assets/arrow-green.svg';
 import { getAllLessons } from '../api/api';
 import Loading from '../components/Loading';
+import { AnimatePresence, motion } from 'framer-motion';
+import transitions from '../helpers/transitions';
 
 const Lessons = () => {
    const [isLoading, setIsLoading] = useState(true);
@@ -34,43 +35,45 @@ const Lessons = () => {
             <Loading />
          ) : (
             <Style className="container">
-               <div className="small-box box">
-                  <h2>Osiągnij swój wyznaczony cel!</h2>
-                  <img className="right woman-img" src={image} alt="Kobieta z notatkami" />
-                  <h3>
-                     Pozostało <span className="green">25</span> słówek do opanowania
-                  </h3>
-               </div>
+               <AnimatePresence>
+                  <motion.div {...transitions.opacity} className="small-box box">
+                     <h2>Osiągnij swój wyznaczony cel!</h2>
+                     <img className="right woman-img" src={image} alt="Kobieta z notatkami" />
+                     <h3>
+                        Pozostało <span className="green">25</span> słówek do opanowania
+                     </h3>
+                  </motion.div>
 
-               <div className="small-box box">
-                  <h2>Kontynuuj naukę</h2>
-                  <div className="right circle">
-                     <h1 className="procent">25%</h1>
-                  </div>
-                  <div className="bottom button">
-                     <Button label="Lekcja 24" />
-                  </div>
-               </div>
+                  <motion.div {...transitions.opacity} className="small-box box">
+                     <h2>Kontynuuj naukę</h2>
+                     <div className="right circle">
+                        <h1 className="procent">25%</h1>
+                     </div>
+                     <div className="bottom button">
+                        <Button label="Lekcja 24" />
+                     </div>
+                  </motion.div>
 
-               {/* BOX 3 */}
-               <div className="big-box">
-                  <h2>Wszystkie lekcje</h2>
-                  <div className="lessons">
-                     {allLessons.map((l) => (
-                        <Link key={l.lesson_id} to={`/lesson/${l.lesson_id}`}>
-                           <div className="lesson box">
-                              <h2>{l.lesson_id + 1}.</h2>
-                              <div className="title">
-                                 <h3 className="no-margin">{l.lesson_name}</h3>
-                                 <h5 className="no-margin">{l.words_count} nowych pojęć</h5>
+                  {/* BOX 3 */}
+                  <motion.div {...transitions.opacity} className="big-box">
+                     <h3>Wszystkie lekcje</h3>
+                     <div className="lessons">
+                        {allLessons.map((l) => (
+                           <Link key={l.lesson_id} to={`/lesson/${l.lesson_id}`}>
+                              <div className="lesson box">
+                                 <h2>{l.lesson_id + 1}.</h2>
+                                 <div className="title">
+                                    <h3 className="no-margin">{l.lesson_name}</h3>
+                                    <h5 className="no-margin">{l.words_count} pojęć</h5>
+                                 </div>
+                                 <h3 className="end">100%</h3> {/*Kolumna z procentami*/}
+                                 <img className="end" src={arrow} alt="Arrow right" />
                               </div>
-                              <h2 className="end">100%</h2> {/*Kolumna z procentami*/}
-                              <img className="end" src={arrow} alt="Arrow right" />
-                           </div>
-                        </Link>
-                     ))}
-                  </div>
-               </div>
+                           </Link>
+                        ))}
+                     </div>
+                  </motion.div>
+               </AnimatePresence>
             </Style>
          )}
       </>

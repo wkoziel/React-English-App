@@ -5,7 +5,7 @@ import { colors } from '../style';
 const LessonTitle = ({ label = null }) => {
    return (
       <Style>
-         <h4>{label}</h4>
+         <h5>{label}</h5>
       </Style>
    );
 };

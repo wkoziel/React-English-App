@@ -6,7 +6,7 @@ const RadioButtons = ({ options = null, label = null, selected = null, setSelect
    return (
       <Style>
          <div className="options">
-            <h1>{label}</h1>
+            <h3>{label}</h3>
             {options.map((o, i) => (
                <div key={i} className="option">
                   <input type="radio" name={o} id={o} value={o} checked={selected === o} onChange={onChange} />
