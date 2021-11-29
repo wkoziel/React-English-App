@@ -74,7 +74,7 @@ const Flashcards = ({ data = null, times = 0, nextStep = null, bothSides = null 
                   <div>
                      <h1>{state?.word?.display}</h1>
                      <hr />
-                     <h1>{state?.word?.type}</h1>
+                     <h1 className="green">{state?.word?.type}</h1>
                   </div>
                   <button type="button" onClick={() => handleButtonClick(true, false)}>
                      <img src={correct} alt="" />
@@ -104,13 +104,13 @@ const Flashcards = ({ data = null, times = 0, nextStep = null, bothSides = null 
 
 const Style = styled.button`
    perspective: 150rem;
-   height: 70vh;
+   height: 75vh;
    width: 100%;
    position: relative;
-
    border: none;
    outline: none;
    background: none;
+   margin: 0;
 
    .both {
       display: grid;
@@ -119,7 +119,8 @@ const Style = styled.button`
       justify-content: center;
 
       hr {
-         border: 1px solid ${colors.lightGray};
+         border-bottom: 3px solid ${colors.gray1};
+         border-top: none;
          width: 100%;
          margin: 1rem 0;
       }
@@ -141,7 +142,7 @@ const Style = styled.button`
    }
 
    h1 {
-      font-size: 8rem;
+      font-size: 5vw;
    }
 
    .side {
@@ -179,13 +180,14 @@ const Style = styled.button`
       display: grid;
       grid-template-columns: auto 1fr auto;
       align-items: center;
-      padding: 1rem 4rem;
+      padding: 1rem 5rem;
       transition: all 0.8;
+      color: ${colors.green};
 
       img {
          opacity: 0.7;
          &:hover {
-            transform: scale(1.02);
+            transform: scale(1.1);
             opacity: 0.8;
          }
       }

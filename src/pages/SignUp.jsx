@@ -8,45 +8,77 @@ import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 import image1 from '../assets/register-1.svg';
 import image2 from '../assets/login-2.svg';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import { AnimatePresence, motion } from 'framer-motion';
+import transitions from '../helpers/transitions';
 
 const SignUp = () => {
+   const schema = yup.object().shape({
+      login: yup.string().required('Podaj swój login'),
+      password: yup.string().required('Podaj swoje hasło'),
+   });
+
+   const { handleSubmit, register } = useForm({
+      resolver: yupResolver(schema),
+   });
+
+   const onSubmit = async (data) => {
+      try {
+         console.log(data);
+         //  const response = await signIn(data);
+         //  console.log(response.data);
+      } catch (error) {
+         console.error(error);
+      }
+   };
+
    return (
       <>
          <Navbar />
          <Style className="container">
-            <div className="box">
-               <h1>Dołącz do jedynej takiej platformy!</h1>
-               <div></div>
-               <img src={image1} alt="" />
-               <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere. Praesent
-                  id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                  turpis egestas.
-               </p>
-            </div>
-            <div className="right-side">
-               <form action="">
-                  <h1 className="login">Dołącz do nas!</h1>
-                  <TextInput label="Login" placeholder="user123" />
-                  <TextInput label="Email" placeholder="user@gmail.com" type="email" />
-                  <TextInput label="Hasło" placeholder="********" type="password" />
-                  <TextInput label="Powtórz hasło" placeholder="********" type="password" />
-                  <Button label="Zarejestruj się" noArrow type="submit" />
-                  <Link to={routes.signIn}>
-                     Masz już konto? <strong>Zaloguj się</strong>
-                  </Link>
-               </form>
-            </div>
-            <div className="box">
-               <h1>Wypróbuj naszą aplikacje mobilną!</h1>
-               <div></div>
-               <img className="image2" src={image2} alt="" />
-               <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere. Praesent
-                  id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                  turpis egestas.
-               </p>
-            </div>
+            <AnimatePresence>
+               <motion.div {...transitions.opacity} className="box">
+                  <h2>Dołącz do jedynej takiej platformy!</h2>
+                  <div></div>
+                  <img src={image1} alt="" />
+                  <p>
+                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere.
+                     Praesent id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada
+                     fames ac turpis egestas.
+                  </p>
+               </motion.div>
+               <motion.div {...transitions.opacity} className="right-side">
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                     <h2 className="login">Dołącz do nas!</h2>
+                     <TextInput label="Login" placeholder="user123" ref={register} name="login" />
+                     <TextInput label="Email" placeholder="user@gmail.com" type="email" ref={register} name="mail" />
+                     <TextInput label="Hasło" placeholder="********" type="password" ref={register} name="password" />
+                     <TextInput
+                        label="Powtórz hasło"
+                        placeholder="********"
+                        type="password"
+                        ref={register}
+                        name="repeatpassword"
+                     />
+                     <Button label="Zarejestruj się" noArrow type="submit" />
+                     <Link to={routes.signIn}>
+                        Masz już konto? <strong>Zaloguj się</strong>
+                     </Link>
+                  </form>
+               </motion.div>
+               <motion.div {...transitions.opacity} className="box">
+                  <h2>Wypróbuj naszą aplikacje mobilną!</h2>
+                  <div></div>
+                  <img className="image2" src={image2} alt="" />
+                  <p>
+                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere.
+                     Praesent id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada
+                     fames ac turpis egestas.
+                  </p>
+               </motion.div>
+            </AnimatePresence>
          </Style>
       </>
    );

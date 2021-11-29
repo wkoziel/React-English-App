@@ -4,6 +4,8 @@ import Step2 from './subpages/Step2';
 import Step1 from './subpages/Step1';
 import Step3 from './subpages/Step3';
 import { exampleWords } from '../../data/data';
+import { AnimatePresence, motion } from 'framer-motion';
+import transitions from '../../helpers/transitions';
 
 const initialState = {
    step: 0,
@@ -80,7 +82,9 @@ const Typing = () => {
    return (
       <>
          <Navbar active={1} />
-         {renderStep(state.step)}
+         <AnimatePresence>
+            <motion.div {...transitions.opacity}>{renderStep(state.step)}</motion.div>
+         </AnimatePresence>
       </>
    );
 };

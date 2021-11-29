@@ -8,47 +8,80 @@ import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 import image1 from '../assets/login-1.svg';
 import image2 from '../assets/login-2.svg';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import { signIn } from '../api/api';
+import { AnimatePresence, motion } from 'framer-motion';
+import transitions from '../helpers/transitions';
 
 const SignIn = () => {
+   const schema = yup.object().shape({
+      login: yup.string().required('Podaj swój login'),
+      password: yup.string().required('Podaj swoje hasło'),
+   });
+
+   const { handleSubmit, register } = useForm({
+      resolver: yupResolver(schema),
+   });
+
+   const onSubmit = async (data) => {
+      try {
+         console.log(data);
+         const response = await signIn(data);
+         console.log(response.data);
+      } catch (error) {
+         console.error(error);
+      }
+   };
+
    return (
       <>
          <Navbar />
          <Style className="container">
-            <div className="box">
-               <h1>Ucz się korzystając z jednej z wielu metod!</h1>
-               <div></div>
-               <img src={image1} alt="" />
-               <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere. Praesent
-                  id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                  turpis egestas.
-               </p>
-            </div>
-            <div className="right-side">
-               <form action="">
-                  <h1 className="login">Zaloguj się</h1>
-                  <TextInput label="Login" placeholder="Wprowadź login" />
-                  <TextInput label="Hasło" placeholder="Wprowadź hasło" type="password" />
-                  <label>
-                     <input type="checkbox" />
-                     Zapamiętaj mnie
-                  </label>
-                  <Button label="Zaloguj się" noArrow type="submit" />
-                  <Link to={routes.signUp}>
-                     Nie masz konta? <strong>Zarejestruj się</strong>
-                  </Link>
-               </form>
-            </div>
-            <div className="box">
-               <h1>Wypróbuj naszą aplikacje mobilną!</h1>
-               <div></div>
-               <img className="image2" src={image2} alt="" />
-               <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere. Praesent
-                  id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                  turpis egestas.
-               </p>
-            </div>
+            <AnimatePresence>
+               <motion.div {...transitions.opacity} className="box">
+                  <h2>Ucz się korzystając z jednej z wielu metod!</h2>
+                  <div></div>
+                  <img src={image1} alt="" />
+                  <p>
+                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere.
+                     Praesent id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada
+                     fames ac turpis egestas.
+                  </p>
+               </motion.div>
+               <motion.div {...transitions.opacity} className="right-side">
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                     <h2 className="login">Zaloguj się</h2>
+                     <TextInput name="login" ref={register} label="Login" placeholder="Wprowadź login" />
+                     <TextInput
+                        ref={register}
+                        name="password"
+                        label="Hasło"
+                        placeholder="Wprowadź hasło"
+                        type="password"
+                     />
+                     <label>
+                        <input type="checkbox" />
+                        Zapamiętaj mnie
+                     </label>
+                     <Button label="Zaloguj się" noArrow type="submit" />
+                     <Link to={routes.signUp}>
+                        Nie masz konta? <strong>Zarejestruj się</strong>
+                     </Link>
+                  </form>
+               </motion.div>
+               <motion.div {...transitions.opacity} className="box">
+                  <h2>Wypróbuj naszą aplikacje mobilną!</h2>
+                  <div></div>
+                  <img className="image2" src={image2} alt="" />
+                  <p>
+                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere.
+                     Praesent id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada
+                     fames ac turpis egestas.
+                  </p>
+               </motion.div>
+            </AnimatePresence>
          </Style>
       </>
    );

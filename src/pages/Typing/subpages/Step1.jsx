@@ -16,54 +16,51 @@ const Step1 = ({ onSubmit = null }) => {
    const [selectedTimes, setSelectedTimes] = useState(timesOptions[0]);
 
    return (
-      <Style>
-         <div className="container">
-            <div className="Back">
-               <GoBack label="Powrót do lekcji" link={routes.lessons} />
-            </div>
-            <div className="Title">
-               <LessonTitle label="1. Greetings" />
-            </div>
-            <div className="Top"></div>
-            <div className="Main">
-               <div className="subcontainer">
-                  {/* MAIN */}
-                  <div className="Welcome">
-                     <h1>Rozpocznij naukę przez wpisywanie!</h1>
-                  </div>
-                  <div className="Image">
-                     <img src={Typing} alt="" />
-                  </div>
-                  <div className="Settings">
-                     <RadioButtons
-                        label="Język pisania:"
-                        options={languageOptions}
-                        selected={selectedLanguage}
-                        setSelected={setSelectedLanguage}
-                        onChange={(e) => setSelectedLanguage(e.target.value)}
-                     />
-                     <RadioButtons
-                        label="Zaliczone po:"
-                        options={timesOptions}
-                        selected={selectedTimes}
-                        setSelected={setSelectedTimes}
-                        onChange={(e) => setSelectedTimes(e.target.value)}
-                     />
-                  </div>
-                  <div className="Button">
-                     <Button
-                        label="Rozpocznij"
-                        noArrow
-                        onClick={() =>
-                           onSubmit({
-                              selectedTimes: timesOptions.indexOf(selectedTimes),
-                              selectedLanguage: languageOptions.indexOf(selectedLanguage),
-                           })
-                        }
-                     />
-                  </div>
-                  {/* MAIN END */}
+      <Style className="container page">
+         <div className="Back">
+            <GoBack label="Powrót do lekcji" link={routes.lessons} />
+         </div>
+         <div className="Top"></div>
+         <div className="Title">
+            <LessonTitle label="1. Greetings" />
+         </div>
+         <div className="Main">
+            <div className="subcontainer">
+               <div className="Welcome">
+                  <h1>Rozpocznij naukę przez wpisywanie!</h1>
                </div>
+               <div className="Image">
+                  <img src={Typing} alt="" />
+               </div>
+               <div className="Settings">
+                  <RadioButtons
+                     label="Język pisania:"
+                     options={languageOptions}
+                     selected={selectedLanguage}
+                     setSelected={setSelectedLanguage}
+                     onChange={(e) => setSelectedLanguage(e.target.value)}
+                  />
+                  <RadioButtons
+                     label="Zaliczone po:"
+                     options={timesOptions}
+                     selected={selectedTimes}
+                     setSelected={setSelectedTimes}
+                     onChange={(e) => setSelectedTimes(e.target.value)}
+                  />
+               </div>
+               <div className="Button">
+                  <Button
+                     label="Rozpocznij"
+                     noArrow
+                     onClick={() =>
+                        onSubmit({
+                           selectedTimes: timesOptions.indexOf(selectedTimes),
+                           selectedLanguage: languageOptions.indexOf(selectedLanguage),
+                        })
+                     }
+                  />
+               </div>
+               {/* MAIN END */}
             </div>
          </div>
       </Style>
@@ -71,84 +68,43 @@ const Step1 = ({ onSubmit = null }) => {
 };
 
 const Style = styled.div`
-   height: 90vh;
-   .container {
-      height: 100%;
-      display: grid;
-      grid-template-columns: 0.4fr 2.2fr 0.4fr;
-      grid-template-rows: 0.1fr 0.9fr;
-      gap: 1rem 0px;
-      grid-auto-flow: row;
-      align-items: center;
-      justify-content: center;
-      grid-template-areas:
-         'Back Top Title'
-         'Main Main Main';
-   }
+   display: grid;
+   grid-template-columns: repeat(12, 1fr);
+   grid-template-rows: 0.3fr auto;
+   gap: 1rem 1rem;
 
-   .Back {
-      grid-area: Back;
-   }
-
+   .Back,
    .Title {
-      grid-area: Title;
+      grid-column: span 2;
+      display: flex;
+      margin: auto;
    }
 
    .Top {
-      grid-area: Top;
+      grid-column: span 8;
    }
 
    .Main {
-      grid-area: Main;
-      padding: 1rem 2rem;
-      background-color: ${colors.white};
-      border-radius: 20px;
-      height: 100%;
-
-      .subcontainer {
-         height: 100%;
+      grid-column: span 12;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 3rem;
+      .cols,
+      .settings {
          display: grid;
-         grid-template-columns: 1fr 1fr;
-         grid-template-rows: 0.5fr 2fr 0.8fr;
-         grid-auto-flow: row;
-         gap: 1rem 2rem;
-         grid-template-areas:
-            'Welcome Welcome'
-            'Image Settings'
-            'Button Button';
+         grid-template-columns: repeat(2, 1fr);
       }
 
-      .Welcome {
-         grid-area: Welcome;
-         justify-self: center;
-         font-size: 1.7em;
-      }
-
-      .Image {
-         grid-area: Image;
-      }
-
-      .Settings {
-         grid-area: Settings;
-         display: grid;
-         grid-template-columns: 1fr 1fr;
-         align-items: center;
-         justify-content: center;
-
+      .settings {
          border: 3px solid ${colors.green};
          border-radius: 20px;
-         padding: 1rem;
       }
 
-      .Button {
-         grid-area: Button;
-         align-self: end;
-         justify-self: center;
-         button {
-            background-color: ${colors.green};
-            padding: 1rem 3rem;
-            color: ${colors.white};
-         }
+      button {
+         background-color: ${colors.green};
+         color: ${colors.white};
       }
    }
 `;

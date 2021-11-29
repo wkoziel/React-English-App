@@ -14,15 +14,13 @@ const Congratulations = () => {
             <h1 className="text-3">100%</h1>
          </div>
          <div className="grid white-box">
-            <div className="flex-center">
-               <h1 className="text-5">Gratulacje!</h1>
-               <h2 className="text-15">Udało ci się zakończyć naukę!</h2>
+            <div>
+               <h1>Gratulacje!</h1>
+               <h4>Udało ci się zakończyć naukę!</h4>
             </div>
-            <div className="flex-center" style={{ justifySelf: 'end' }}>
-               <img src={image} alt="Kobieta" />
-            </div>
+            <img src={image} alt="Kobieta" />
          </div>
-         <div className="grid buttons">
+         <div className="buttons">
             <Button label="Powtórz naukę!" noArrow onClick={() => history.go(loc.pathname)} />
             <Button label="Powrót do lekcji" noArrow onClick={() => history.goBack()} />
          </div>
@@ -32,7 +30,6 @@ const Congratulations = () => {
 
 const Style = styled.div`
    position: relative;
-
    .circle {
       position: absolute;
       background-color: ${colors.white};
@@ -49,10 +46,20 @@ const Style = styled.div`
       color: ${colors.green};
    }
    .grid {
+      height: 65vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      img {
-         height: 100%;
+      align-items: center;
+
+      & > div {
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+
+         h1 {
+            font-size: 5.5rem;
+         }
       }
    }
 

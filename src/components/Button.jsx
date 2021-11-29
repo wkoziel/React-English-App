@@ -7,7 +7,7 @@ import whitearrow from '../assets/arrow-white.svg';
 const Button = ({ onClick = null, type = 'button', styles = {}, label = '', whiteArrow = false, noArrow = false }) => {
    return (
       <StyledButton type={type} onClick={onClick} style={styles}>
-         <h3>{label}</h3>
+         <h4>{label}</h4>
          {!noArrow && (
             <>{whiteArrow ? <img src={whitearrow} alt="Arrow right" /> : <img src={arrow} alt="Arrow right" />}</>
          )}
