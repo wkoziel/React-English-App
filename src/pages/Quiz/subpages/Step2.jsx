@@ -3,6 +3,7 @@ import GoBack from '../../../components/GoBack';
 import LessonTitle from '../../../components/LessonTitle';
 import { routes } from '../../../routes';
 import Quiz from '../../../components/Quiz';
+import CorrectAnswers from '../../../components/CorrectAnswers';
 
 const Step2 = ({ data = null, nextStep = null, times = null }) => {
    return (
@@ -14,7 +15,9 @@ const Step2 = ({ data = null, nextStep = null, times = null }) => {
             <div className="Title">
                <LessonTitle label="1. Greetings" />
             </div>
-            <div className="Top"></div>
+            <div className="Top">
+               <CorrectAnswers correct={1} />
+            </div>
             <div className="Main">
                <Quiz data={data} nextStep={nextStep} times={times} />
             </div>

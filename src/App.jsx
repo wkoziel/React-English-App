@@ -11,7 +11,7 @@ const Lessons = lazy(() => import('./pages/Lessons'));
 const Repeat = lazy(() => import('./pages/Repeat'));
 const Profile = lazy(() => import('./pages/Profile'));
 const SingleLesson = lazy(() => import('./pages/SingleLesson'));
-const Typing = lazy(() => import('./pages/Typing/Typing'));
+const Typing = lazy(() => import('./pages/TypingPage/TypingPage'));
 const Quiz = lazy(() => import('./pages/Quiz/QuizPage'));
 const Flashcards = lazy(() => import('./pages/Flashcards/FlashcardsPage'));
 const ErrorPage = lazy(() => import('./pages/ErrorPage'));

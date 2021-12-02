@@ -6,12 +6,12 @@ const CorrectAnswers = ({ correct = null, answers = null }) => {
    const dots = [];
    for (let i = 0; i < answers; i++) {
       if (i < correct) dots.push(<div key={i} className="full"></div>);
-      else dots.push(<div key={i} className="circlex"></div>);
+      else dots.push(<div key={i} className="circle"></div>);
    }
    return (
       <Style>
          {dots}
-         <p>Opanowanie słówka</p>
+         <h5>Opanowanie słówka</h5>
       </Style>
    );
 };
@@ -21,7 +21,7 @@ const Style = styled.div`
    align-items: center;
    gap: 0.7rem;
 
-   .circlex {
+   .circle {
       border: 1px solid ${colors.green};
       width: 20px;
       border-radius: 50%;
@@ -34,6 +34,11 @@ const Style = styled.div`
       width: 20px;
       border-radius: 50%;
       height: 20px;
+   }
+
+   h5 {
+      font-weight: normal;
+      color: ${colors.gray4};
    }
 `;
 export default CorrectAnswers;

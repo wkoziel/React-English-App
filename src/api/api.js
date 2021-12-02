@@ -16,4 +16,6 @@ export const getLessonData = (lessonID) => instance.get(`lessons/${lessonID}`);
 
 export const getLessonWords = (lessonID) => instance.get(`words/${lessonID}`);
 
-export const signIn = (data) => instance.post('users/add', data);
+export const signIn = (data) => instance.post('users/log', data);
+
+export const signUp = (data) => instance.post('users/add', data);

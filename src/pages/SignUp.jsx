@@ -13,6 +13,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { AnimatePresence, motion } from 'framer-motion';
 import transitions from '../helpers/transitions';
+import { signUp } from '../api/api';
 
 const SignUp = () => {
    const schema = yup.object().shape({
@@ -26,9 +27,10 @@ const SignUp = () => {
 
    const onSubmit = async (data) => {
       try {
-         console.log(data);
-         //  const response = await signIn(data);
-         //  console.log(response.data);
+         if (data.password === data.repeatpassword) {
+            const response = await signUp(data);
+            console.log(response.data);
+         }
       } catch (error) {
          console.error(error);
       }
@@ -39,7 +41,7 @@ const SignUp = () => {
          <Navbar />
          <Style className="container">
             <AnimatePresence>
-               <motion.div {...transitions.opacity} className="box">
+               <motion.div key="1-frame" {...transitions.opacity} className="box">
                   <h2>Dołącz do jedynej takiej platformy!</h2>
                   <div></div>
                   <img src={image1} alt="" />
@@ -49,7 +51,7 @@ const SignUp = () => {
                      fames ac turpis egestas.
                   </p>
                </motion.div>
-               <motion.div {...transitions.opacity} className="right-side">
+               <motion.div key="2-frame" {...transitions.opacity} className="right-side">
                   <form onSubmit={handleSubmit(onSubmit)}>
                      <h2 className="login">Dołącz do nas!</h2>
                      <TextInput label="Login" placeholder="user123" ref={register} name="login" />
@@ -68,7 +70,7 @@ const SignUp = () => {
                      </Link>
                   </form>
                </motion.div>
-               <motion.div {...transitions.opacity} className="box">
+               <motion.div key="3-frame" {...transitions.opacity} className="box">
                   <h2>Wypróbuj naszą aplikacje mobilną!</h2>
                   <div></div>
                   <img className="image2" src={image2} alt="" />

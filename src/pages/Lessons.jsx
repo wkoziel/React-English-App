@@ -36,7 +36,7 @@ const Lessons = () => {
          ) : (
             <Style className="container">
                <AnimatePresence>
-                  <motion.div {...transitions.opacity} className="small-box box">
+                  <motion.div key="1-frame" {...transitions.opacity} className="small-box box">
                      <h2>Osiągnij swój wyznaczony cel!</h2>
                      <img className="right woman-img" src={image} alt="Kobieta z notatkami" />
                      <h3>
@@ -44,7 +44,7 @@ const Lessons = () => {
                      </h3>
                   </motion.div>
 
-                  <motion.div {...transitions.opacity} className="small-box box">
+                  <motion.div key="2-frame" {...transitions.opacity} className="small-box box">
                      <h2>Kontynuuj naukę</h2>
                      <div className="right circle">
                         <h1 className="procent">25%</h1>
@@ -55,7 +55,7 @@ const Lessons = () => {
                   </motion.div>
 
                   {/* BOX 3 */}
-                  <motion.div {...transitions.opacity} className="big-box">
+                  <motion.div key="3-frame" {...transitions.opacity} className="big-box">
                      <h3>Wszystkie lekcje</h3>
                      <div className="lessons">
                         {allLessons.map((l) => (

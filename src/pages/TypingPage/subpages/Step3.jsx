@@ -1,25 +1,29 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import Congratulations from '../../../components/Congratulations';
 import GoBack from '../../../components/GoBack';
 import LessonTitle from '../../../components/LessonTitle';
+import transitions from '../../../helpers/transitions';
 import { routes } from '../../../routes';
 
 const Step3 = () => {
    return (
-      <Style>
-         <div className="container">
-            <div className="Back">
-               <GoBack label="Powrót do lekcji" link={routes.lessons} />
+      <motion.div {...transitions.opacity} key="typing-3">
+         <Style>
+            <div className="container">
+               <div className="Back">
+                  <GoBack label="Powrót do lekcji" link={routes.lessons} />
+               </div>
+               <div className="Title">
+                  <LessonTitle label="1. Greetings" />
+               </div>
+               <div className="Top"></div>
+               <div className="Main">
+                  <Congratulations />
+               </div>
             </div>
-            <div className="Title">
-               <LessonTitle label="1. Greetings" />
-            </div>
-            <div className="Top"></div>
-            <div className="Main">
-               <Congratulations />
-            </div>
-         </div>
-      </Style>
+         </Style>
+      </motion.div>
    );
 };
 
