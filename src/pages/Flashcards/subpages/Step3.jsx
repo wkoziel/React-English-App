@@ -8,18 +8,20 @@ import transitions from '../../../helpers/transitions';
 
 const Step3 = () => {
    return (
-      <Style className="container page">
-         <div className="Back">
-            <GoBack label="Powrót do lekcji" link={routes.lessons} />
-         </div>
-         <div className="Top" />
-         <div className="Title">
-            <LessonTitle label="1. Greetings" />
-         </div>
-         <motion.div {...transitions.opacity} className="Main">
-            <Congratulations />
-         </motion.div>
-      </Style>
+      <motion.div {...transitions.opacity}>
+         <Style className="container page">
+            <div className="Back">
+               <GoBack label="Powrót do lekcji" link={routes.lessons} />
+            </div>
+            <div className="Top" />
+            <div className="Title">
+               <LessonTitle label="1. Greetings" />
+            </div>
+            <motion.div {...transitions.opacity} className="Main">
+               <Congratulations />
+            </motion.div>
+         </Style>
+      </motion.div>
    );
 };
 

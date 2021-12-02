@@ -1,15 +1,13 @@
 import React, { useState, useReducer, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { colors, fonts } from '../style';
+import { colors } from '../style';
 import correct from '../assets/correct.svg';
 import wrong from '../assets/wrong-small.svg';
-import { shuffle } from '../helpers';
+import { motion } from 'framer-motion';
 
 const initialState = {
    words: [],
    word: {},
-   good: 0,
-   wrong: 0,
 };
 
 const actions = {
@@ -24,41 +22,40 @@ const reducer = (state, action) => {
          return new Error('No matching action');
    }
 };
-const Flashcards = ({ data = null, times = 0, nextStep = null, bothSides = null }) => {
+const Flashcards = ({ words = null, times = 0, nextStep = null, bothSides = null, setStats = null, stats = null }) => {
    const [state, dispatch] = useReducer(reducer, initialState);
    const [showAnswers, setShowAnswers] = useState(false);
    const ref = useRef();
 
    useEffect(() => {
-      const firstWord = data[0];
-      dispatch({ type: actions.updateState, payload: { words: data, word: firstWord } });
-   }, []);
+      dispatch({ type: actions.updateState, payload: { words, word: words[0] } });
+      setStats({ wordsLeft: words.length, wordsLearned: 0, word: words[0] });
+   }, []); // eslint-disable-line
 
    const handleButtonClick = (isCorrect, single = true) => {
       let tempWords,
-         good = state.good,
-         wrong = state.wrong;
-
+         wordsLearned = stats.wordsLearned,
+         wordsLeft = stats.wordsLeft;
       if (single) ref.current.style.color = colors.white;
-
       if (isCorrect) {
-         good = good + 1;
-         if (state.word.correct < times)
+         if (state.word.correct + 1 < times)
             tempWords = state.words.map((word) =>
                word.id === state.word.id ? { ...word, correct: word.correct + 1 } : word,
             );
-         else tempWords = state.words.map((word) => (word.id === state.word.id ? { ...word, learned: true } : word));
+         else {
+            tempWords = state.words.map((word) => (word.id === state.word.id ? { ...word, learned: true } : word));
+            wordsLearned += 1;
+            wordsLeft -= 1;
+         }
       } else {
          tempWords = state.words;
-         wrong = wrong + 1;
       }
-
       let nextWord = state.words.find((word) => word.id > state.word.id && state.word.learned === false);
       if (nextWord === undefined) nextWord = state.words.find((word) => word.learned === false);
-
-      if (nextWord === undefined) nextStep();
+      if (nextWord === undefined || nextWord === state.word) nextStep();
       else {
-         dispatch({ type: actions.updateState, payload: { words: tempWords, word: nextWord, good, wrong } });
+         setStats({ ...stats, word: nextWord, wordsLearned, wordsLeft });
+         dispatch({ type: actions.updateState, payload: { words: tempWords, word: nextWord } });
          if (single) setTimeout(() => (ref.current.style.color = colors.black), 1000);
       }
    };
@@ -104,13 +101,13 @@ const Flashcards = ({ data = null, times = 0, nextStep = null, bothSides = null 
 
 const Style = styled.button`
    perspective: 150rem;
-   height: 75vh;
    width: 100%;
    position: relative;
    border: none;
    outline: none;
    background: none;
    margin: 0;
+   height: 75vh;
 
    .both {
       display: grid;

@@ -3,48 +3,51 @@ import styled from 'styled-components';
 import GoBack from '../../../components/GoBack';
 import LessonTitle from '../../../components/LessonTitle';
 import { colors } from '../../../style';
-import image from '../../../assets/quiz.svg';
+import Typing from '../../../assets/typing.svg';
 import RadioButtons from '../../../components/RadioButtons';
 import Button from '../../../components/Button';
 import { routes } from '../../../routes';
+import { motion } from 'framer-motion';
+import transitions from '../../../helpers/transitions';
 
+const timesOptions = ['2 razach', '3 razach', '4 razach'];
 const languageOptions = ['Polski', 'Angielski'];
-const timesOptions = ['1 razie', '2 razach', '3 razach'];
 
 const Step1 = ({ onSubmit = null }) => {
    const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
    const [selectedTimes, setSelectedTimes] = useState(timesOptions[0]);
 
    return (
-      <Style className="container page">
-         <div className="Back">
-            <GoBack label="Powrót do lekcji" link={routes.lessons} />
-         </div>
-         <div className="Top"></div>
-         <div className="Title">
-            <LessonTitle label="1. Greetings" />
-         </div>
-         <div className="Main box">
-            <h1>Rozpocznij naukę z pomocą quizu!</h1>
-            <div className="cols">
-               <img src={image} alt="" />
-               <div className="settings">
-                  <RadioButtons
-                     label="Język pisania:"
-                     options={languageOptions}
-                     selected={selectedLanguage}
-                     onChange={(e) => setSelectedLanguage(e.target.value)}
-                  />
-                  <RadioButtons
-                     label="Zaliczone po:"
-                     options={timesOptions}
-                     selected={selectedTimes}
-                     setSelected={setSelectedTimes}
-                     onChange={(e) => setSelectedTimes(e.target.value)}
-                  />
-               </div>
+      <motion.div {...transitions.opacity} key="typing-1">
+         <Style className="container page">
+            <div className="Back">
+               <GoBack label="Powrót do lekcji" link={routes.lessons} />
             </div>
-            <div className="Button">
+            <div className="Top"></div>
+            <div className="Title">
+               <LessonTitle label="1. Greetings" />
+            </div>
+            <div className="Main box">
+               <h1>Rozpocznij naukę przez wpisywanie!</h1>
+               <div className="cols">
+                  <img src={Typing} alt="" />
+                  <div className="settings">
+                     <RadioButtons
+                        label="Język pisania:"
+                        options={languageOptions}
+                        selected={selectedLanguage}
+                        setSelected={setSelectedLanguage}
+                        onChange={(e) => setSelectedLanguage(e.target.value)}
+                     />
+                     <RadioButtons
+                        label="Zaliczone po:"
+                        options={timesOptions}
+                        selected={selectedTimes}
+                        setSelected={setSelectedTimes}
+                        onChange={(e) => setSelectedTimes(e.target.value)}
+                     />
+                  </div>
+               </div>
                <Button
                   label="Rozpocznij"
                   noArrow
@@ -56,8 +59,8 @@ const Step1 = ({ onSubmit = null }) => {
                   }
                />
             </div>
-         </div>
-      </Style>
+         </Style>
+      </motion.div>
    );
 };
 

@@ -22,7 +22,7 @@ const Step1 = ({ onSubmit = null }) => {
          </div>
          <div className="Top" />
          <div className="Title">
-            <LessonTitle label="1. Greetings" />
+            <LessonTitle label="Witaj w fiszkach!" />
          </div>
          <div className="Main box">
             <h1>Rozpocznij naukę z pomocą fiszek!</h1>
@@ -30,7 +30,7 @@ const Step1 = ({ onSubmit = null }) => {
                <img src={image} alt="" />
                <div className="settings">
                   <RadioButtons
-                     label="Język pisania:"
+                     label="Pierwszy język:"
                      options={languageOptions}
                      selected={selectedLanguage}
                      onChange={(e) => setSelectedLanguage(e.target.value)}

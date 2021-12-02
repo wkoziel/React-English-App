@@ -8,3 +8,20 @@ export function shuffle(sourceArray) {
    }
    return sourceArray;
 }
+
+export const prepareLearnData = (data, typePolish) =>
+   typePolish
+      ? data.map((word, index) => ({
+           id: index,
+           display: word.english,
+           type: word.polish,
+           correct: 0,
+           learned: false,
+        }))
+      : data.map((word, index) => ({
+           id: index,
+           display: word.polish,
+           type: word.english,
+           correct: 0,
+           learned: false,
+        }));

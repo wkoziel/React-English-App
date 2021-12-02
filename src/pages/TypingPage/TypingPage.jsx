@@ -1,14 +1,12 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import React, { useReducer, useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import Navbar from '../../components/Navbar';
-import { exampleWords } from '../../data/data';
-import transitions from '../../helpers/transitions';
-import Step1 from './subpages/Step1';
 import Step2 from './subpages/Step2';
+import Step1 from './subpages/Step1';
 import Step3 from './subpages/Step3';
-import { useParams } from 'react-router';
-import { getLessonWords } from '../../api/api';
+import { AnimatePresence } from 'framer-motion';
 import { prepareLearnData } from '../../helpers';
+import { getLessonWords } from '../../api/api';
+import { useParams } from 'react-router';
 
 const initialState = {
    step: 0,
@@ -33,7 +31,7 @@ const reducer = (state, action) => {
    }
 };
 
-const FlashcardsPage = () => {
+const TypingPage = () => {
    const [state, dispatch] = useReducer(reducer, initialState);
    const { id } = useParams();
 
@@ -49,14 +47,15 @@ const FlashcardsPage = () => {
       fetchData();
    }, []); //eslint-disable-line
 
-   const nextStep = () => dispatch({ type: actions.nextStep });
-
    const submitStep = (data) => {
-      console.log(data);
       if (data.selectedLanguage === 0)
          dispatch({
             type: actions.prepareData,
-            payload: { data: prepareLearnData(state.data, true), selectedTimes: data.selectedTimes + 1 },
+            payload: {
+               data: prepareLearnData(state.data, true),
+               selectedTimes: data.selectedTimes + 1,
+               selectedLanguage: data.selectedLanguage,
+            },
          });
       else
          dispatch({
@@ -69,19 +68,16 @@ const FlashcardsPage = () => {
          });
    };
 
+   const nextStep = () => {
+      dispatch({ type: actions.nextStep });
+   };
+
    const renderStep = (step) => {
       switch (step) {
          case 0:
             return <Step1 onSubmit={submitStep} />;
          case 1:
-            return (
-               <Step2
-                  data={state.data}
-                  nextStep={nextStep}
-                  times={state.selectedTimes}
-                  bothSides={state.selectedLanguage === 2}
-               />
-            );
+            return <Step2 data={state.data} times={state.selectedTimes} nextStep={nextStep} />;
          case 2:
             return <Step3 />;
          default:
@@ -92,11 +88,9 @@ const FlashcardsPage = () => {
    return (
       <>
          <Navbar active={1} />
-         <AnimatePresence>
-            <motion.div {...transitions.opacity}>{renderStep(state.step)}</motion.div>
-         </AnimatePresence>
+         <AnimatePresence>{renderStep(state.step)}</AnimatePresence>
       </>
    );
 };
 
-export default FlashcardsPage;
+export default TypingPage;
