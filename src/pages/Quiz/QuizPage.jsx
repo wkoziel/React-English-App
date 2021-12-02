@@ -1,9 +1,11 @@
 import React, { useReducer, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
-import { exampleWords } from '../../data/data';
 import Step1 from './subpages/Step1';
 import Step2 from './subpages/Step2';
 import Step3 from './subpages/Step3';
+import { prepareLearnData } from '../../helpers';
+import { useParams } from 'react-router';
+import { getLessonWords } from '../../api/api';
 
 const initialState = {
    step: 0,
@@ -22,7 +24,7 @@ const reducer = (state, action) => {
       case actions.loadData:
          return { ...state, data: action.payload };
       case actions.prepareData:
-         return { ...state, ...action.payload };
+         return { ...state, ...action.payload, step: state.step + 1 };
       default:
          throw Error('No matching action');
    }
@@ -30,38 +32,40 @@ const reducer = (state, action) => {
 
 const Quiz = () => {
    const [state, dispatch] = useReducer(reducer, initialState);
+   const { id } = useParams();
 
    useEffect(() => {
-      try {
-         dispatch({ type: actions.loadData, payload: exampleWords });
-      } catch (error) {}
-   }, []);
+      const fetchData = async () => {
+         try {
+            const response = await getLessonWords(id);
+            if (response.data) dispatch({ type: actions.loadData, payload: response.data });
+         } catch (error) {
+            console.error(error);
+         }
+      };
+      fetchData();
+   }, []); //eslint-disable-line
 
    const nextStep = () => {
       dispatch({ type: actions.nextStep });
    };
 
    const submitStep = (data) => {
-      if (data.selectedLanguage === 0) {
-         const tempData = state.data.map((word, index) => ({
-            id: index,
-            display: word.english,
-            type: word.polish,
-            correct: 0,
-            learned: false,
-         }));
-         dispatch({ type: actions.prepareData, payload: { data: tempData, selectedTimes: data.selectedTimes + 1 } });
-      } else {
-         const tempData = state.data.map((word, index) => ({
-            id: index,
-            display: word.polish,
-            type: word.english,
-            correct: 0,
-            learned: false,
-         }));
-         dispatch({ type: actions.prepareData, payload: { data: tempData, selectedTimes: data.selectedTimes + 1 } });
-      }
-      dispatch({ type: actions.nextStep });
+      console.log(data);
+      if (data.selectedLanguage === 0)
+         dispatch({
+            type: actions.prepareData,
+            payload: { data: prepareLearnData(state.data, true), selectedTimes: data.selectedTimes + 1 },
+         });
+      else
+         dispatch({
+            type: actions.prepareData,
+            payload: {
+               data: prepareLearnData(state.data, false),
+               selectedTimes: data.selectedTimes + 1,
+               selectedLanguage: data.selectedLanguage,
+            },
+         });
    };
 
    const renderStep = (step) => {

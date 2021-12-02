@@ -25,16 +25,13 @@ const reducer = (state, action) => {
          return new Error('No matching action');
    }
 };
-const Quiz = ({ data = null, times = 0, nextStep = null }) => {
+const Quiz = ({ words = null, times = 0, nextStep = null }) => {
    const [state, dispatch] = useReducer(reducer, initialState);
    const [displayedWords, setDisplayedWords] = useState([]);
    const [showAnswers, setShowAnswers] = useState(false);
-   const [lockInput, setLockInput] = useState(false);
-   const [learned, setLearned] = useState(0);
 
    useEffect(() => {
-      const firstWord = data[0];
-      dispatch({ type: actions.updateState, payload: { words: data, word: firstWord } });
+      dispatch({ type: actions.updateState, payload: { words, word: words[0] } });
    }, []);
 
    useEffect(() => {
@@ -57,7 +54,6 @@ const Quiz = ({ data = null, times = 0, nextStep = null }) => {
          wrong = state.wrong;
 
       setShowAnswers(true);
-      setLockInput(true);
       if (state.word.type === answer) {
          good = good + 1;
          if (state.word.correct < times)
@@ -81,15 +77,12 @@ const Quiz = ({ data = null, times = 0, nextStep = null }) => {
             payload: { words: tempWords, word: nextWord, good, wrong },
          });
          setShowAnswers(false);
-         setLockInput(false);
       }, 2000);
    };
 
    useEffect(() => {
       generateButtons();
-      const learned = state.words.reduce((acc, curr) => (curr.learned ? (acc += 1) : acc), 0);
-      setLearned(learned);
-   }, [state]);
+   }, [state]); //eslint-disable-line
 
    const generateButtons = () => {
       if (showAnswers) {
@@ -99,7 +92,7 @@ const Quiz = ({ data = null, times = 0, nextStep = null }) => {
                className={`option ${word.type === state.word?.type ? 'goodAnswer' : 'wrongAnswer'}`}
                key={index}
                onClick={() => checkAnswer(word?.type)}
-               disabled={lockInput}
+               disabled={showAnswers}
             >
                <h2>{word?.type}</h2>
                {word.type === state.word?.type ? <img src={correct} alt="" /> : <img src={wrong} alt="" />}
@@ -125,19 +118,7 @@ const Quiz = ({ data = null, times = 0, nextStep = null }) => {
                <h2>{state?.wrong}</h2>
                <div className="bad"></div>
             </div>
-            <div className="Questions">
-               <div className="stats box">
-                  <h1 className="green">{learned}</h1>
-                  <h3>Nauczonych</h3>
-                  <h1 className="yellow">{state?.words.length - learned || 0}</h1>
-                  <h3>Do nauczenia</h3>
-                  <CorrectAnswers correct={state?.word.correct} answers={times + 1} />
-               </div>
-            </div>
-            <div className="Word">
-               <h1>{state?.word?.display}</h1>
-               <p>Wybierz poprawną definicje</p>
-            </div>
+            <h1>{state?.word?.display}</h1>
          </div>
          <div className="Input">{generateButtons()}</div>
       </Style>
@@ -145,27 +126,28 @@ const Quiz = ({ data = null, times = 0, nextStep = null }) => {
 };
 
 const Style = styled.div`
-   height: 100%;
+   display: flex;
+   flex-direction: column;
+   width: 100%;
 
    .quiz {
-      height: 100%;
-      display: grid;
-      grid-template-columns: 0.5fr 2.1fr 0.4fr;
-      grid-template-rows: 0.1fr auto;
-      justify-content: stretch;
-      grid-auto-flow: row;
-      grid-template-areas:
-         'Good Questions Wrong'
-         'Word Word Word';
+      border: 1px solid ${colors.gray2};
+      position: relative;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40vh;
    }
 
    .Good {
-      grid-area: Good;
       display: flex;
       align-items: center;
       gap: 1rem;
       color: ${colors.green};
-
+      position: absolute;
+      left: 1rem;
+      top: 0.5rem;
       .good {
          width: 70px;
          height: 20px;
@@ -175,13 +157,14 @@ const Style = styled.div`
    }
 
    .Wrong {
-      grid-area: Wrong;
       display: flex;
       align-items: center;
       justify-content: end;
       gap: 1rem;
       color: ${colors.red};
-
+      position: absolute;
+      right: 1rem;
+      top: 0.5rem;
       .bad {
          width: 70px;
          height: 20px;
@@ -191,76 +174,6 @@ const Style = styled.div`
    }
 
    .Questions {
-      grid-area: Questions;
-      .circle {
-         position: absolute;
-         background-color: ${colors.white};
-         border: 0.75rem solid ${colors.green};
-         width: 120px;
-         height: 120px;
-         left: 50%;
-         top: 10%;
-         border-radius: 50%;
-         transform: translate(-50%, -50%);
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         color: ${colors.green};
-      }
-
-      .stats {
-         position: absolute;
-         top: 10px;
-         left: 50%;
-         transform: translate(-50%, 0);
-         display: flex;
-         align-items: center;
-         gap: 10px;
-         padding: 1rem 5rem;
-
-         h3 {
-            font-weight: normal;
-         }
-
-         p {
-            font-size: 18px;
-         }
-
-         .green {
-            color: ${colors.green};
-         }
-
-         .yellow {
-            color: ${colors.yellow};
-         }
-      }
-   }
-
-   .Word {
-      grid-area: Word;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-      hr {
-         border: 1px ${colors.gray1} solid;
-         width: 50%;
-         margin: 0.5rem 0;
-      }
-
-      h1 {
-         font-size: 8rem;
-         align-self: center;
-      }
-
-      p {
-         font-size: 1rem;
-         color: ${colors.gray3};
-         position: absolute;
-         bottom: 0;
-      }
    }
 
    .Input {
