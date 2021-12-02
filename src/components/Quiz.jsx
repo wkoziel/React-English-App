@@ -4,7 +4,6 @@ import { colors, fonts } from '../style';
 import correct from '../assets/correct-small.png';
 import wrong from '../assets/wrong-small.svg';
 import { shuffle } from '../helpers';
-import CorrectAnswers from '../components/CorrectAnswers';
 
 const initialState = {
    words: [],
