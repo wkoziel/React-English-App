@@ -7,13 +7,11 @@ import image from '../../../assets/flashcards.svg';
 import RadioButtons from '../../../components/RadioButtons';
 import Button from '../../../components/Button';
 import { routes } from '../../../routes';
-
-const languageOptions = ['Polski', 'Angielski', 'Oba'];
-const timeOptions = ['1 razie', '2 razach', '3 razach'];
+import { languageOptions, timesOptions } from '../../../constants/data';
 
 const Step1 = ({ onSubmit = null }) => {
    const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
-   const [selectedTimes, setSelectedTimes] = useState(timeOptions[0]);
+   const [selectedTimes, setSelectedTimes] = useState(timesOptions[0]);
 
    return (
       <Style className="container page">
@@ -37,7 +35,7 @@ const Step1 = ({ onSubmit = null }) => {
                   />
                   <RadioButtons
                      label="Zaliczone po"
-                     options={timeOptions}
+                     options={timesOptions}
                      selected={selectedTimes}
                      onChange={(e) => setSelectedTimes(e.target.value)}
                   />
@@ -48,7 +46,7 @@ const Step1 = ({ onSubmit = null }) => {
                noArrow
                onClick={() =>
                   onSubmit({
-                     selectedTimes: timeOptions.indexOf(selectedTimes),
+                     selectedTimes: timesOptions.indexOf(selectedTimes),
                      selectedLanguage: languageOptions.indexOf(selectedLanguage),
                   })
                }

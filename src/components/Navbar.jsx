@@ -3,15 +3,12 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { routes } from '../routes';
 import { colors, fonts } from '../style';
-
-const links = [
-   { name: 'Strona główna', route: routes.home },
-   { name: 'Lekcje', route: routes.lessons },
-   { name: 'Powtórka', route: routes.repeat },
-   { name: 'Profil', route: routes.profile },
-];
+import { navLinks } from '../constants/data';
+import { useGlobalContext } from '../context/global';
+import LinkBtn from './LinkBtn';
 
 const Navbar = ({ logo = 'Logo', active = null }) => {
+   const { isAuth, logout } = useGlobalContext();
    return (
       <Style>
          <div className="flex">
@@ -19,7 +16,7 @@ const Navbar = ({ logo = 'Logo', active = null }) => {
                <div className="logo">{logo}</div>
             </Link>
             <ul className="links">
-               {links.map((link, index) => (
+               {navLinks.map((link, index) => (
                   <li key={index} className={`${active === index && 'active'}`}>
                      <Link to={link.route}>
                         <p className="link">{link.name}</p>
@@ -28,16 +25,23 @@ const Navbar = ({ logo = 'Logo', active = null }) => {
                ))}
             </ul>
          </div>
-         <div className="flex">
-            <Link to={routes.signUp}>
-               <div className="btn">
-                  <p className="link">Zarejestruj się</p>
-               </div>
-            </Link>
-            <Link to={routes.signIn}>
-               <p className="link">Zaloguj się</p>
-            </Link>
-         </div>
+         {isAuth ? (
+            <div className="left">
+               <div className="user" />
+               <LinkBtn label="Wyloguj" onClick={() => logout()} />
+            </div>
+         ) : (
+            <div className="flex">
+               <Link to={routes.signUp}>
+                  <div className="btn">
+                     <p className="link">Zarejestruj się</p>
+                  </div>
+               </Link>
+               <Link to={routes.signIn}>
+                  <p className="link">Zaloguj się</p>
+               </Link>
+            </div>
+         )}
       </Style>
    );
 };
@@ -58,6 +62,12 @@ const Style = styled.nav`
       display: flex;
       align-items: center;
       gap: 2.5rem;
+   }
+
+   .left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
    }
 
    .logo {
@@ -98,6 +108,13 @@ const Style = styled.nav`
       &:active {
          transform: translateY(2px);
       }
+   }
+
+   .user {
+      background: ${colors.white};
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
    }
 `;
 

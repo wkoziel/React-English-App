@@ -14,8 +14,16 @@ import { useForm } from 'react-hook-form';
 import { signIn } from '../api/api';
 import { AnimatePresence, motion } from 'framer-motion';
 import transitions from '../helpers/transitions';
+import { useGlobalContext } from '../context/global';
+import { loginStatus } from '../constants/data';
+import Error from '../components/Error';
+import { useState } from 'react';
+import { Redirect } from 'react-router';
 
 const SignIn = () => {
+   const { logIn, isAuth } = useGlobalContext();
+   const [message, setMessage] = useState('');
+
    const schema = yup.object().shape({
       login: yup.string().required('Podaj swój login'),
       password: yup.string().required('Podaj swoje hasło'),
@@ -27,9 +35,12 @@ const SignIn = () => {
 
    const onSubmit = async (data) => {
       try {
-         console.log(data);
          const response = await signIn(data);
-         console.log(response.data);
+         if (response.data.status) {
+            const { status } = response.data;
+            if (status === loginStatus.success) logIn(data.login);
+            else setMessage(status);
+         }
       } catch (error) {
          console.error(error);
       }
@@ -37,6 +48,7 @@ const SignIn = () => {
 
    return (
       <>
+         {isAuth && <Redirect to={routes.lessons} />}
          <Navbar />
          <Style className="container">
             <AnimatePresence>
@@ -53,6 +65,7 @@ const SignIn = () => {
                <motion.div key="2-frame" {...transitions.opacity} className="right-side">
                   <form onSubmit={handleSubmit(onSubmit)}>
                      <h2 className="login">Zaloguj się</h2>
+                     {message && <Error message={message} />}
                      <TextInput name="login" ref={register} label="Login" placeholder="Wprowadź login" />
                      <TextInput
                         ref={register}
@@ -146,7 +159,6 @@ const Style = styled.div`
 
          .login {
             text-align: center;
-            margin-bottom: 1.5rem;
             font-weight: bolder;
          }
 

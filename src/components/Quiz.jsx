@@ -53,7 +53,7 @@ const Quiz = ({ words = null, times = 0, nextStep = null, setCorrect = null }) =
          return total;
       }, 0);
       if (checkIfEnd === state.words.length && !!state.words.length) nextStep();
-   }, [state]);
+   }, [state]); //eslint-disable-line
 
    const checkAnswer = (answer) => {
       let tempWords,
