@@ -17,7 +17,7 @@ const Step2 = ({ times = null, data = null, nextStep = null }) => {
                <GoBack label="Powrót do lekcji" link={routes.lessons} />
             </div>
             <div className="Top">
-               <CorrectAnswers correct={correct.correct} answers={times + 1} />
+               <CorrectAnswers correct={correct?.correct} answers={times} />
             </div>
             <div className="Title">
                <LessonTitle label="1. Greetings" />

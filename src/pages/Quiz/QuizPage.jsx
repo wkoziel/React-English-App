@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Step1 from './subpages/Step1';
 import Step2 from './subpages/Step2';
@@ -6,6 +6,8 @@ import Step3 from './subpages/Step3';
 import { prepareLearnData } from '../../helpers';
 import { useParams } from 'react-router';
 import { getLessonWords } from '../../api/api';
+import { AnimatePresence } from 'framer-motion';
+import Loading from '../../components/Loading';
 
 const initialState = {
    step: 0,
@@ -31,6 +33,7 @@ const reducer = (state, action) => {
 };
 
 const Quiz = () => {
+   const [isLoading, setIsLoading] = useState(true);
    const [state, dispatch] = useReducer(reducer, initialState);
    const { id } = useParams();
 
@@ -41,6 +44,8 @@ const Quiz = () => {
             if (response.data) dispatch({ type: actions.loadData, payload: response.data });
          } catch (error) {
             console.error(error);
+         } finally {
+            setIsLoading(false);
          }
       };
       fetchData();
@@ -51,7 +56,7 @@ const Quiz = () => {
    };
 
    const submitStep = (data) => {
-      console.log(data);
+      console.log('sumbit', data);
       if (data.selectedLanguage === 0)
          dispatch({
             type: actions.prepareData,
@@ -84,7 +89,7 @@ const Quiz = () => {
    return (
       <>
          <Navbar active={1} />
-         {renderStep(state.step)}
+         {isLoading ? <Loading /> : <AnimatePresence>{renderStep(state.step)}</AnimatePresence>}
       </>
    );
 };

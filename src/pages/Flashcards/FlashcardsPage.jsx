@@ -9,6 +9,7 @@ import Step3 from './subpages/Step3';
 import { useParams } from 'react-router';
 import { getLessonWords } from '../../api/api';
 import { prepareLearnData } from '../../helpers';
+import Loading from '../../components/Loading';
 
 const initialState = {
    step: 0,
@@ -35,6 +36,7 @@ const reducer = (state, action) => {
 
 const FlashcardsPage = () => {
    const [state, dispatch] = useReducer(reducer, initialState);
+   const [isLoading, setIsLoading] = useState(true);
    const { id } = useParams();
 
    useEffect(() => {
@@ -44,6 +46,8 @@ const FlashcardsPage = () => {
             if (response.data) dispatch({ type: actions.loadData, payload: response.data });
          } catch (error) {
             console.error(error);
+         } finally {
+            setIsLoading(false);
          }
       };
       fetchData();
@@ -92,9 +96,7 @@ const FlashcardsPage = () => {
    return (
       <>
          <Navbar active={1} />
-         <AnimatePresence>
-            <motion.div {...transitions.opacity}>{renderStep(state.step)}</motion.div>
-         </AnimatePresence>
+         {isLoading ? <Loading /> : <AnimatePresence>{renderStep(state.step)}</AnimatePresence>}
       </>
    );
 };

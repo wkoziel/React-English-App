@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Step2 from './subpages/Step2';
 import Step1 from './subpages/Step1';
@@ -7,7 +7,7 @@ import { AnimatePresence } from 'framer-motion';
 import { prepareLearnData } from '../../helpers';
 import { getLessonWords } from '../../api/api';
 import { useParams } from 'react-router';
-
+import Loading from '../../components/Loading';
 const initialState = {
    step: 0,
 };
@@ -33,6 +33,7 @@ const reducer = (state, action) => {
 
 const TypingPage = () => {
    const [state, dispatch] = useReducer(reducer, initialState);
+   const [isLoading, setIsLoading] = useState(true);
    const { id } = useParams();
 
    useEffect(() => {
@@ -42,6 +43,8 @@ const TypingPage = () => {
             if (response.data) dispatch({ type: actions.loadData, payload: response.data });
          } catch (error) {
             console.error(error);
+         } finally {
+            setIsLoading(false);
          }
       };
       fetchData();
@@ -88,7 +91,7 @@ const TypingPage = () => {
    return (
       <>
          <Navbar active={1} />
-         <AnimatePresence>{renderStep(state.step)}</AnimatePresence>
+         {isLoading ? <Loading /> : <AnimatePresence>{renderStep(state.step)}</AnimatePresence>}
       </>
    );
 };

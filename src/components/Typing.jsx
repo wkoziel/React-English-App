@@ -28,6 +28,7 @@ const Typing = ({ times = null, words = null, nextStep = null, setCorrect = null
    const [showAnswer, setShowAnswer] = useState(false);
 
    const inputBorderRef = useRef();
+   const inputRef = useRef();
 
    useEffect(() => {
       dispatch({ type: actions.updateState, payload: { words, word: words[0] } });
@@ -36,6 +37,14 @@ const Typing = ({ times = null, words = null, nextStep = null, setCorrect = null
    const onKeyPressHandler = (e) => {
       if (e.code === 'Enter') checkInput();
    };
+
+   useEffect(() => {
+      const checkIfEnd = state.words.reduce((total, item) => {
+         if (item.learned) total += 1;
+         return total;
+      }, 0);
+      if (checkIfEnd === state.words.length && !!state.words.length) nextStep();
+   }, [state]);
 
    const checkInput = () => {
       let tempWords,
@@ -58,22 +67,21 @@ const Typing = ({ times = null, words = null, nextStep = null, setCorrect = null
       }
 
       let nextWord = state.words.find((word) => word.id > state.word.id && state.word.learned === false);
-      if (nextWord === undefined) {
-         nextWord = state.words.find((word) => word.learned === false);
-      }
+      if (nextWord === undefined) nextWord = state.words.find((word) => word.learned === false);
+
       setShowAnswer(true);
       setTimeout(() => {
-         if (nextWord === state.word) {
-            nextStep();
-         } else {
+         if (nextWord === state.wor) nextStep();
+         else {
             dispatch({
                type: actions.updateState,
                payload: { words: tempWords, word: nextWord, good, wrong },
             });
             setInput('');
             setCorrect(nextWord);
-            inputBorderRef.current.style.borderColor = colors.gray1;
+            if (inputBorderRef?.current?.style) inputBorderRef.current.style.borderColor = colors.gray1;
             setShowAnswer(false);
+            if (inputRef?.current?.focus) inputRef.current.focus();
          }
       }, 2000);
    };
@@ -105,6 +113,7 @@ const Typing = ({ times = null, words = null, nextStep = null, setCorrect = null
                value={input}
                onChange={(e) => setInput(e.target.value)}
                onKeyPress={onKeyPressHandler}
+               ref={inputRef}
             />
          </div>
       </Style>
@@ -196,6 +205,10 @@ const Style = styled.div`
 
          &::placeholder {
             color: ${colors.gray};
+         }
+
+         &:disabled {
+            background: none;
          }
       }
    }
