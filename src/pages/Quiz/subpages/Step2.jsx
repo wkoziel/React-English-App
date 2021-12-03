@@ -4,21 +4,23 @@ import LessonTitle from '../../../components/LessonTitle';
 import { routes } from '../../../routes';
 import Quiz from '../../../components/Quiz';
 import CorrectAnswers from '../../../components/CorrectAnswers';
+import { useState } from 'react';
 
 const Step2 = ({ data = null, nextStep = null, times = null }) => {
+   const [correct, setCorrect] = useState(0);
    return (
       <Style className="container page">
          <div className="Back">
             <GoBack label="Powrót do lekcji" link={routes.lessons} />
          </div>
          <div className="Top">
-            <CorrectAnswers correct={0} answers={times} />
+            <CorrectAnswers correct={correct?.correct} answers={times} />
          </div>
          <div className="Title">
             <LessonTitle label="1. Greetings" />
          </div>
          <div className="Main">
-            <Quiz words={data} nextStep={nextStep} times={times} />
+            <Quiz words={data} nextStep={nextStep} times={times} correct={correct} setCorrect={setCorrect} />
          </div>
       </Style>
    );

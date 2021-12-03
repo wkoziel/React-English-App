@@ -24,14 +24,14 @@ const reducer = (state, action) => {
          return new Error('No matching action');
    }
 };
-const Quiz = ({ words = null, times = 0, nextStep = null }) => {
+const Quiz = ({ words = null, times = 0, nextStep = null, setCorrect = null }) => {
    const [state, dispatch] = useReducer(reducer, initialState);
    const [displayedWords, setDisplayedWords] = useState([]);
    const [showAnswers, setShowAnswers] = useState(false);
 
    useEffect(() => {
       dispatch({ type: actions.updateState, payload: { words, word: words[0] } });
-   }, []);
+   }, []); //eslint-disable-line
 
    useEffect(() => {
       if (!!state.words.length) {
@@ -47,6 +47,14 @@ const Quiz = ({ words = null, times = 0, nextStep = null }) => {
       }
    }, [state]);
 
+   useEffect(() => {
+      const checkIfEnd = state.words.reduce((total, item) => {
+         if (item.learned) total += 1;
+         return total;
+      }, 0);
+      if (checkIfEnd === state.words.length && !!state.words.length) nextStep();
+   }, [state]);
+
    const checkAnswer = (answer) => {
       let tempWords,
          good = state.good,
@@ -55,7 +63,7 @@ const Quiz = ({ words = null, times = 0, nextStep = null }) => {
       setShowAnswers(true);
       if (state.word.type === answer) {
          good = good + 1;
-         if (state.word.correct < times)
+         if (state.word.correct + 1 < times)
             tempWords = state.words.map((word) =>
                word.id === state.word.id ? { ...word, correct: word.correct + 1 } : word,
             );
@@ -66,15 +74,15 @@ const Quiz = ({ words = null, times = 0, nextStep = null }) => {
       }
 
       let nextWord = state.words.find((word) => word.id > state.word.id && state.word.learned === false);
-      if (nextWord === undefined) nextWord = state.words.find((word) => word.learned === false);
+      if (nextWord === undefined || nextWord === state.word)
+         nextWord = state.words.find((word) => word.learned === false);
 
       setTimeout(() => {
-         if (nextWord === undefined) nextStep();
-         console.log(nextWord);
          dispatch({
             type: actions.updateState,
             payload: { words: tempWords, word: nextWord, good, wrong },
          });
+         setCorrect(nextWord);
          setShowAnswers(false);
       }, 2000);
    };

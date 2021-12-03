@@ -70,6 +70,7 @@ const Style = styled.div`
          h4 {
             font-weight: normal;
             color: ${colors.gray2};
+            margin: 7px;
 
             span {
                font-weight: bold;

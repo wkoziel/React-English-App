@@ -36,7 +36,7 @@ const Flashcards = ({ words = null, times = 0, nextStep = null, bothSides = null
       let tempWords,
          wordsLearned = stats.wordsLearned,
          wordsLeft = stats.wordsLeft;
-      if (single) ref.current.style.color = colors.white;
+      if (single && ref?.current?.style) ref.current.style.color = colors.white;
       if (isCorrect) {
          if (state.word.correct + 1 < times)
             tempWords = state.words.map((word) =>
@@ -50,13 +50,20 @@ const Flashcards = ({ words = null, times = 0, nextStep = null, bothSides = null
       } else {
          tempWords = state.words;
       }
+
+      const checkIfEnd = state.words.reduce((total, item) => {
+         if (item.learned) total += 1;
+         return total;
+      }, 0);
+      if (checkIfEnd === state.words.length) nextStep();
+
       let nextWord = state.words.find((word) => word.id > state.word.id && state.word.learned === false);
       if (nextWord === undefined) nextWord = state.words.find((word) => word.learned === false);
       if (nextWord === undefined || nextWord === state.word) nextStep();
       else {
          setStats({ ...stats, word: nextWord, wordsLearned, wordsLeft });
          dispatch({ type: actions.updateState, payload: { words: tempWords, word: nextWord } });
-         if (single) setTimeout(() => (ref.current.style.color = colors.black), 1000);
+         if (single && ref?.current?.style) setTimeout(() => (ref.current.style.color = colors.black), 500);
       }
    };
 
@@ -155,7 +162,7 @@ const Style = styled.button`
       left: 0;
 
       backface-visibility: hidden;
-      transition: all 0.5s;
+      transition: all 0.4s;
 
       p {
          position: absolute;
@@ -178,7 +185,6 @@ const Style = styled.button`
       grid-template-columns: auto 1fr auto;
       align-items: center;
       padding: 1rem 5rem;
-      transition: all 0.8;
       color: ${colors.green};
 
       img {

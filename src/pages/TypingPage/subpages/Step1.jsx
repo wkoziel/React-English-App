@@ -10,7 +10,7 @@ import { routes } from '../../../routes';
 import { motion } from 'framer-motion';
 import transitions from '../../../helpers/transitions';
 
-const timesOptions = ['2 razach', '3 razach', '4 razach'];
+const timesOptions = ['1 razie', '2 razach', '3 razach'];
 const languageOptions = ['Polski', 'Angielski'];
 
 const Step1 = ({ onSubmit = null }) => {
