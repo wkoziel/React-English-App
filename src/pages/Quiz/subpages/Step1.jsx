@@ -7,57 +7,58 @@ import image from '../../../assets/quiz.svg';
 import RadioButtons from '../../../components/RadioButtons';
 import Button from '../../../components/Button';
 import { routes } from '../../../routes';
-
-const languageOptions = ['Polski', 'Angielski'];
-const timesOptions = ['1 razie', '2 razach', '3 razach'];
+import { motion } from 'framer-motion';
+import { languageOptions, timesOptions } from '../../../constants/data';
 
 const Step1 = ({ onSubmit = null }) => {
    const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
    const [selectedTimes, setSelectedTimes] = useState(timesOptions[0]);
 
    return (
-      <Style className="container page">
-         <div className="Back">
-            <GoBack label="Powrót do lekcji" link={routes.lessons} />
-         </div>
-         <div className="Top"></div>
-         <div className="Title">
-            <LessonTitle label="1. Greetings" />
-         </div>
-         <div className="Main box">
-            <h1>Rozpocznij naukę z pomocą quizu!</h1>
-            <div className="cols">
-               <img src={image} alt="" />
-               <div className="settings">
-                  <RadioButtons
-                     label="Język pisania:"
-                     options={languageOptions}
-                     selected={selectedLanguage}
-                     onChange={(e) => setSelectedLanguage(e.target.value)}
-                  />
-                  <RadioButtons
-                     label="Zaliczone po:"
-                     options={timesOptions}
-                     selected={selectedTimes}
-                     setSelected={setSelectedTimes}
-                     onChange={(e) => setSelectedTimes(e.target.value)}
+      <motion.div>
+         <Style className="container page">
+            <div className="Back">
+               <GoBack label="Powrót do lekcji" link={routes.lessons} />
+            </div>
+            <div className="Top"></div>
+            <div className="Title">
+               <LessonTitle label="1. Greetings" />
+            </div>
+            <div className="Main box">
+               <h1>Rozpocznij naukę z pomocą quizu!</h1>
+               <div className="cols">
+                  <img src={image} alt="" />
+                  <div className="settings">
+                     <RadioButtons
+                        label="Język pisania:"
+                        options={languageOptions}
+                        selected={selectedLanguage}
+                        onChange={(e) => setSelectedLanguage(e.target.value)}
+                     />
+                     <RadioButtons
+                        label="Zaliczone po:"
+                        options={timesOptions}
+                        selected={selectedTimes}
+                        setSelected={setSelectedTimes}
+                        onChange={(e) => setSelectedTimes(e.target.value)}
+                     />
+                  </div>
+               </div>
+               <div className="Button">
+                  <Button
+                     label="Rozpocznij"
+                     noArrow
+                     onClick={() =>
+                        onSubmit({
+                           selectedTimes: timesOptions.indexOf(selectedTimes),
+                           selectedLanguage: languageOptions.indexOf(selectedLanguage),
+                        })
+                     }
                   />
                </div>
             </div>
-            <div className="Button">
-               <Button
-                  label="Rozpocznij"
-                  noArrow
-                  onClick={() =>
-                     onSubmit({
-                        selectedTimes: timesOptions.indexOf(selectedTimes),
-                        selectedLanguage: languageOptions.indexOf(selectedLanguage),
-                     })
-                  }
-               />
-            </div>
-         </div>
-      </Style>
+         </Style>
+      </motion.div>
    );
 };
 

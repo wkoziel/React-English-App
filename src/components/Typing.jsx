@@ -44,7 +44,7 @@ const Typing = ({ times = null, words = null, nextStep = null, setCorrect = null
          return total;
       }, 0);
       if (checkIfEnd === state.words.length && !!state.words.length) nextStep();
-   }, [state]);
+   }, [state]); //eslint-disable-line
 
    const checkInput = () => {
       let tempWords,

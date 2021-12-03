@@ -9,9 +9,7 @@ import Button from '../../../components/Button';
 import { routes } from '../../../routes';
 import { motion } from 'framer-motion';
 import transitions from '../../../helpers/transitions';
-
-const timesOptions = ['1 razie', '2 razach', '3 razach'];
-const languageOptions = ['Polski', 'Angielski'];
+import { languageOptions, timesOptions } from '../../../constants/data';
 
 const Step1 = ({ onSubmit = null }) => {
    const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);

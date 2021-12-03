@@ -1,8 +1,6 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import React, { useReducer, useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar';
-import { exampleWords } from '../../data/data';
-import transitions from '../../helpers/transitions';
 import Step1 from './subpages/Step1';
 import Step2 from './subpages/Step2';
 import Step3 from './subpages/Step3';

@@ -3,6 +3,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { routes } from './routes';
 import { GlobalStyle } from './style';
 import Loading from './components/Loading';
+import { ContextProvider } from './context/global';
+import AuthWrapper from './components/AuthWrapper';
 
 const HomePage = lazy(() => import('./pages/Home'));
 const SignInPage = lazy(() => import('./pages/SignIn'));
@@ -20,19 +22,23 @@ const App = () => (
    <BrowserRouter>
       <Suspense fallback={<Loading />}>
          <GlobalStyle />
-         <Switch>
-            <Route path={routes.home} component={HomePage} exact />
-            <Route path={routes.signIn} component={SignInPage} />
-            <Route path={routes.signUp} component={SignUpPage} />
-            <Route path={routes.lessons} component={Lessons} />
-            <Route path={routes.repeat} component={Repeat} />
-            <Route path={routes.profile} component={Profile} />
-            <Route path={routes.singleLesson} component={SingleLesson} exact />
-            <Route path={routes.typing} component={Typing} />
-            <Route path={routes.quiz} component={Quiz} />
-            <Route path={routes.flashcards} component={Flashcards} />
-            <Route path="*" component={ErrorPage} />
-         </Switch>
+         <ContextProvider>
+            <Switch>
+               <Route path={routes.home} component={HomePage} exact />
+               <Route path={routes.signIn} component={SignInPage} />
+               <Route path={routes.signUp} component={SignUpPage} />
+               <AuthWrapper>
+                  <Route path={routes.lessons} component={Lessons} />
+                  <Route path={routes.repeat} component={Repeat} />
+                  <Route path={routes.profile} component={Profile} />
+                  <Route path={routes.singleLesson} component={SingleLesson} exact />
+                  <Route path={routes.typing} component={Typing} />
+                  <Route path={routes.quiz} component={Quiz} />
+                  <Route path={routes.flashcards} component={Flashcards} />
+               </AuthWrapper>
+               <Route path="*" component={ErrorPage} />
+            </Switch>
+         </ContextProvider>
       </Suspense>
    </BrowserRouter>
 );

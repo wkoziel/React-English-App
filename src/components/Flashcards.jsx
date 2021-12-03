@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { colors } from '../style';
 import correct from '../assets/correct.svg';
 import wrong from '../assets/wrong-small.svg';
-import { motion } from 'framer-motion';
 
 const initialState = {
    words: [],
