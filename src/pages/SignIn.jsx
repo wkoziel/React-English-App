@@ -80,10 +80,10 @@ const SignIn = () => {
                         type="password"
                      />
                      <div className="flex">
-                        <label>
+                        {/* <label>
                            <input type="checkbox" />
                            Zapamiętaj mnie
-                        </label>
+                        </label> */}
                         <Link to={routes.forgottenPassword}>Zapomniałem hasła</Link>
                      </div>
                      <Button label={clsx(isLoading ? 'Logowanie...' : 'Zaloguj się')} noArrow type="submit" />
@@ -182,7 +182,7 @@ const Style = styled.div`
          }
 
          button {
-            margin-top: 1rem;
+            /* margin-top: 1rem; */
             align-self: center;
             width: 90%;
             background: ${colors.green};
@@ -194,11 +194,12 @@ const Style = styled.div`
 
          .flex {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
-            margin-top: 10px;
+            margin-right: 15px;
             a {
                margin: 0;
+               text-decoration: underline;
             }
          }
       }

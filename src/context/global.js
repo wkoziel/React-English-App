@@ -25,10 +25,10 @@ export const ContextProvider = ({ children }) => {
    };
 
    const logout = () => {
+      history.push(routes.signIn);
       setIsAuth(false);
       setUsername(null);
       window.localStorage.clear();
-      history.push(routes.login);
    };
 
    const values = { logIn, isAuth, username, logout };

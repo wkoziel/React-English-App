@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { routes } from '../routes';
@@ -7,9 +7,11 @@ import { navLinks } from '../constants/data';
 import { useGlobalContext } from '../context/global';
 import LinkBtn from './LinkBtn';
 import MaleAvatar from '../assets/avatar-male.svg';
+import arrowDown from '../assets/arrow-down.svg';
 
 const Navbar = ({ logo = 'Logo', active = null }) => {
-   const { isAuth, logout } = useGlobalContext();
+   const { isAuth, logout, username } = useGlobalContext();
+   const [showDropdown, setShowDropdown] = useState(false);
    return (
       <Style>
          <div className="flex">
@@ -28,8 +30,23 @@ const Navbar = ({ logo = 'Logo', active = null }) => {
          </div>
          {isAuth ? (
             <div className="left">
-               <LinkBtn label="Wyloguj" onClick={() => logout()} />
+               <h5>{username}</h5>
                <img className="avatar" src={MaleAvatar} alt="Ikona użytkownika" />
+               <div className="dropdown">
+                  <button onClick={() => setShowDropdown(!showDropdown)} className="dropbtn">
+                     <img className="arrow" src={arrowDown} alt="" />
+                  </button>
+                  {showDropdown && (
+                     <div className="dropdown-content">
+                        <div className="tip" />
+                        <Link to="#">Mój profil</Link>
+                        <Link to="#">Edytuj profil</Link>
+                        <Link to="#" onClick={() => logout()}>
+                           Wyloguj
+                        </Link>
+                     </div>
+                  )}
+               </div>
             </div>
          ) : (
             <div className="flex">
@@ -69,6 +86,11 @@ const Style = styled.nav`
       display: flex;
       align-items: center;
       gap: 1rem;
+      margin-right: 1.5rem;
+
+      h5 {
+         margin: 0;
+      }
    }
 
    .logo {
@@ -115,6 +137,50 @@ const Style = styled.nav`
       height: 40px;
       width: 40px;
       background: none;
+   }
+
+   .arrow {
+      height: 30px;
+      width: 30px;
+   }
+
+   .dropbtn {
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+   }
+   .dropdown {
+      position: relative;
+      display: inline-block;
+   }
+
+   .dropdown-content {
+      position: absolute;
+      transform: translateX(-50%);
+      left: 15px;
+      top: 50px;
+      background-color: white;
+      min-width: 160px;
+      border-radius: 10px;
+      z-index: 1;
+   }
+
+   .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+   }
+
+   .tip {
+      background: white;
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      top: -10px;
+      right: 75px;
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
    }
 `;
 
