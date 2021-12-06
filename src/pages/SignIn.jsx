@@ -79,10 +79,13 @@ const SignIn = () => {
                         placeholder="Wprowadź hasło"
                         type="password"
                      />
-                     <label>
-                        <input type="checkbox" />
-                        Zapamiętaj mnie
-                     </label>
+                     <div className="flex">
+                        <label>
+                           <input type="checkbox" />
+                           Zapamiętaj mnie
+                        </label>
+                        <Link to={routes.forgottenPassword}>Zapomniałem hasła</Link>
+                     </div>
                      <Button label={clsx(isLoading ? 'Logowanie...' : 'Zaloguj się')} noArrow type="submit" />
                      <Link to={routes.signUp}>
                         Nie masz konta? <strong>Zarejestruj się</strong>
@@ -187,6 +190,16 @@ const Style = styled.div`
             justify-content: center;
             font-family: ${fonts.lato};
             font-size: 0.75rem;
+         }
+
+         .flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            a {
+               margin: 0;
+            }
          }
       }
    }

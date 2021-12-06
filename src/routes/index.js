@@ -10,4 +10,5 @@ export const routes = {
    quiz: '/lesson/:id/quiz',
    flashcards: '/lesson/:id/flashcards',
    emailConfirm: '/emailconfirm',
+   forgottenPassword: '/forgotten-password',
 };

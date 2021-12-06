@@ -18,6 +18,7 @@ const Quiz = lazy(() => import('./pages/Quiz/QuizPage'));
 const Flashcards = lazy(() => import('./pages/Flashcards/FlashcardsPage'));
 const ErrorPage = lazy(() => import('./pages/ErrorPage'));
 const EmailConfirm = lazy(() => import('./pages/EmailConfirm'));
+const ForgottenPassword = lazy(() => import('./pages/ForgottenPassword'));
 
 const App = () => (
    <BrowserRouter>
@@ -29,15 +30,18 @@ const App = () => (
                <Route path={routes.signIn} component={SignInPage} />
                <Route path={routes.signUp} component={SignUpPage} />
                <Route path={routes.emailConfirm} component={EmailConfirm} />
-               <AuthWrapper>
-                  <Route path={routes.lessons} component={Lessons} />
-                  <Route path={routes.repeat} component={Repeat} />
-                  <Route path={routes.profile} component={Profile} />
-                  <Route path={routes.singleLesson} component={SingleLesson} exact />
-                  <Route path={routes.typing} component={Typing} />
-                  <Route path={routes.quiz} component={Quiz} />
-                  <Route path={routes.flashcards} component={Flashcards} />
-               </AuthWrapper>
+               <Route path={routes.forgottenPassword} component={ForgottenPassword} />
+
+               {/* <AuthWrapper> */}
+               <Route path={routes.lessons} component={Lessons} />
+               <Route path={routes.repeat} component={Repeat} />
+               <Route path={routes.profile} component={Profile} />
+               <Route path={routes.singleLesson} component={SingleLesson} exact />
+               <Route path={routes.typing} component={Typing} />
+               <Route path={routes.quiz} component={Quiz} />
+               <Route path={routes.flashcards} component={Flashcards} />
+               {/* </AuthWrapper> */}
+
                <Route path="*" component={ErrorPage} />
             </Switch>
          </ContextProvider>
