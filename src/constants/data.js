@@ -11,6 +11,11 @@ export const loginStatus = {
    noUser: 'Użytkownik nie istnieje',
 };
 
+export const registerStatus = {
+   success: 'Udało się zarejestrować',
+   fail: 'Nie udało się zarejestrować',
+};
+
 export const navLinks = [
    { name: 'Strona główna', route: routes.home },
    { name: 'Lekcje', route: routes.lessons },
