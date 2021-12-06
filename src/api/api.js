@@ -19,3 +19,5 @@ export const getLessonWords = (lessonID) => instance.get(`words/${lessonID}`);
 export const signIn = (data) => instance.post('users/log', data);
 
 export const signUp = (data) => instance.post('users/add', data);
+
+export const activateAccount = (token) => instance.get(`users/confirm/${token}`);

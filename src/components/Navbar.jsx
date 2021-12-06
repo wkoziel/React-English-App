@@ -6,6 +6,7 @@ import { colors, fonts } from '../style';
 import { navLinks } from '../constants/data';
 import { useGlobalContext } from '../context/global';
 import LinkBtn from './LinkBtn';
+import MaleAvatar from '../assets/avatar-male.svg';
 
 const Navbar = ({ logo = 'Logo', active = null }) => {
    const { isAuth, logout } = useGlobalContext();
@@ -27,8 +28,8 @@ const Navbar = ({ logo = 'Logo', active = null }) => {
          </div>
          {isAuth ? (
             <div className="left">
-               <div className="user" />
                <LinkBtn label="Wyloguj" onClick={() => logout()} />
+               <img className="avatar" src={MaleAvatar} alt="Ikona użytkownika" />
             </div>
          ) : (
             <div className="flex">
@@ -110,11 +111,10 @@ const Style = styled.nav`
       }
    }
 
-   .user {
-      background: ${colors.white};
-      border-radius: 50%;
+   .avatar {
       height: 40px;
       width: 40px;
+      background: none;
    }
 `;
 

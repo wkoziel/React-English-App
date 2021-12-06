@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import TextInput from '../components/TextInput';
@@ -14,8 +14,17 @@ import { useForm } from 'react-hook-form';
 import { AnimatePresence, motion } from 'framer-motion';
 import transitions from '../helpers/transitions';
 import { signUp } from '../api/api';
+import clsx from 'clsx';
+import Error from '../components/Error';
+import { registerStatus } from '../constants/data';
+import { useHistory } from 'react-router';
 
 const SignUp = () => {
+   const [isLoading, setIsLoading] = useState(false);
+   const [message, setMessage] = useState('');
+
+   const history = useHistory();
+
    const schema = yup.object().shape({
       login: yup.string().required('Podaj swój login'),
       password: yup.string().required('Podaj swoje hasło'),
@@ -28,11 +37,22 @@ const SignUp = () => {
    const onSubmit = async (data) => {
       try {
          if (data.password === data.repeatpassword) {
+            setIsLoading(true);
             const response = await signUp(data);
-            console.log(response.data);
+            if (response.data.status) {
+               const { status } = response.data;
+               if (status === registerStatus.success) {
+                  alert('Aktywuj swoje konto z użyciem maila.');
+                  history.push(routes.signIn);
+               } else setMessage(status);
+            }
+         } else {
+            setMessage('Hasła nie są takie same');
          }
       } catch (error) {
          console.error(error);
+      } finally {
+         setIsLoading(false);
       }
    };
 
@@ -54,6 +74,7 @@ const SignUp = () => {
                <motion.div key="2-frame" {...transitions.opacity} className="right-side">
                   <form onSubmit={handleSubmit(onSubmit)}>
                      <h2 className="login">Dołącz do nas!</h2>
+                     {message && <Error message={message} />}
                      <TextInput label="Login" placeholder="user123" ref={register} name="login" />
                      <TextInput label="Email" placeholder="user@gmail.com" type="email" ref={register} name="mail" />
                      <TextInput label="Hasło" placeholder="********" type="password" ref={register} name="password" />
@@ -64,7 +85,7 @@ const SignUp = () => {
                         ref={register}
                         name="repeatpassword"
                      />
-                     <Button label="Zarejestruj się" noArrow type="submit" />
+                     <Button label={clsx(isLoading ? 'Rejestracja...' : 'Zarejestruj się')} noArrow type="submit" />
                      <Link to={routes.signIn}>
                         Masz już konto? <strong>Zaloguj się</strong>
                      </Link>

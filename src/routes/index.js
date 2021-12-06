@@ -9,4 +9,5 @@ export const routes = {
    typing: '/lesson/:id/typing',
    quiz: '/lesson/:id/quiz',
    flashcards: '/lesson/:id/flashcards',
+   emailConfirm: '/emailconfirm',
 };

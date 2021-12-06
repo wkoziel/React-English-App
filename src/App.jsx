@@ -17,6 +17,7 @@ const Typing = lazy(() => import('./pages/TypingPage/TypingPage'));
 const Quiz = lazy(() => import('./pages/Quiz/QuizPage'));
 const Flashcards = lazy(() => import('./pages/Flashcards/FlashcardsPage'));
 const ErrorPage = lazy(() => import('./pages/ErrorPage'));
+const EmailConfirm = lazy(() => import('./pages/EmailConfirm'));
 
 const App = () => (
    <BrowserRouter>
@@ -27,6 +28,7 @@ const App = () => (
                <Route path={routes.home} component={HomePage} exact />
                <Route path={routes.signIn} component={SignInPage} />
                <Route path={routes.signUp} component={SignUpPage} />
+               <Route path={routes.emailConfirm} component={EmailConfirm} />
                <AuthWrapper>
                   <Route path={routes.lessons} component={Lessons} />
                   <Route path={routes.repeat} component={Repeat} />

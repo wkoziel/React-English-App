@@ -19,9 +19,11 @@ import { loginStatus } from '../constants/data';
 import Error from '../components/Error';
 import { useState } from 'react';
 import { Redirect } from 'react-router';
+import clsx from 'clsx';
 
 const SignIn = () => {
    const { logIn, isAuth } = useGlobalContext();
+   const [isLoading, setIsLoading] = useState(false);
    const [message, setMessage] = useState('');
 
    const schema = yup.object().shape({
@@ -35,6 +37,7 @@ const SignIn = () => {
 
    const onSubmit = async (data) => {
       try {
+         setIsLoading(true);
          const response = await signIn(data);
          if (response.data.status) {
             const { status } = response.data;
@@ -43,6 +46,8 @@ const SignIn = () => {
          }
       } catch (error) {
          console.error(error);
+      } finally {
+         setIsLoading(false);
       }
    };
 
@@ -78,7 +83,7 @@ const SignIn = () => {
                         <input type="checkbox" />
                         Zapamiętaj mnie
                      </label>
-                     <Button label="Zaloguj się" noArrow type="submit" />
+                     <Button label={clsx(isLoading ? 'Logowanie...' : 'Zaloguj się')} noArrow type="submit" />
                      <Link to={routes.signUp}>
                         Nie masz konta? <strong>Zarejestruj się</strong>
                      </Link>
