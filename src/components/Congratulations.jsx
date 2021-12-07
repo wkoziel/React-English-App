@@ -5,21 +5,36 @@ import Button from './Button';
 import { colors } from '../style';
 import { useHistory, useLocation } from 'react-router';
 
-const Congratulations = () => {
+const Congratulations = ({ test = false, correct = null, total = null, percentage = null }) => {
    const loc = useLocation();
    const history = useHistory();
    return (
       <Style>
          <div className="circle">
-            <h1 className="text-3">100%</h1>
+            <h1 className="text-3">{test ? percentage : 100}%</h1>
          </div>
-         <div className="grid white-box">
-            <div>
+         {test ? (
+            <div className="stats-box white-box">
                <h1>Gratulacje!</h1>
-               <h4>Udało ci się zakończyć naukę!</h4>
+               <div className="stats">
+                  <h2 className="green">{correct}</h2>
+                  <p>Poprawnych odpowiedzi</p>
+                  <h2 className="red">{total - correct}</h2>
+                  <p>Błędnych odpowiedzi</p>
+                  <h2 className="purple">{total}</h2>
+                  <p>Wszystkich słówek</p>
+               </div>
             </div>
-            <img src={image} alt="Kobieta" />
-         </div>
+         ) : (
+            <div className="grid white-box">
+               <div>
+                  <h1>Gratulacje!</h1>
+                  <h4>Udało ci się zakończyć naukę!</h4>
+               </div>
+               <img src={image} alt="Kobieta" />
+            </div>
+         )}
+
          <div className="buttons">
             <Button label="Powtórz naukę!" noArrow onClick={() => history.go(loc.pathname)} />
             <Button label="Powrót do lekcji" noArrow onClick={() => history.goBack()} />
@@ -78,6 +93,31 @@ const Style = styled.div`
    button:last-child {
       background-color: ${colors.green};
       color: ${colors.white};
+   }
+
+   .stats-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 7rem;
+      height: 60vh;
+      gap: 2rem;
+      h1 {
+         font-size: 5.5rem;
+      }
+   }
+   .stats {
+      display: grid;
+      align-items: center;
+      grid-template-columns: auto 150px auto 150px auto 150px;
+
+      h2 {
+         font-size: 3.5rem;
+      }
+      p {
+         margin: 0;
+      }
    }
 `;
 export default Congratulations;

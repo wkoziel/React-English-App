@@ -7,7 +7,7 @@ const AuthWrapper = ({ children, ...rest }) => {
       <Route
          {...rest}
          render={() => {
-            return isAuth ? children : <Redirect to={routes.login} />;
+            return isAuth ? children : <Redirect to={routes.signIn} />;
          }}
       ></Route>
    );

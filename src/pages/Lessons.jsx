@@ -5,20 +5,27 @@ import Button from '../components/Button';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import arrow from '../assets/arrow-green.svg';
-import { getAllLessons } from '../api/api';
+import { getAllLessons, getUserLessons } from '../api/api';
 import Loading from '../components/Loading';
 import { AnimatePresence, motion } from 'framer-motion';
 import transitions from '../helpers/transitions';
+import { useGlobalContext } from '../context/global';
 
 const Lessons = () => {
    const [isLoading, setIsLoading] = useState(true);
    const [allLessons, setAllLessons] = useState([]);
+   const [userLessons, setUserLessons] = useState([]);
+
+   const { username } = useGlobalContext();
 
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await getAllLessons();
-            if (response.data) setAllLessons(response.data);
+            const [responseAll, responseUser] = await Promise.all([getAllLessons(), getUserLessons(username)]);
+            if (responseAll.data && responseUser.data) {
+               setAllLessons(responseAll.data);
+               setUserLessons(responseUser.data);
+            }
          } catch (error) {
             console.error(error);
          } finally {
@@ -26,7 +33,9 @@ const Lessons = () => {
          }
       };
       fetchData();
-   }, []);
+   }, []); //eslint-disable-line
+
+   const getLessonPercents = (id) => userLessons.find((l) => l.lesson_id === id)?.percentage;
 
    return (
       <>
@@ -66,7 +75,8 @@ const Lessons = () => {
                                     <h3 className="no-margin">{l.lesson_name}</h3>
                                     <h5 className="no-margin">{l.words_count} pojęć</h5>
                                  </div>
-                                 <h3 className="end">100%</h3> {/*Kolumna z procentami*/}
+                                 <h3 className="end">{getLessonPercents(l.lesson_id) || '0'}%</h3>
+                                 {/*Kolumna z procentami*/}
                                  <img className="end" src={arrow} alt="Arrow right" />
                               </div>
                            </Link>

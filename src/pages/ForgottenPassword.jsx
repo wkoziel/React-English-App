@@ -54,7 +54,7 @@ const ForgottenPassword = () => {
                {message && <Error message={message} />}
                <TextInput name="mail" ref={register} label="Email" placeholder="Wprowadź Email" />
                <Button label={clsx(isLoading ? 'Wysyłanie...' : 'Wyślij')} noArrow type="submit" />
-               <Link to={routes.signUp}>
+               <Link to={routes.signIn}>
                   Wróć do <strong>logowania</strong>
                </Link>
             </form>

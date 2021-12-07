@@ -7,10 +7,10 @@ import image from '../../../assets/flashcards.svg';
 import RadioButtons from '../../../components/RadioButtons';
 import Button from '../../../components/Button';
 import { routes } from '../../../routes';
-import { languageOptions, timesOptions } from '../../../constants/data';
+import { languageOptionsFlashcards, timesOptions } from '../../../constants/data';
 
 const Step1 = ({ onSubmit = null }) => {
-   const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
+   const [selectedLanguage, setSelectedLanguage] = useState(languageOptionsFlashcards[0]);
    const [selectedTimes, setSelectedTimes] = useState(timesOptions[0]);
 
    return (
@@ -29,7 +29,7 @@ const Step1 = ({ onSubmit = null }) => {
                <div className="settings">
                   <RadioButtons
                      label="Pierwszy język:"
-                     options={languageOptions}
+                     options={languageOptionsFlashcards}
                      selected={selectedLanguage}
                      onChange={(e) => setSelectedLanguage(e.target.value)}
                   />
@@ -47,7 +47,7 @@ const Step1 = ({ onSubmit = null }) => {
                onClick={() =>
                   onSubmit({
                      selectedTimes: timesOptions.indexOf(selectedTimes),
-                     selectedLanguage: languageOptions.indexOf(selectedLanguage),
+                     selectedLanguage: languageOptionsFlashcards.indexOf(selectedLanguage),
                   })
                }
             />
