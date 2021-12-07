@@ -92,7 +92,7 @@ const SingleLesson = () => {
                               <Button
                                  label="Rozpocznij test"
                                  whiteArrow
-                                 onClick={() => history.push(location.pathname + '/typing')}
+                                 onClick={() => history.push(location.pathname + '/test')}
                                  styles={{ width: '100%' }}
                               />
                            </div>

@@ -1,6 +1,7 @@
 import { routes } from '../routes';
 
 export const languageOptions = ['Polski', 'Angielski'];
+export const languageOptionsFlashcards = ['Polski', 'Angielski', 'Oba'];
 
 export const timesOptions = ['1 razie', '2 razach', '3 razach'];
 

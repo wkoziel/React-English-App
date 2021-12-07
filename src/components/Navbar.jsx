@@ -5,7 +5,6 @@ import { routes } from '../routes';
 import { colors, fonts } from '../style';
 import { navLinks } from '../constants/data';
 import { useGlobalContext } from '../context/global';
-import LinkBtn from './LinkBtn';
 import MaleAvatar from '../assets/avatar-male.svg';
 import arrowDown from '../assets/arrow-down.svg';
 
