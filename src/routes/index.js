@@ -12,4 +12,5 @@ export const routes = {
    test: '/lesson/:id/test',
    emailConfirm: '/emailconfirm',
    forgottenPassword: '/forgotten-password',
+   sendNewPassword: '/reset_password',
 };

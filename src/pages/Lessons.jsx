@@ -23,6 +23,9 @@ const Lessons = () => {
          try {
             const [responseAll, responseUser] = await Promise.all([getAllLessons(), getUserLessons(username)]);
             if (responseAll.data && responseUser.data) {
+               //FIXME: Usuń
+               console.log('All lessons response: ', responseAll.data);
+               console.log('User lessons response: ', responseUser.data);
                setAllLessons(responseAll.data);
                setUserLessons(responseUser.data);
             }

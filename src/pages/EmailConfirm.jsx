@@ -23,7 +23,7 @@ const EmailConfirm = () => {
          }
       };
       sendToken();
-   }, []);
+   }, []); //eslint-disable-line
    return <Loading />;
 };
 

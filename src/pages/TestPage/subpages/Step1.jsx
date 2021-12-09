@@ -4,17 +4,12 @@ import GoBack from '../../../components/GoBack';
 import LessonTitle from '../../../components/LessonTitle';
 import { colors } from '../../../style';
 import Test from '../../../assets/test.svg';
-import RadioButtons from '../../../components/RadioButtons';
 import Button from '../../../components/Button';
 import { routes } from '../../../routes';
 import { motion } from 'framer-motion';
 import transitions from '../../../helpers/transitions';
-import { languageOptions, timesOptions } from '../../../constants/data';
 
 const Step1 = ({ onSubmit = null }) => {
-   const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
-   const [selectedTimes, setSelectedTimes] = useState(timesOptions[0]);
-
    return (
       <motion.div {...transitions.opacity} key="typing-1">
          <Style className="container page">
@@ -40,16 +35,7 @@ const Step1 = ({ onSubmit = null }) => {
                      </p>
                   </div>
                </div>
-               <Button
-                  label="Rozpocznij"
-                  noArrow
-                  onClick={() =>
-                     onSubmit({
-                        selectedTimes: timesOptions.indexOf(selectedTimes),
-                        selectedLanguage: languageOptions.indexOf(selectedLanguage),
-                     })
-                  }
-               />
+               <Button label="Rozpocznij" noArrow onClick={() => onSubmit()} />
             </div>
          </Style>
       </motion.div>

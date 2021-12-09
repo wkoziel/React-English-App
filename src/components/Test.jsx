@@ -21,7 +21,7 @@ const reducer = (state, action) => {
    }
 };
 
-const Typing = ({ times = null, words = null, submitTest = null, setCorrect = null }) => {
+const Typing = ({ words = null, submitTest = null }) => {
    const [state, dispatch] = useReducer(reducer, initialState);
    const [input, setInput] = useState('');
    const [correctAnswers, setCorrectAnswers] = useState(0);

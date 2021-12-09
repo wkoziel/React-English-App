@@ -53,28 +53,29 @@ const TestPage = () => {
       fetchData();
    }, []); //eslint-disable-line
 
-   useEffect(() => {
-      if (state.step === 3) console.log('zaskończono test');
-   }, [state.step]);
-
    const submitStep = (data) => {
       dispatch({
          type: actions.prepareData,
          payload: {
             data: prepareLearnData(state.data, false),
-            selectedTimes: data.selectedTimes + 1,
-            selectedLanguage: data.selectedLanguage,
+            selectedTimes: 1,
+            selectedLanguage: 1,
          },
       });
    };
 
    const submitTest = async (data) => {
       const percentage = Math.round((data.correctAnswers / data.total) * 100, 0);
-      console.log(percentage, '%');
       try {
+         //FIXME: Usuń
+         console.log('Test submit data:', { login: username, percentage, lesson_id: id });
          const response = await testCompleted({ login: username, percentage, lesson_id: id });
-         setStats({ ...data, percentage });
-         dispatch({ type: actions.nextStep });
+         if (response.data) {
+            //FIXME: Usuń
+            console.log('Testu submit resposne:', response.data);
+            setStats({ ...data, percentage });
+            dispatch({ type: actions.nextStep });
+         }
       } catch (error) {
          console.log(error);
       }
