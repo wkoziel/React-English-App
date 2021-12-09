@@ -20,6 +20,7 @@ const ErrorPage = lazy(() => import('./pages/ErrorPage'));
 const EmailConfirm = lazy(() => import('./pages/EmailConfirm'));
 const ForgottenPassword = lazy(() => import('./pages/ForgottenPassword'));
 const Test = lazy(() => import('./pages/TestPage/TestPage'));
+const SendNewPassword = lazy(() => import('./pages/NewPassword'));
 
 const App = () => (
    <BrowserRouter>
@@ -32,6 +33,7 @@ const App = () => (
                <Route path={routes.signUp} component={SignUpPage} />
                <Route path={routes.emailConfirm} component={EmailConfirm} />
                <Route path={routes.forgottenPassword} component={ForgottenPassword} />
+               <Route path={routes.sendNewPassword} component={SendNewPassword} />
 
                <AuthWrapper>
                   <Route path={routes.lessons} component={Lessons} />

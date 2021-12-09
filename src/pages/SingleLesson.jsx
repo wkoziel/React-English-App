@@ -32,7 +32,7 @@ const SingleLesson = () => {
          }
       };
       fetchData();
-   }, []);
+   }, []); //eslint-disable-line
 
    return (
       <>

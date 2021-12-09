@@ -7,7 +7,6 @@ import transitions from '../../../helpers/transitions';
 import { routes } from '../../../routes';
 
 const Step3 = ({ data = null }) => {
-   console.log(data);
    return (
       <motion.div {...transitions.opacity} key="typing-3">
          <Style>
