@@ -10,6 +10,8 @@ const instance = axios.create({
    },
 });
 
+export const getLessonSiteData = (login) => instance.get(`userslessonssite/${login}`);
+
 export const getUserLessons = (login) => instance.get(`userslessons/${login}`);
 
 export const getAllLessons = () => instance.get('lessons/getall');

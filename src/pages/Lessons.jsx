@@ -3,31 +3,36 @@ import Navbar from '../components/Navbar';
 import image from '../assets/lessons.svg';
 import Button from '../components/Button';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import arrow from '../assets/arrow-green.svg';
-import { getAllLessons, getUserLessons } from '../api/api';
+import { getLessonSiteData } from '../api/api';
 import Loading from '../components/Loading';
 import { AnimatePresence, motion } from 'framer-motion';
 import transitions from '../helpers/transitions';
 import { useGlobalContext } from '../context/global';
+import { routes } from '../routes';
 
 const Lessons = () => {
    const [isLoading, setIsLoading] = useState(true);
    const [allLessons, setAllLessons] = useState([]);
    const [userLessons, setUserLessons] = useState([]);
+   const [dailyGoal, setDailyGoal] = useState(0);
+   const [lastLesson, setLastLesson] = useState({});
 
    const { username } = useGlobalContext();
+   const history = useHistory();
 
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const [responseAll, responseUser] = await Promise.all([getAllLessons(), getUserLessons(username)]);
-            if (responseAll.data && responseUser.data) {
+            const response = await getLessonSiteData(username);
+            if (response.data) {
                //FIXME: Usuń
-               console.log('All lessons response: ', responseAll.data);
-               console.log('User lessons response: ', responseUser.data);
-               setAllLessons(responseAll.data);
-               setUserLessons(responseUser.data);
+               console.log('Lesson site data: ', response.data);
+               setAllLessons(response.data.all_lessons);
+               setUserLessons(response.data.all_users_lessons);
+               setDailyGoal(response.data.words_to_learn);
+               setLastLesson(response.data.last_lesson);
             }
          } catch (error) {
             console.error(error);
@@ -52,17 +57,20 @@ const Lessons = () => {
                      <h2>Osiągnij swój wyznaczony cel!</h2>
                      <img className="right woman-img" src={image} alt="Kobieta z notatkami" />
                      <h3>
-                        Pozostało <span className="green">25</span> słówek do opanowania
+                        Pozostało <span className="green">{dailyGoal}</span> słówek do opanowania
                      </h3>
                   </motion.div>
 
                   <motion.div key="2-frame" {...transitions.opacity} className="small-box box">
                      <h2>Kontynuuj naukę</h2>
                      <div className="right circle">
-                        <h1 className="procent">25%</h1>
+                        <h1 className="procent">{lastLesson.percentage}%</h1>
                      </div>
                      <div className="bottom button">
-                        <Button label="Lekcja 24" />
+                        <Button
+                           label={`Lekcja ${lastLesson.lesson_id + 1}`}
+                           onClick={() => history.push(routes.singleLesson.replace(':id', lastLesson.lesson_id))}
+                        />
                      </div>
                   </motion.div>
 

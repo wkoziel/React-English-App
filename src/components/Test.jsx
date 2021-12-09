@@ -21,11 +21,12 @@ const reducer = (state, action) => {
    }
 };
 
-const Typing = ({ words = null, submitTest = null }) => {
+const Typing = ({ words = null, submitTest = null, defaultTime = 10 }) => {
    const [state, dispatch] = useReducer(reducer, initialState);
    const [input, setInput] = useState('');
    const [correctAnswers, setCorrectAnswers] = useState(0);
    const [index, setIndex] = useState(1);
+   const [time, setTime] = useState(defaultTime);
 
    const inputRef = useRef();
 
@@ -38,6 +39,15 @@ const Typing = ({ words = null, submitTest = null }) => {
       if (e.code === 'Enter') checkInput();
    };
 
+   useEffect(() => {
+      if (time < 1) {
+         checkInput();
+         setTime(defaultTime);
+      }
+      const timer = time > 0 && setInterval(() => setTime(time - 1), 1000);
+      return () => clearInterval(timer);
+   }, [time]); //eslint-disable-line
+
    const checkInput = () => {
       if (input.toLowerCase() === state.word.type) setCorrectAnswers(correctAnswers + 1);
       if (state.words[index])
@@ -48,11 +58,15 @@ const Typing = ({ words = null, submitTest = null }) => {
 
       if (index === state.words.length) submitTest({ correctAnswers, total: state.words.length });
       else setIndex(index + 1);
+      setTime(defaultTime);
       setInput('');
    };
 
    return (
       <Style>
+         <div className="circle">
+            <h1>{time}s</h1>
+         </div>
          <div className="Good" />
          <div className="Wrong" />
          <div className="Word">
@@ -163,6 +177,22 @@ const Style = styled.div`
             background: none;
          }
       }
+   }
+
+   .circle {
+      position: absolute;
+      background-color: ${colors.white};
+      border: 1rem solid ${colors.green};
+      width: 150px;
+      height: 150px;
+      left: 50%;
+      top: 5%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: ${colors.green};
    }
 `;
 

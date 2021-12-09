@@ -24,6 +24,7 @@ const NewPassword = () => {
    const history = useHistory();
 
    const schema = yup.object().shape({
+      mail: yup.string().required('Podaj swój adres email'),
       password1: yup.string().required('Podaj nowe hasło'),
       password2: yup.string().required('Podaj nowe hasło'),
    });
@@ -36,7 +37,8 @@ const NewPassword = () => {
       if (data.password1 === data.password2) {
          try {
             setIsLoading(true);
-            const response = await sendNewPassword(token);
+            const { mail, password1 } = data;
+            const response = await sendNewPassword(token, { mail, password: password1 });
             if (response.data) alert(response.data.status);
          } catch (error) {
             console.log(error);
@@ -56,6 +58,7 @@ const NewPassword = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                <h2 className="login">Zresetuj hasło</h2>
                {message && <Error message={message} />}
+               <TextInput name="mail" ref={register} label="Email" placeholder="Wprowadź Email" />
                <TextInput type="password" name="password1" ref={register} label="Hasło" placeholder="Wprowadź hasło" />
                <TextInput
                   type="password"
