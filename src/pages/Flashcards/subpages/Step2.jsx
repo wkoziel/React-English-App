@@ -30,7 +30,7 @@ const Step2 = ({ data = null, nextStep = null, bothSides = null, times = null })
             </div>
          </div>
          <div className="Title">
-            <LessonTitle label="1. Greetings" />
+            <LessonTitle label="Fiszki" />
          </div>
          <motion.div {...transitions.opacity} className="Main">
             <Flashcards

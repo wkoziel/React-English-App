@@ -18,7 +18,7 @@ const Step1 = ({ onSubmit = null }) => {
             </div>
             <div className="Top"></div>
             <div className="Title">
-               <LessonTitle label="1. Greetings" />
+               <LessonTitle label="Witaj w teście!" />
             </div>
             <div className="Main box">
                <h1>Witaj w teście z lekcji!</h1>

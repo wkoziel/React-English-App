@@ -73,7 +73,7 @@ export const GlobalStyle = createGlobalStyle`
 
    .circle {
       border-radius: 50%;
-      border: 0.4rem solid ${colors.green};
+      border: 1rem solid ${colors.green};
       height: 12rem;
       width: 12rem;
       display: flex;

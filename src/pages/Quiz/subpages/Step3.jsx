@@ -15,7 +15,7 @@ const Step3 = () => {
             </div>
             <div className="Top" />
             <div className="Title">
-               <LessonTitle label="1. Greetings" />
+               <LessonTitle label="Quiz" />
             </div>
             <motion.div {...transitions.opacity} className="Main">
                <Congratulations />

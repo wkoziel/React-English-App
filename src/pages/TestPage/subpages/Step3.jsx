@@ -15,7 +15,7 @@ const Step3 = ({ data = null }) => {
                   <GoBack label="Powrót do lekcji" link={routes.lessons} />
                </div>
                <div className="Title">
-                  <LessonTitle label="1. Greetings" />
+                  <LessonTitle label="Test" />
                </div>
                <div className="Top"></div>
                <div className="Main">

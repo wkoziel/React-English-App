@@ -9,22 +9,31 @@ import { colors } from '../style';
 import bird from '../assets/bird.svg';
 import Button from '../components/Button';
 import Loading from '../components/Loading';
-import { getLessonData } from '../api/api';
+import { getLessonData, getUserLessons } from '../api/api';
 import { AnimatePresence, motion } from 'framer-motion';
 import transitions from '../helpers/transitions';
+import { useGlobalContext } from '../context/global';
 
 const SingleLesson = () => {
    const [isLoading, setIsLoading] = useState(true);
+   const [percentage, setPercentage] = useState(0);
    const [lesson, setLesson] = useState({});
    const { id } = useParams();
    const history = useHistory();
    const location = useLocation();
+   const { username } = useGlobalContext();
 
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await getLessonData(id);
-            if (response.data) setLesson(response.data);
+            const [resLesson, resUser] = await Promise.all([getLessonData(id), getUserLessons(username)]);
+            if (resLesson.data && resUser.data) {
+               setLesson(resLesson.data);
+               const perc = resUser.data.find((l) => l.lesson_id === Number.parseInt(id, 10));
+               console.log(perc);
+               console.log(resUser.data);
+               if (perc) setPercentage(perc.percentage);
+            }
          } catch (error) {
             console.error(error);
          } finally {
@@ -38,12 +47,12 @@ const SingleLesson = () => {
       <>
          <Navbar active={1} />
          <AnimatePresence>
-            <motion.div {...transitions.opacity}>
-               <Style className="container page">
-                  {isLoading ? (
-                     <Loading />
-                  ) : (
-                     <>
+            {isLoading ? (
+               <Loading />
+            ) : (
+               <>
+                  <motion.div key="singlelesson" {...transitions.opacity}>
+                     <Style className="container page">
                         <div className="side">
                            <GoBack label=" Powrót do lekcji" link={routes.lessons} />
                         </div>
@@ -54,7 +63,7 @@ const SingleLesson = () => {
                            </div>
                            <div className="text">
                               {/* TODO: Procenty z API */}
-                              <h2 className="purple">15%</h2>
+                              <h2 className="purple">{percentage}%</h2>
                               <h4>Poziom opanowania</h4>
                            </div>
                         </div>
@@ -97,10 +106,10 @@ const SingleLesson = () => {
                               />
                            </div>
                         </div>
-                     </>
-                  )}
-               </Style>
-            </motion.div>
+                     </Style>
+                  </motion.div>
+               </>
+            )}
          </AnimatePresence>
       </>
    );
