@@ -33,3 +33,5 @@ export const sendNewPassword = (token, data) => instance.post(`/users/reset_pass
 export const testCompleted = (data) => instance.post('userslessons/add', data);
 
 export const addLearnedWords = (data) => instance.post('userswords/add', data);
+
+export const getUser = (login) => instance.get(`users/${login}`);

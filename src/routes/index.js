@@ -13,4 +13,5 @@ export const routes = {
    emailConfirm: '/emailconfirm',
    forgottenPassword: '/forgotten-password',
    sendNewPassword: '/reset_password',
+   editProfile: '/edit-profile',
 };
