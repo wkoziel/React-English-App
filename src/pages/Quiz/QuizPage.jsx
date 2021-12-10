@@ -5,9 +5,10 @@ import Step2 from './subpages/Step2';
 import Step3 from './subpages/Step3';
 import { prepareLearnData } from '../../helpers';
 import { useParams } from 'react-router';
-import { getLessonWords } from '../../api/api';
+import { getLessonWords, addLearnedWords } from '../../api/api';
 import { AnimatePresence } from 'framer-motion';
 import Loading from '../../components/Loading';
+import { useGlobalContext } from '../../context/global';
 
 const initialState = {
    step: 0,
@@ -36,6 +37,7 @@ const Quiz = () => {
    const [isLoading, setIsLoading] = useState(true);
    const [state, dispatch] = useReducer(reducer, initialState);
    const { id } = useParams();
+   const { username } = useGlobalContext();
 
    useEffect(() => {
       const fetchData = async () => {
@@ -51,16 +53,31 @@ const Quiz = () => {
       fetchData();
    }, []); //eslint-disable-line
 
+   useEffect(() => {
+      const submitWords = async () => {
+         try {
+            const response = await addLearnedWords({ login: username, word_ids: state.wordIDs });
+            // FIXME: Do usunięcia
+            console.log(response.data);
+         } catch (error) {
+            console.log(error);
+         }
+      };
+      if (state.step === 2) submitWords();
+   }, [state.step]); //eslint-disable-line
+
    const nextStep = () => {
       dispatch({ type: actions.nextStep });
    };
 
    const submitStep = (data) => {
+      //FIXME: Do usuniecia
       console.log('sumbit', data);
+      const wordIDs = state.data.map((w) => w.word_id);
       if (data.selectedLanguage === 0)
          dispatch({
             type: actions.prepareData,
-            payload: { data: prepareLearnData(state.data, true), selectedTimes: data.selectedTimes + 1 },
+            payload: { data: prepareLearnData(state.data, true), selectedTimes: data.selectedTimes + 1, wordIDs },
          });
       else
          dispatch({
@@ -69,6 +86,7 @@ const Quiz = () => {
                data: prepareLearnData(state.data, false),
                selectedTimes: data.selectedTimes + 1,
                selectedLanguage: data.selectedLanguage,
+               wordIDs,
             },
          });
    };

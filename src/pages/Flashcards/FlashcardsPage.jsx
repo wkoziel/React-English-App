@@ -5,9 +5,10 @@ import Step1 from './subpages/Step1';
 import Step2 from './subpages/Step2';
 import Step3 from './subpages/Step3';
 import { useParams } from 'react-router';
-import { getLessonWords } from '../../api/api';
+import { addLearnedWords, getLessonWords } from '../../api/api';
 import { prepareLearnData } from '../../helpers';
 import Loading from '../../components/Loading';
+import { useGlobalContext } from '../../context/global';
 
 const initialState = {
    step: 0,
@@ -27,6 +28,7 @@ const reducer = (state, action) => {
          return { ...state, data: action.payload };
       case actions.prepareData:
          return { ...state, ...action.payload, step: state.step + 1 };
+
       default:
          throw Error('No matching action');
    }
@@ -36,6 +38,7 @@ const FlashcardsPage = () => {
    const [state, dispatch] = useReducer(reducer, initialState);
    const [isLoading, setIsLoading] = useState(true);
    const { id } = useParams();
+   const { username } = useGlobalContext();
 
    useEffect(() => {
       const fetchData = async () => {
@@ -51,14 +54,28 @@ const FlashcardsPage = () => {
       fetchData();
    }, []); //eslint-disable-line
 
+   useEffect(() => {
+      const submitWords = async () => {
+         try {
+            const response = await addLearnedWords({ login: username, word_ids: state.wordIDs });
+            // FIXME: Do usunięcia
+            console.log(response.data);
+         } catch (error) {
+            console.log(error);
+         }
+      };
+      if (state.step === 2) submitWords();
+   }, [state.step]); //eslint-disable-line
+
    const nextStep = () => dispatch({ type: actions.nextStep });
 
    const submitStep = (data) => {
       console.log(data);
+      const wordIDs = state.data.map((w) => w.word_id);
       if (data.selectedLanguage === 0)
          dispatch({
             type: actions.prepareData,
-            payload: { data: prepareLearnData(state.data, true), selectedTimes: data.selectedTimes + 1 },
+            payload: { data: prepareLearnData(state.data, true), selectedTimes: data.selectedTimes + 1, wordIDs },
          });
       else
          dispatch({
@@ -67,6 +84,7 @@ const FlashcardsPage = () => {
                data: prepareLearnData(state.data, false),
                selectedTimes: data.selectedTimes + 1,
                selectedLanguage: data.selectedLanguage,
+               wordIDs,
             },
          });
    };
