@@ -28,6 +28,10 @@ export const activateAccount = (token) => instance.get(`users/confirm/${token}`)
 
 export const remindPassword = (data) => instance.post('users/reset_password_mail', data);
 
-export const sendNewPassword = (token, data) => instance.post(`/reset_password?${token}`, data);
+export const sendNewPassword = (token, data) => instance.post(`/users/reset_password/?token=${token}`, data);
 
 export const testCompleted = (data) => instance.post('userslessons/add', data);
+
+export const addLearnedWords = (data) => instance.post('userswords/add', data);
+
+export const getUser = (login) => instance.get(`users/${login}`);

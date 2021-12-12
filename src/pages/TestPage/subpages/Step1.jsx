@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
 import GoBack from '../../../components/GoBack';
 import LessonTitle from '../../../components/LessonTitle';
@@ -18,7 +17,7 @@ const Step1 = ({ onSubmit = null }) => {
             </div>
             <div className="Top"></div>
             <div className="Title">
-               <LessonTitle label="1. Greetings" />
+               <LessonTitle label="Witaj w teście!" />
             </div>
             <div className="Main box">
                <h1>Witaj w teście z lekcji!</h1>

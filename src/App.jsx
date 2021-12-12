@@ -21,6 +21,7 @@ const EmailConfirm = lazy(() => import('./pages/EmailConfirm'));
 const ForgottenPassword = lazy(() => import('./pages/ForgottenPassword'));
 const Test = lazy(() => import('./pages/TestPage/TestPage'));
 const SendNewPassword = lazy(() => import('./pages/NewPassword'));
+const EditProfile = lazy(() => import('./pages/EditProfile'));
 
 const App = () => (
    <BrowserRouter>
@@ -44,6 +45,7 @@ const App = () => (
                   <Route path={routes.quiz} component={Quiz} />
                   <Route path={routes.flashcards} component={Flashcards} />
                   <Route path={routes.test} component={Test} />
+                  <Route path={routes.editProfile} component={EditProfile} />
                </AuthWrapper>
 
                <Route path="*" component={ErrorPage} />

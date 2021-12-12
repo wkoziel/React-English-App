@@ -20,7 +20,7 @@ const Step2 = ({ times = null, data = null, nextStep = null }) => {
                <CorrectAnswers correct={correct?.correct} answers={times} />
             </div>
             <div className="Title">
-               <LessonTitle label="1. Greetings" />
+               <LessonTitle label="Wpisywanie" />
             </div>
             <div className="Main box">
                <Typing times={times} words={data} nextStep={nextStep} correct={correct} setCorrect={setCorrect} />

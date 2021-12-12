@@ -5,9 +5,11 @@ import Step1 from './subpages/Step1';
 import Step3 from './subpages/Step3';
 import { AnimatePresence } from 'framer-motion';
 import { prepareLearnData } from '../../helpers';
-import { getLessonWords } from '../../api/api';
+import { getLessonWords, addLearnedWords } from '../../api/api';
 import { useParams } from 'react-router';
 import Loading from '../../components/Loading';
+import { useGlobalContext } from '../../context/global';
+
 const initialState = {
    step: 0,
 };
@@ -35,6 +37,7 @@ const TypingPage = () => {
    const [state, dispatch] = useReducer(reducer, initialState);
    const [isLoading, setIsLoading] = useState(true);
    const { id } = useParams();
+   const { username } = useGlobalContext();
 
    useEffect(() => {
       const fetchData = async () => {
@@ -50,7 +53,21 @@ const TypingPage = () => {
       fetchData();
    }, []); //eslint-disable-line
 
+   useEffect(() => {
+      const submitWords = async () => {
+         try {
+            const response = await addLearnedWords({ login: username, word_ids: state.wordIDs });
+            // FIXME: Do usunięcia
+            console.log(response.data);
+         } catch (error) {
+            console.log(error);
+         }
+      };
+      if (state.step === 2) submitWords();
+   }, [state.step]); //eslint-disable-line
+
    const submitStep = (data) => {
+      const wordIDs = state.data.map((w) => w.word_id);
       if (data.selectedLanguage === 0)
          dispatch({
             type: actions.prepareData,
@@ -58,6 +75,7 @@ const TypingPage = () => {
                data: prepareLearnData(state.data, true),
                selectedTimes: data.selectedTimes + 1,
                selectedLanguage: data.selectedLanguage,
+               wordIDs,
             },
          });
       else
@@ -67,6 +85,7 @@ const TypingPage = () => {
                data: prepareLearnData(state.data, false),
                selectedTimes: data.selectedTimes + 1,
                selectedLanguage: data.selectedLanguage,
+               wordIDs,
             },
          });
    };

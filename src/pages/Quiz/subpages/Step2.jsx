@@ -17,7 +17,7 @@ const Step2 = ({ data = null, nextStep = null, times = null }) => {
             <CorrectAnswers correct={correct?.correct} answers={times} />
          </div>
          <div className="Title">
-            <LessonTitle label="1. Greetings" />
+            <LessonTitle label="Quiz" />
          </div>
          <div className="Main">
             <Quiz words={data} nextStep={nextStep} times={times} correct={correct} setCorrect={setCorrect} />

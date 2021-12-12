@@ -15,7 +15,7 @@ const Step2 = ({ data = null, submitTest = null }) => {
             </div>
             <div className="Top"></div>
             <div className="Title">
-               <LessonTitle label="1. Greetings" />
+               <LessonTitle label="Test" />
             </div>
             <div className="Main box">
                <Test words={data} submitTest={submitTest} />

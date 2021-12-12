@@ -64,12 +64,12 @@ const Lessons = () => {
                   <motion.div key="2-frame" {...transitions.opacity} className="small-box box">
                      <h2>Kontynuuj naukę</h2>
                      <div className="right circle">
-                        <h1 className="procent">{lastLesson.percentage}%</h1>
+                        <h1 className="procent">{lastLesson?.percentage || '0'}%</h1>
                      </div>
                      <div className="bottom button">
                         <Button
-                           label={`Lekcja ${lastLesson.lesson_id + 1}`}
-                           onClick={() => history.push(routes.singleLesson.replace(':id', lastLesson.lesson_id))}
+                           label={`Lekcja ${lastLesson?.lesson_id + 1 || 1}`}
+                           onClick={() => history.push(routes?.singleLesson.replace(':id', lastLesson?.lesson_id))}
                         />
                      </div>
                   </motion.div>
@@ -79,14 +79,14 @@ const Lessons = () => {
                      <h3>Wszystkie lekcje</h3>
                      <div className="lessons">
                         {allLessons.map((l) => (
-                           <Link key={l.lesson_id} to={`/lesson/${l.lesson_id}`}>
+                           <Link key={l?.lesson_id} to={`/lesson/${l?.lesson_id}`}>
                               <div className="lesson box">
-                                 <h2>{l.lesson_id + 1}.</h2>
+                                 <h2>{l?.lesson_id + 1}.</h2>
                                  <div className="title">
-                                    <h3 className="no-margin">{l.lesson_name}</h3>
-                                    <h5 className="no-margin">{l.words_count} pojęć</h5>
+                                    <h3 className="no-margin">{l?.lesson_name}</h3>
+                                    <h5 className="no-margin">{l?.words_count} pojęć</h5>
                                  </div>
-                                 <h3 className="end">{getLessonPercents(l.lesson_id) || '0'}%</h3>
+                                 <h3 className="end">{getLessonPercents(l?.lesson_id) || '0'}%</h3>
                                  {/*Kolumna z procentami*/}
                                  <img className="end" src={arrow} alt="Arrow right" />
                               </div>
