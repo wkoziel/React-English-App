@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
 import GoBack from '../../../components/GoBack';
 import LessonTitle from '../../../components/LessonTitle';

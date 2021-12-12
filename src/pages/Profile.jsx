@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import GoBack from '../components/GoBack';
-import Chart from 'chart.js/auto';
+import Chart from 'chart.js/auto'; //eslint-disable-line
 import { Bar } from 'react-chartjs-2';
 import { colors } from '../style';
 import { AnimatePresence } from 'framer-motion';
