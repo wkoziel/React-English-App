@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
         
 env:
-  AZURE_WEBAPP_NAME: englsh-app
+  AZURE_WEBAPP_NAME: english-app
   AZURE_WEBAPP_PACKAGE_PATH: './build'      # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '14.x'   
 
@@ -19,7 +19,7 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@main
+    - uses: actions/checkout@master
     - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v1
       with:
