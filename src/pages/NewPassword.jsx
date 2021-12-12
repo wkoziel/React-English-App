@@ -38,6 +38,7 @@ const NewPassword = () => {
          try {
             setIsLoading(true);
             const { mail, password1 } = data;
+            console.log('Reset data:', { mail, password: password1 });
             const response = await sendNewPassword(token, { mail, password: password1 });
             if (response.data) alert(response.data.status);
          } catch (error) {
