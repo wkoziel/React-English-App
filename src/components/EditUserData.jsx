@@ -10,11 +10,15 @@ const EditUserData = ({ user = null }) => {
    const [isLoading, setIsLoading] = useState(false);
 
    const schema = yup.object().shape({
-      password1: yup.string().required('Podaj nowe hasło'),
-      password2: yup.string().required('Podaj nowe hasło'),
+      name: yup.string().required('Podaj swoje imię'),
+      surname: yup.string().required('Podaj swoje nazwisko'),
    });
 
-   const { handleSubmit, register } = useForm({
+   const {
+      handleSubmit,
+      register,
+      formState: { errors },
+   } = useForm({
       resolver: yupResolver(schema),
       defaultValues: { user },
    });
@@ -25,8 +29,20 @@ const EditUserData = ({ user = null }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
          <h2 className="login">Edytuj swoje dane</h2>
          <p>Tutaj mozesz edytować dane widoczne na profilu użytkownika</p>
-         <TextInput name="name" ref={register} label="Twoje imię" placeholder="Podaj swoje imie" />
-         <TextInput name="surname" ref={register} label="Twoje nazwisko" placeholder="Podaj swoje nazwisko" />
+         <TextInput
+            name="name"
+            ref={register}
+            label="Twoje imię"
+            placeholder="Podaj swoje imie"
+            error={errors?.name?.message}
+         />
+         <TextInput
+            name="surname"
+            ref={register}
+            label="Twoje nazwisko"
+            placeholder="Podaj swoje nazwisko"
+            error={errors?.surname?.message}
+         />
          <Button label={clsx(isLoading ? 'Wysyłanie...' : 'Wyślij')} noArrow type="submit" />
       </form>
    );

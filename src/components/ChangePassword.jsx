@@ -17,7 +17,7 @@ const ChangePassword = () => {
 
    const schema = yup.object().shape({
       password1: yup.string().required('Podaj nowe hasło'),
-      password2: yup.string().required('Podaj nowe hasło'),
+      password2: yup.string().required('Powtórz nowe hasło'),
    });
 
    const { handleSubmit, register } = useForm({
@@ -52,7 +52,7 @@ const ChangePassword = () => {
                name="password2"
                ref={register}
                label="Powtórz hasło"
-               placeholder="Wprowadź hasło"
+               placeholder="Powtórz nowe hasło"
             />
             <Button label={clsx(isLoading ? 'Wysyłanie...' : 'Wyślij')} noArrow type="submit" />
          </form>

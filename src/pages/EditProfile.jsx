@@ -11,6 +11,10 @@ import { getUser } from '../api/api';
 import { useGlobalContext } from '../context/global';
 import Loading from '../components/Loading';
 import { motion } from 'framer-motion';
+import ChangeDailyGoal from '../components/ChangeDailyGoal';
+import ResetAccount from '../components/ResetAccount';
+import DeleteAccount from '../components/DeleteAccount';
+import { routes } from '../routes';
 
 const EditProfile = () => {
    const [step, setStep] = useState(0);
@@ -75,11 +79,11 @@ const EditProfile = () => {
          case 2:
             return <ChangePassword />;
          case 3:
-            return 'Zmiana daily';
+            return <ChangeDailyGoal dailyGoal={user.daily_goal} />;
          case 4:
-            return 'Wyczysc dane konta';
+            return <ResetAccount />;
          case 5:
-            return 'Usun konto';
+            return <DeleteAccount />;
          default:
             break;
       }
@@ -198,6 +202,11 @@ const Style = styled.div`
             padding: 1rem;
             margin: 0 1rem;
             border-radius: 10px;
+         }
+
+         .steps {
+            display: flex;
+            justify-content: space-between;
          }
       }
    }
