@@ -9,7 +9,7 @@ import { AnimatePresence } from 'framer-motion';
 import transitions from '../helpers/transitions';
 import { motion } from 'framer-motion';
 import HeaderImage from '../assets/profile.svg';
-import UserPicture from '../assets/avatar-female.svg';
+import UserPicture from '../assets/avatar-different.svg';
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 import { useEffect } from 'react/cjs/react.development';
@@ -44,15 +44,15 @@ const Profile = () => {
    return (
       <AnimatePresence>
          <Navbar active={3} />
-         <Style className="page container">
+         <motion.div key={new Date().getTime()} {...transitions.opacity}>
             {isLoading ? (
                <Loading />
             ) : (
-               <>
-                  <motion.div className="goback" {...transitions.opacity}>
+               <Style className="page container">
+                  <div className="goback">
                      <GoBack label="Powrót" />
-                  </motion.div>
-                  <motion.div className="profile white-box" {...transitions.opacity}>
+                  </div>
+                  <div className="profile white-box">
                      <div className="header">
                         <img src={UserPicture} alt="Mężczyzna przy tablicy" className="userImg" />
                         <div>
@@ -68,8 +68,8 @@ const Profile = () => {
                            <span className="edit">Edytuj profil</span>
                         </Link>
                      </div>
-                  </motion.div>
-                  <motion.div className="stats" {...transitions.opacity}>
+                  </div>
+                  <div className="stats">
                      <h5>Twoje statystyki</h5>
                      <div className="white-box">
                         <h3 className="green">135</h3>
@@ -83,8 +83,8 @@ const Profile = () => {
                         <h3 className="purple">28</h3>
                         <h5>Zrobionych powtórek</h5>
                      </div>
-                  </motion.div>
-                  <motion.div className="thisweek" {...transitions.opacity}>
+                  </div>
+                  <div className="thisweek">
                      <h5>Twój tydzień</h5>
                      <div className="white-box">
                         <Bar
@@ -134,10 +134,10 @@ const Profile = () => {
                            }}
                         />
                      </div>
-                  </motion.div>
-               </>
+                  </div>
+               </Style>
             )}
-         </Style>
+         </motion.div>
       </AnimatePresence>
    );
 };
@@ -174,6 +174,7 @@ const Style = styled.div`
          justify-self: center;
          border: 0.5rem solid ${colors.white};
          border-radius: 50%;
+         background: white;
       }
 
       .headerImg {

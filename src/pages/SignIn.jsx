@@ -31,7 +31,11 @@ const SignIn = () => {
       password: yup.string().required('Podaj swoje hasło'),
    });
 
-   const { handleSubmit, register } = useForm({
+   const {
+      handleSubmit,
+      register,
+      formState: { errors },
+   } = useForm({
       resolver: yupResolver(schema),
    });
 
@@ -71,19 +75,22 @@ const SignIn = () => {
                   <form onSubmit={handleSubmit(onSubmit)}>
                      <h2 className="login">Zaloguj się</h2>
                      {message && <Error message={message} />}
-                     <TextInput name="login" ref={register} label="Login" placeholder="Wprowadź login" />
+                     <TextInput
+                        name="login"
+                        ref={register}
+                        label="Login"
+                        placeholder="Wprowadź login"
+                        error={errors?.login?.message}
+                     />
                      <TextInput
                         ref={register}
                         name="password"
                         label="Hasło"
                         placeholder="Wprowadź hasło"
                         type="password"
+                        error={errors?.password?.message}
                      />
                      <div className="flex">
-                        {/* <label>
-                           <input type="checkbox" />
-                           Zapamiętaj mnie
-                        </label> */}
                         <Link to={routes.forgottenPassword}>Zapomniałem hasła</Link>
                      </div>
                      <Button label={clsx(isLoading ? 'Logowanie...' : 'Zaloguj się')} noArrow type="submit" />

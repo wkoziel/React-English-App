@@ -48,55 +48,57 @@ const Lessons = () => {
    return (
       <>
          <Navbar active={1} />
-         {isLoading ? (
-            <Loading />
-         ) : (
-            <Style className="container">
-               <AnimatePresence>
-                  <motion.div key="1-frame" {...transitions.opacity} className="small-box box">
-                     <h2>Osiągnij swój wyznaczony cel!</h2>
-                     <img className="right woman-img" src={image} alt="Kobieta z notatkami" />
-                     <h3>
-                        Pozostało <span className="green">{dailyGoal}</span> słówek do opanowania
-                     </h3>
-                  </motion.div>
-
-                  <motion.div key="2-frame" {...transitions.opacity} className="small-box box">
-                     <h2>Kontynuuj naukę</h2>
-                     <div className="right circle">
-                        <h1 className="procent">{lastLesson?.percentage || '0'}%</h1>
+         <AnimatePresence>
+            <motion.div key={new Date().getTime()} {...transitions.opacity}>
+               {isLoading ? (
+                  <Loading />
+               ) : (
+                  <Style className="container">
+                     <div className="small-box box">
+                        <h2>Osiągnij swój wyznaczony cel!</h2>
+                        <img className="right woman-img" src={image} alt="Kobieta z notatkami" />
+                        <h3>
+                           Pozostało <span className="green">{dailyGoal}</span> słówek do opanowania
+                        </h3>
                      </div>
-                     <div className="bottom button">
-                        <Button
-                           label={`Lekcja ${lastLesson?.lesson_id + 1 || 1}`}
-                           onClick={() => history.push(routes?.singleLesson.replace(':id', lastLesson?.lesson_id))}
-                        />
-                     </div>
-                  </motion.div>
 
-                  {/* BOX 3 */}
-                  <motion.div key="3-frame" {...transitions.opacity} className="big-box">
-                     <h3>Wszystkie lekcje</h3>
-                     <div className="lessons">
-                        {allLessons.map((l) => (
-                           <Link key={l?.lesson_id} to={`/lesson/${l?.lesson_id}`}>
-                              <div className="lesson box">
-                                 <h2>{l?.lesson_id + 1}.</h2>
-                                 <div className="title">
-                                    <h3 className="no-margin">{l?.lesson_name}</h3>
-                                    <h5 className="no-margin">{l?.words_count} pojęć</h5>
+                     <div className="small-box box">
+                        <h2>Kontynuuj naukę</h2>
+                        <div className="right circle">
+                           <h1 className="procent">{lastLesson?.percentage || '0'}%</h1>
+                        </div>
+                        <div className="bottom button">
+                           <Button
+                              label={`Lekcja ${lastLesson?.lesson_id + 1 || 1}`}
+                              onClick={() => history.push(routes?.singleLesson.replace(':id', lastLesson?.lesson_id))}
+                           />
+                        </div>
+                     </div>
+
+                     {/* BOX 3 */}
+                     <div className="big-box">
+                        <h3>Wszystkie lekcje</h3>
+                        <div className="lessons">
+                           {allLessons.map((l) => (
+                              <Link key={l?.lesson_id} to={`/lesson/${l?.lesson_id}`}>
+                                 <div className="lesson box">
+                                    <h2>{l?.lesson_id + 1}.</h2>
+                                    <div className="title">
+                                       <h3 className="no-margin">{l?.lesson_name}</h3>
+                                       <h5 className="no-margin">{l?.words_count} pojęć</h5>
+                                    </div>
+                                    <h3 className="end">{getLessonPercents(l?.lesson_id) || '0'}%</h3>
+                                    {/*Kolumna z procentami*/}
+                                    <img className="end" src={arrow} alt="Arrow right" />
                                  </div>
-                                 <h3 className="end">{getLessonPercents(l?.lesson_id) || '0'}%</h3>
-                                 {/*Kolumna z procentami*/}
-                                 <img className="end" src={arrow} alt="Arrow right" />
-                              </div>
-                           </Link>
-                        ))}
+                              </Link>
+                           ))}
+                        </div>
                      </div>
-                  </motion.div>
-               </AnimatePresence>
-            </Style>
-         )}
+                  </Style>
+               )}
+            </motion.div>
+         </AnimatePresence>
       </>
    );
 };

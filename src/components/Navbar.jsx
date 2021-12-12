@@ -38,8 +38,8 @@ const Navbar = ({ logo = 'Logo', active = null }) => {
                   {showDropdown && (
                      <div className="dropdown-content">
                         <div className="tip" />
-                        <Link to="#">Mój profil</Link>
-                        <Link to="#">Edytuj profil</Link>
+                        <Link to={routes.profile}>Mój profil</Link>
+                        <Link to={routes.editProfile}>Edytuj profil</Link>
                         <Link to="#" onClick={() => logout()}>
                            Wyloguj
                         </Link>

@@ -8,6 +8,7 @@ import { routes } from '../routes';
 const EmailConfirm = () => {
    const queryParams = new URLSearchParams(window.location.search);
    const token = queryParams.get('token');
+   console.log('Otrzymano token', token);
 
    const history = useHistory();
 
