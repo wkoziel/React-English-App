@@ -35,12 +35,6 @@ const Navbar = ({ logo = 'Logo', active = null }) => {
       fetchData();
    }, [username]); //eslint-disable-line
 
-   const getUserImg = () => {
-      if (user.gender === 'M') return Male;
-      if (user.gender === 'F') return Female;
-      if (user.gender === 'N') return Enby;
-   };
-
    return (
       <Style>
          {!isLoading && (
@@ -62,7 +56,7 @@ const Navbar = ({ logo = 'Logo', active = null }) => {
                {isAuth ? (
                   <div className="left">
                      <h5>{username}</h5>
-                     <img className="avatar" src={getUserImg()} alt="" />
+                     <img className="avatar" src={user.photo} alt="" />
                      <div className="dropdown">
                         <button onClick={() => setShowDropdown(!showDropdown)} className="dropbtn">
                            <img className="arrow" src={arrowDown} alt="" />

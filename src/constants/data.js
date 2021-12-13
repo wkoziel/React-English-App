@@ -21,5 +21,6 @@ export const navLinks = [
    { name: 'Strona główna', route: routes.home },
    { name: 'Lekcje', route: routes.lessons },
    { name: 'Powtórka', route: routes.repeat },
-   { name: 'Profil', route: routes.profile },
 ];
+
+export const days = ['Ndz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'];

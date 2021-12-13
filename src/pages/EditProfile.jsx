@@ -162,6 +162,7 @@ const Style = styled.div`
 
          .login {
             font-weight: bolder;
+            margin: 0;
          }
 
          a {
@@ -207,11 +208,8 @@ const Style = styled.div`
             }
          }
          p {
-            text-align: center;
-            background: rgba(20, 223, 176, 0.2);
-            padding: 1rem;
-            margin: 0 1rem;
-            border-radius: 10px;
+            margin: 0.25rem 0;
+            font-size: 14px;
          }
 
          .steps {
