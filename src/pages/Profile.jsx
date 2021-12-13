@@ -9,16 +9,19 @@ import { AnimatePresence } from 'framer-motion';
 import transitions from '../helpers/transitions';
 import { motion } from 'framer-motion';
 import HeaderImage from '../assets/profile.svg';
-import UserPicture from '../assets/avatar-female.svg';
+import Enby from '../assets/avatar-different.svg';
+import Female from '../assets/avatar-female.svg';
+import Male from '../assets/avatar-male.svg';
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 import { useEffect } from 'react/cjs/react.development';
-import { getUser } from '../api/api';
+import { getUser, getUsersWeek } from '../api/api';
 import { useGlobalContext } from '../context/global';
 import Loading from '../components/Loading';
 
 const Profile = () => {
    const [user, setUser] = useState({});
+   const [userWeek, setUserWeek] = useState([]);
    const [isLoading, setIsLoading] = useState(true);
 
    const { username } = useGlobalContext();
@@ -26,11 +29,13 @@ const Profile = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await getUser(username);
-            if (response.data) {
+            const [responseUser, responseWords] = await Promise.all([getUser(username), getUsersWeek(username)]);
+            if (responseUser.data && responseWords.data) {
                //FIXME: Usuń
-               console.log('User response data: ', response.data);
-               setUser(response.data);
+               console.log('User response data: ', responseUser.data);
+               console.log('User week response data: ', responseWords.data);
+               setUser(responseUser.data);
+               setUserWeek(responseWords.data);
             }
          } catch (error) {
             console.error(error);
@@ -41,25 +46,34 @@ const Profile = () => {
       fetchData();
    }, []); //eslint-disable-line
 
+   const days = ['Ndz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'];
+
+   const getUserImg = () => {
+      if (user.gender === 'M') return Male;
+      if (user.gender === 'F') return Female;
+      if (user.gender === 'N') return Enby;
+   };
+
    return (
       <AnimatePresence>
          <Navbar active={3} />
-         <Style className="page container">
+         <motion.div key={new Date().getTime()} {...transitions.opacity}>
             {isLoading ? (
                <Loading />
             ) : (
-               <>
-                  <motion.div className="goback" {...transitions.opacity}>
+               <Style className="page container">
+                  <div className="goback">
                      <GoBack label="Powrót" />
-                  </motion.div>
-                  <motion.div className="profile white-box" {...transitions.opacity}>
+                  </div>
+                  <div className="profile white-box">
                      <div className="header">
-                        <img src={UserPicture} alt="Mężczyzna przy tablicy" className="userImg" />
+                        <img src={getUserImg()} alt="Awatar użytkownika" className="userImg" />
                         <div>
                            <h1>
                               {user?.name} {user?.surname}
                            </h1>
-                           <h5>@{user?.login}</h5>
+                           <h4>@{user?.login}</h4>
+                           <h5>{user?.created.slice(0, -12)}</h5>
                         </div>
                         <img src={HeaderImage} alt="Mężczyzna przy tablicy" className="headerImg" />
                      </div>
@@ -68,8 +82,8 @@ const Profile = () => {
                            <span className="edit">Edytuj profil</span>
                         </Link>
                      </div>
-                  </motion.div>
-                  <motion.div className="stats" {...transitions.opacity}>
+                  </div>
+                  <div className="stats">
                      <h5>Twoje statystyki</h5>
                      <div className="white-box">
                         <h3 className="green">135</h3>
@@ -83,17 +97,17 @@ const Profile = () => {
                         <h3 className="purple">28</h3>
                         <h5>Zrobionych powtórek</h5>
                      </div>
-                  </motion.div>
-                  <motion.div className="thisweek" {...transitions.opacity}>
+                  </div>
+                  <div className="thisweek">
                      <h5>Twój tydzień</h5>
                      <div className="white-box">
                         <Bar
                            data={{
-                              labels: ['Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Ndz'],
+                              labels: Object.keys(userWeek).map((d) => days[new Date(d).getDay()]),
                               datasets: [
                                  {
                                     label: '',
-                                    data: [5, 10, 20, 0, 0, 30, 20],
+                                    data: Object.values(userWeek).map((d) => d),
                                     backgroundColor: colors.green,
                                     borderRadius: 20,
                                     borderSkipped: false,
@@ -106,7 +120,8 @@ const Profile = () => {
                                     order: 1,
                                     type: 'line',
                                     borderColor: colors.green,
-                                    borderDash: [3, 10],
+                                    borderDash: [2, 8],
+                                    pointRadius: 0,
                                  },
                               ],
                            }}
@@ -134,10 +149,10 @@ const Profile = () => {
                            }}
                         />
                      </div>
-                  </motion.div>
-               </>
+                  </div>
+               </Style>
             )}
-         </Style>
+         </motion.div>
       </AnimatePresence>
    );
 };
@@ -174,6 +189,7 @@ const Style = styled.div`
          justify-self: center;
          border: 0.5rem solid ${colors.white};
          border-radius: 50%;
+         background: white;
       }
 
       .headerImg {
@@ -186,9 +202,14 @@ const Style = styled.div`
          margin: 0;
       }
 
+      h4 {
+         color: ${colors.white};
+         margin: 0;
+      }
       h5 {
          color: ${colors.white};
          margin: 0;
+         font-weight: normal;
       }
    }
 

@@ -18,6 +18,7 @@ import clsx from 'clsx';
 import Error from '../components/Error';
 import { registerStatus } from '../constants/data';
 import { useHistory } from 'react-router';
+import RadioButton from '../components/RadioButton';
 
 const SignUp = () => {
    const [isLoading, setIsLoading] = useState(false);
@@ -26,11 +27,21 @@ const SignUp = () => {
    const history = useHistory();
 
    const schema = yup.object().shape({
-      login: yup.string().required('Podaj swój login'),
-      password: yup.string().required('Podaj swoje hasło'),
+      login: yup
+         .string()
+         .required('Podaj swój login')
+         .min(4, 'Login musi zawierać conajmniej 4 znaki')
+         .max(15, 'Login może zawierac maksymalnie 15 znaków'),
+      password: yup.string().required('Podaj swoje hasło').min(8, 'Hasło musi zawierać conajmniej 8 znaków'),
+      repeatpassword: yup.string().required('Podaj hasło ponownie').min(8, 'Hasło musi zawierać conajmniej 8 znaków'),
+      mail: yup.string().email('Podaj email w prawidłowym formacie').required('Podaj swój email'),
    });
 
-   const { handleSubmit, register } = useForm({
+   const {
+      handleSubmit,
+      register,
+      formState: { errors },
+   } = useForm({
       resolver: yupResolver(schema),
    });
 
@@ -75,16 +86,43 @@ const SignUp = () => {
                   <form onSubmit={handleSubmit(onSubmit)}>
                      <h2 className="login">Dołącz do nas!</h2>
                      {message && <Error message={message} />}
-                     <TextInput label="Login" placeholder="user123" ref={register} name="login" />
-                     <TextInput label="Email" placeholder="user@gmail.com" type="email" ref={register} name="mail" />
-                     <TextInput label="Hasło" placeholder="********" type="password" ref={register} name="password" />
+                     <TextInput
+                        label="Login"
+                        placeholder="user123"
+                        ref={register}
+                        name="login"
+                        error={errors?.login?.message}
+                     />
+                     <TextInput
+                        label="Email"
+                        placeholder="user@gmail.com"
+                        type="email"
+                        ref={register}
+                        error={errors?.mail?.message}
+                        name="mail"
+                     />
+                     <TextInput
+                        label="Hasło"
+                        placeholder="********"
+                        type="password"
+                        ref={register}
+                        name="password"
+                        error={errors?.password?.message}
+                     />
                      <TextInput
                         label="Powtórz hasło"
                         placeholder="********"
                         type="password"
                         ref={register}
                         name="repeatpassword"
+                        error={errors?.repeatpassword?.message}
                      />
+                     <div className="radiobuttons">
+                        <p>Płeć:</p>
+                        <RadioButton label="Mężczyzna" value={0} name="gender" id="male" ref={register} checked />
+                        <RadioButton label="Kobieta" value={1} name="gender" id="male" ref={register} />
+                        <RadioButton label="Inna" value={2} name="gender" id="male" ref={register} />
+                     </div>
                      <Button label={clsx(isLoading ? 'Rejestracja...' : 'Zarejestruj się')} noArrow type="submit" />
                      <Link to={routes.signIn}>
                         Masz już konto? <strong>Zaloguj się</strong>
@@ -159,7 +197,7 @@ const Style = styled.div`
          border: 1px solid ${colors.gray1};
          box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
          border-radius: 20px;
-         padding: 2rem;
+         padding: 1rem 2rem;
 
          input {
             font-size: 1rem;
@@ -167,13 +205,13 @@ const Style = styled.div`
 
          .login {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             font-weight: bolder;
          }
 
          a {
             text-align: center;
-            margin-top: 1.5rem;
+            margin-top: 0.5rem;
          }
 
          input[type='checkbox'] {
@@ -183,7 +221,6 @@ const Style = styled.div`
          }
 
          button {
-            margin-top: 1rem;
             align-self: center;
             width: 90%;
             background: ${colors.green};
@@ -191,6 +228,16 @@ const Style = styled.div`
             justify-content: center;
             font-family: ${fonts.lato};
             font-size: 0.75rem;
+         }
+         .radiobuttons {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin: 0.25rem 0;
+            p {
+               margin: 0;
+               justify-self: flex-start;
+            }
          }
       }
    }

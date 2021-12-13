@@ -1,0 +1,5 @@
+{
+   "appService.zipIgnorePattern": ["node_modules{,/**}", ".vscode{,/**}"],
+   "appService.defaultWebAppToDeploy": "/subscriptions/90f70f2d-6012-4f09-a7dd-8bcc1f1231ff/resourceGroups/limi/providers/Microsoft.Web/sites/english-app",
+   "appService.deploySubpath": "."
+}
