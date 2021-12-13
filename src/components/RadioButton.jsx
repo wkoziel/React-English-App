@@ -5,7 +5,14 @@ import { colors } from '../style';
 const RadioButton = React.forwardRef(({ label = null, name = null, value = null, id = null, checked = null }, ref) => {
    return (
       <Style>
-         <input type="radio" name={name} id={id} value={value} defaultChecked={checked} />
+         <input
+            type="radio"
+            {...ref(name, { required: true })}
+            name={name}
+            id={id}
+            value={value}
+            defaultChecked={checked}
+         />
          <label htmlFor={id}>{label}</label>
       </Style>
    );

@@ -6,7 +6,7 @@ const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
    const [isAuth, setIsAuth] = useState(false);
-   const [username, setUsername] = useState(null);
+   const [username, setUsername] = useState('');
    const history = useHistory();
 
    useEffect(() => {

@@ -39,3 +39,5 @@ export const getUser = (login) => instance.get(`users/${login}`);
 export const getUsersWeek = (login) => instance.get(`userswords/week/${login}`);
 
 export const changeUserPassword = (data) => instance.post('users/update_password', data);
+
+export const updateUserProfile = (data) => instance.post('users/update_user', data);

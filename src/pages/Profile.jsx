@@ -9,7 +9,9 @@ import { AnimatePresence } from 'framer-motion';
 import transitions from '../helpers/transitions';
 import { motion } from 'framer-motion';
 import HeaderImage from '../assets/profile.svg';
-import UserPicture from '../assets/avatar-different.svg';
+import Enby from '../assets/avatar-different.svg';
+import Female from '../assets/avatar-female.svg';
+import Male from '../assets/avatar-male.svg';
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 import { useEffect } from 'react/cjs/react.development';
@@ -46,6 +48,12 @@ const Profile = () => {
 
    const days = ['Ndz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'];
 
+   const getUserImg = () => {
+      if (user.gender === 'M') return Male;
+      if (user.gender === 'F') return Female;
+      if (user.gender === 'N') return Enby;
+   };
+
    return (
       <AnimatePresence>
          <Navbar active={3} />
@@ -59,7 +67,7 @@ const Profile = () => {
                   </div>
                   <div className="profile white-box">
                      <div className="header">
-                        <img src={UserPicture} alt="Mężczyzna przy tablicy" className="userImg" />
+                        <img src={getUserImg()} alt="Awatar użytkownika" className="userImg" />
                         <div>
                            <h1>
                               {user?.name} {user?.surname}

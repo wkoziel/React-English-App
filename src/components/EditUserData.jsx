@@ -5,13 +5,23 @@ import TextInput from '../components/TextInput';
 import Button from '../components/Button';
 import clsx from 'clsx';
 import { useState } from 'react';
+import RadioButton from '../components/RadioButton';
+import { updateUserProfile } from '../api/api';
+import { useGlobalContext } from '../context/global';
+import { useHistory } from 'react-router-dom';
+import { routes } from '../routes';
 
 const EditUserData = ({ user = null }) => {
    const [isLoading, setIsLoading] = useState(false);
 
+   const history = useHistory();
+
+   const { username } = useGlobalContext();
+
    const schema = yup.object().shape({
-      name: yup.string().required('Podaj swoje imię'),
-      surname: yup.string().required('Podaj swoje nazwisko'),
+      name: yup.string().required('Podaj swoje imię').max(10),
+      surname: yup.string().required('Podaj swoje nazwisko').max(10),
+      gender: yup.string(),
    });
 
    const {
@@ -20,10 +30,24 @@ const EditUserData = ({ user = null }) => {
       formState: { errors },
    } = useForm({
       resolver: yupResolver(schema),
-      defaultValues: { user },
+      defaultValues: { ...user },
    });
 
-   const onSubmit = () => {};
+   const onSubmit = (data) => {
+      try {
+         setIsLoading(true);
+         const { name, surname, gender } = data;
+         console.log({ login: username, name, surname, gender });
+         const response = updateUserProfile({ login: username, name, surname, gender });
+         if (response.data) {
+            console.log(response.data?.status);
+         }
+      } catch (error) {
+         console.log(error);
+      } finally {
+         history.push(routes.profile);
+      }
+   };
 
    return (
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -43,6 +67,12 @@ const EditUserData = ({ user = null }) => {
             placeholder="Podaj swoje nazwisko"
             error={errors?.surname?.message}
          />
+         <div className="radiobuttons">
+            <span>Płeć:</span>
+            <RadioButton label="Mężczyzna" value="M" name="gender" id="M" ref={register} checked />
+            <RadioButton label="Kobieta" value="F" name="gender" id="F" ref={register} />
+            <RadioButton label="Inna" value="N" name="gender" id="N" ref={register} />
+         </div>
          <Button label={clsx(isLoading ? 'Wysyłanie...' : 'Wyślij')} noArrow type="submit" />
       </form>
    );

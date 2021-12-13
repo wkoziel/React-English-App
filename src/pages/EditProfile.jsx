@@ -161,7 +161,6 @@ const Style = styled.div`
          }
 
          .login {
-            text-align: center;
             font-weight: bolder;
          }
 
@@ -174,6 +173,17 @@ const Style = styled.div`
             width: 15px;
             height: 15px;
             margin: 0 10px 0;
+         }
+
+         .radiobuttons {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin: 0.25rem 0;
+            span {
+               margin: 0 10px 0 0;
+               justify-self: flex-start;
+            }
          }
 
          button {

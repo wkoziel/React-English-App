@@ -41,7 +41,7 @@ const Lessons = () => {
          }
       };
       fetchData();
-   }, []); //eslint-disable-line
+   }, [username]); //eslint-disable-line
 
    const getLessonPercents = (id) => userLessons.find((l) => l.lesson_id === id)?.percentage;
 

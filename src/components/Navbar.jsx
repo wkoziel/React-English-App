@@ -1,63 +1,97 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { routes } from '../routes';
 import { colors, fonts } from '../style';
 import { navLinks } from '../constants/data';
 import { useGlobalContext } from '../context/global';
-import MaleAvatar from '../assets/avatar-male.svg';
+import Male from '../assets/avatar-male.svg';
+import Enby from '../assets/avatar-different.svg';
+import Female from '../assets/avatar-female.svg';
 import arrowDown from '../assets/arrow-down.svg';
+import { getUser } from '../api/api';
 
 const Navbar = ({ logo = 'Logo', active = null }) => {
+   const [user, setUser] = useState({});
    const { isAuth, logout, username } = useGlobalContext();
    const [showDropdown, setShowDropdown] = useState(false);
+   const [isLoading, setIsLoading] = useState(true);
+
+   useEffect(() => {
+      const fetchData = async () => {
+         try {
+            const responseUser = await getUser(username);
+            if (responseUser.data) {
+               //FIXME: Usuń
+               console.log('User response data: ', responseUser.data);
+               setUser(responseUser.data);
+            }
+         } catch (error) {
+            console.error(error);
+         } finally {
+            setIsLoading(false);
+         }
+      };
+      fetchData();
+   }, [username]); //eslint-disable-line
+
+   const getUserImg = () => {
+      if (user.gender === 'M') return Male;
+      if (user.gender === 'F') return Female;
+      if (user.gender === 'N') return Enby;
+   };
+
    return (
       <Style>
-         <div className="flex">
-            <Link to={routes.home}>
-               <div className="logo">{logo}</div>
-            </Link>
-            <ul className="links">
-               {navLinks.map((link, index) => (
-                  <li key={index} className={`${active === index && 'active'}`}>
-                     <Link to={link.route}>
-                        <p className="link">{link.name}</p>
-                     </Link>
-                  </li>
-               ))}
-            </ul>
-         </div>
-         {isAuth ? (
-            <div className="left">
-               <h5>{username}</h5>
-               <img className="avatar" src={MaleAvatar} alt="Ikona użytkownika" />
-               <div className="dropdown">
-                  <button onClick={() => setShowDropdown(!showDropdown)} className="dropbtn">
-                     <img className="arrow" src={arrowDown} alt="" />
-                  </button>
-                  {showDropdown && (
-                     <div className="dropdown-content">
-                        <div className="tip" />
-                        <Link to={routes.profile}>Mój profil</Link>
-                        <Link to={routes.editProfile}>Edytuj profil</Link>
-                        <Link to="#" onClick={() => logout()}>
-                           Wyloguj
-                        </Link>
-                     </div>
-                  )}
+         {!isLoading && (
+            <>
+               <div className="flex">
+                  <Link to={routes.home}>
+                     <div className="logo">{logo}</div>
+                  </Link>
+                  <ul className="links">
+                     {navLinks.map((link, index) => (
+                        <li key={index} className={`${active === index && 'active'}`}>
+                           <Link to={link.route}>
+                              <p className="link">{link.name}</p>
+                           </Link>
+                        </li>
+                     ))}
+                  </ul>
                </div>
-            </div>
-         ) : (
-            <div className="flex">
-               <Link to={routes.signUp}>
-                  <div className="btn">
-                     <p className="link">Zarejestruj się</p>
+               {isAuth ? (
+                  <div className="left">
+                     <h5>{username}</h5>
+                     <img className="avatar" src={getUserImg()} alt="" />
+                     <div className="dropdown">
+                        <button onClick={() => setShowDropdown(!showDropdown)} className="dropbtn">
+                           <img className="arrow" src={arrowDown} alt="" />
+                        </button>
+                        {showDropdown && (
+                           <div className="dropdown-content">
+                              <div className="tip" />
+                              <Link to={routes.profile}>Mój profil</Link>
+                              <Link to={routes.editProfile}>Edytuj profil</Link>
+                              <Link to="#" onClick={() => logout()}>
+                                 Wyloguj
+                              </Link>
+                           </div>
+                        )}
+                     </div>
                   </div>
-               </Link>
-               <Link to={routes.signIn}>
-                  <p className="link">Zaloguj się</p>
-               </Link>
-            </div>
+               ) : (
+                  <div className="flex">
+                     <Link to={routes.signUp}>
+                        <div className="btn">
+                           <p className="link">Zarejestruj się</p>
+                        </div>
+                     </Link>
+                     <Link to={routes.signIn}>
+                        <p className="link">Zaloguj się</p>
+                     </Link>
+                  </div>
+               )}
+            </>
          )}
       </Style>
    );
