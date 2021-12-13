@@ -20,6 +20,8 @@ variables:
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
+  appServiceName: 'english-app'
+
 stages:
 - stage: Build
   displayName: Build stage
