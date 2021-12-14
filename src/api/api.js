@@ -41,3 +41,11 @@ export const getUsersWeek = (login) => instance.get(`userswords/week/${login}`);
 export const changeUserPassword = (data) => instance.post('users/update_password', data);
 
 export const updateUserProfile = (data) => instance.post('users/update_user', data);
+
+export const updateDailyGoal = (data) => instance.post('users/update_daily_goal', data);
+
+export const deleteAccount = (login) => instance.delete(`/users/delete/${login}`);
+
+export const resetAccount = (data) => instance.post(`/users/reset`, data);
+
+export const getSASToken = () => instance.get('/users/create_sas_token');

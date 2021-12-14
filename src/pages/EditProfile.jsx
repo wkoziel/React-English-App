@@ -14,6 +14,7 @@ import { motion } from 'framer-motion';
 import ChangeDailyGoal from '../components/ChangeDailyGoal';
 import ResetAccount from '../components/ResetAccount';
 import DeleteAccount from '../components/DeleteAccount';
+import EditAvatar from '../components/EditAvatar';
 import { routes } from '../routes';
 
 const EditProfile = () => {
@@ -75,7 +76,7 @@ const EditProfile = () => {
          case 0:
             return <EditUserData user={user} />;
          case 1:
-            return 'Zmiana avatara';
+            return <EditAvatar />;
          case 2:
             return <ChangePassword />;
          case 3:
@@ -162,6 +163,7 @@ const Style = styled.div`
 
          .login {
             font-weight: bolder;
+            margin: 0;
          }
 
          a {
@@ -207,11 +209,8 @@ const Style = styled.div`
             }
          }
          p {
-            text-align: center;
-            background: rgba(20, 223, 176, 0.2);
-            padding: 1rem;
-            margin: 0 1rem;
-            border-radius: 10px;
+            margin: 0.25rem 0;
+            font-size: 14px;
          }
 
          .steps {

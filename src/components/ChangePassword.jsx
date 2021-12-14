@@ -43,8 +43,8 @@ const ChangePassword = () => {
    return (
       <>
          <form onSubmit={handleSubmit(onSubmit)}>
-            <p>Tutaj mozesz edytować swoje hasło podawane w czasie logowania</p>
             <h2 className="login">Zmień hasło</h2>
+            <p>Tutaj mozesz edytować swoje hasło podawane w czasie logowania</p>
             {message ? <Error message={message} /> : null}
             <TextInput type="password" name="password1" ref={register} label="Hasło" placeholder="Wprowadź hasło" />
             <TextInput

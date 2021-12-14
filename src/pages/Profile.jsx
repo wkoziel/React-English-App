@@ -9,15 +9,13 @@ import { AnimatePresence } from 'framer-motion';
 import transitions from '../helpers/transitions';
 import { motion } from 'framer-motion';
 import HeaderImage from '../assets/profile.svg';
-import Enby from '../assets/avatar-different.svg';
-import Female from '../assets/avatar-female.svg';
-import Male from '../assets/avatar-male.svg';
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
 import { useEffect } from 'react/cjs/react.development';
 import { getUser, getUsersWeek } from '../api/api';
 import { useGlobalContext } from '../context/global';
 import Loading from '../components/Loading';
+import { days } from '../constants/data';
 
 const Profile = () => {
    const [user, setUser] = useState({});
@@ -46,14 +44,6 @@ const Profile = () => {
       fetchData();
    }, []); //eslint-disable-line
 
-   const days = ['Ndz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'];
-
-   const getUserImg = () => {
-      if (user.gender === 'M') return Male;
-      if (user.gender === 'F') return Female;
-      if (user.gender === 'N') return Enby;
-   };
-
    return (
       <AnimatePresence>
          <Navbar active={3} />
@@ -67,7 +57,7 @@ const Profile = () => {
                   </div>
                   <div className="profile white-box">
                      <div className="header">
-                        <img src={getUserImg()} alt="Awatar użytkownika" className="userImg" />
+                        <img src={user.photo} alt="Awatar użytkownika" className="userImg" />
                         <div>
                            <h1>
                               {user?.name} {user?.surname}

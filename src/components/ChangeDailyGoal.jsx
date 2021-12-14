@@ -4,13 +4,19 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import Button from '../components/Button';
 import clsx from 'clsx';
+import { useGlobalContext } from '../context/global';
+import { updateDailyGoal } from '../api/api';
+import { useHistory } from 'react-router-dom';
+import { routes } from '../routes';
 
 const ChangeDailyGoal = ({ dailyGoal = null }) => {
    const [isLoading, setIsLoading] = useState(false);
 
+   const history = useHistory();
+
+   const { username } = useGlobalContext();
    const schema = yup.object().shape({
-      name: yup.string().required('Podaj swoje imię'),
-      surname: yup.string().required('Podaj swoje nazwisko'),
+      name: yup.number(),
    });
 
    const { handleSubmit, register } = useForm({
@@ -18,14 +24,26 @@ const ChangeDailyGoal = ({ dailyGoal = null }) => {
       defaultValues: { dailyGoal },
    });
 
-   const onSubmit = () => {};
+   const onSubmit = (data) => {
+      try {
+         setIsLoading(true);
+         console.log(data);
+         const response = updateDailyGoal({ login: username, daily_goal: data.dailyGoal });
+         if (response.data) alert(response.data);
+      } catch (error) {
+         console.log(error);
+      } finally {
+         setIsLoading(false);
+         history.push(routes.lessons);
+      }
+   };
 
    return (
       <form onSubmit={handleSubmit(onSubmit)}>
-         <p>Zmień swój dzienny cel słówek</p>
          <h2 className="login">Zmień swój dzienny</h2>
+         <p>Zmień swój dzienny cel słówek</p>
          <label htmlFor="daily">Dzienny cel</label>
-         <input type="range" id="daily" name="daily" min={10} max={60} step={5} />
+         <input type="range" id="daily" name="daily" min={10} max={60} step={5} {...register('dailyGoal')} />
          <div className="steps">
             <span>10</span>
             <span>20</span>
