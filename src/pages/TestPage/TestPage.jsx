@@ -69,7 +69,7 @@ const TestPage = () => {
       try {
          //FIXME: Usuń
          console.log('Test submit data:', { login: username, percentage, lesson_id: id });
-         const response = await testCompleted({ login: username, percentage, lesson_id: id });
+         const response = await testCompleted({ login: username, percentage, lesson_id: Number.parseInt(id) });
          if (response.data) {
             //FIXME: Usuń
             console.log('Testu submit resposne:', response.data);

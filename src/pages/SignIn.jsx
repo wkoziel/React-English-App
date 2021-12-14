@@ -66,9 +66,9 @@ const SignIn = () => {
                   <div></div>
                   <img src={image1} alt="" />
                   <p>
-                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere.
-                     Praesent id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada
-                     fames ac turpis egestas.
+                     Skorzystaj z trzech atrakcyjnych sposobów nauki: fiszek, wpisywania oraz quizu. Potwierdzone
+                     naukowo zostało, że gdy na pytania odpowiada się z pamięci, mózg pobudzany jest do przywoływania
+                     wcześniej poznanej wiedzy.
                   </p>
                </motion.div>
                <motion.div key="2-frame" {...transitions.opacity} className="right-side">
@@ -104,9 +104,9 @@ const SignIn = () => {
                   <div></div>
                   <img className="image2" src={image2} alt="" />
                   <p>
-                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere.
-                     Praesent id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada
-                     fames ac turpis egestas.
+                     Jedziesz pociągiem i chcesz przetestować zdobytą wiedzę? Nie ma nic prostszego! Zapomnij o wożeniu
+                     ciężkich zeszytów z języka angielskiego. Teraz w każdej chwili możesz uruchomić aplikację mobilną i
+                     kontynuować zaczętą wcześniej naukę.
                   </p>
                </motion.div>
             </AnimatePresence>

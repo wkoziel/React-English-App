@@ -144,4 +144,10 @@ export const GlobalStyle = createGlobalStyle`
    .purple{
       color: ${colors.purple}
    }
+   .gray{
+      color: ${colors.gray2}
+   }
+   .black{
+      color: ${colors.black}
+   }
 `;

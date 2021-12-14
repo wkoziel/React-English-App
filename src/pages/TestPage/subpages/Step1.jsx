@@ -22,17 +22,24 @@ const Step1 = ({ onSubmit = null }) => {
             <div className="Main box">
                <h1>Witaj w teście z lekcji!</h1>
                <div className="cols">
-                  <img src={Test} alt="" />
                   <div className="settings">
+                     <h5>Witaj w podsumowaniu zdobytej wiedzy!</h5>
                      <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis deleniti hic ducimus
-                        consectetur repellendus itaque illo quod totam recusandae perferendis.Lorem ipsum dolor sit amet
-                        consectetur adipisicing elit. Officiis deleniti hic ducimus consectetur repellendus itaque illo
-                        quod totam recusandae perferendis.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Officiis deleniti hic ducimus consectetur repellendus itaque illo quod totam recusandae
-                        perferendis.
+                        W tej sekcji sprawdź, czego nauczyłeś się i odpowiedz na pytania dotyczące poznanej lekcji.
+                        Przystąp do testu dopiero wtedy, gdy czujesz, że dobrze poznałeś materiał, ucząc się za pomocą
+                        fiszek i wpisywania.
                      </p>
+                     <ul>
+                        <p style={{ margin: '2px 0', fontWeight: 'bold' }}>Pamiętaj, że:</p>
+                        <li>Na wpisanie słówka masz tylko 10 sekund,</li>
+                        <li>Aby zaliczyć lekcję, musisz odpowiedzieć poprawnie na każde pytanie,</li>
+                        <li>Po zakończonym teście możesz zobaczyć, ile poprawnych odpowiedzi udzieliłeś,</li>
+                        <li>Dopiero gdy zaliczysz test w 100%, możesz przejść do nauki kolejnej lekcji.</li>
+                     </ul>
+                     <p>Jednak nie bój się, test możesz powtórzyć tyle razy, ile będzie to potrzebne :)</p>
+                     <p style={{ fontWeight: 'bold' }}>Powodzenia!</p>
                   </div>
+                  <img src={Test} alt="" />
                </div>
                <Button label="Rozpocznij" noArrow onClick={() => onSubmit()} />
             </div>
@@ -44,7 +51,7 @@ const Step1 = ({ onSubmit = null }) => {
 const Style = styled.div`
    display: grid;
    grid-template-columns: repeat(12, 1fr);
-   grid-template-rows: 0.3fr auto;
+   grid-template-rows: 0.2fr auto;
    gap: 1rem 1rem;
 
    .Back,
@@ -64,13 +71,20 @@ const Style = styled.div`
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem 3rem;
-      .cols,
-      .settings {
+      padding: 0.5rem 1rem;
+      .cols {
+         position: relative;
          display: grid;
-         grid-template-columns: repeat(2, 1fr);
+         grid-template-columns: 1fr;
+         align-items: center;
+         justify-content: center;
          img {
-            width: 100%;
+            position: absolute;
+            width: 500px;
+            right: 4rem;
+            bottom: 2rem;
+            z-index: 0;
+            text-overflow: ellipsis;
          }
       }
 
@@ -78,10 +92,21 @@ const Style = styled.div`
          border: 3px solid ${colors.green};
          border-radius: 20px;
          display: flex;
-         align-items: center;
          justify-content: center;
+         flex-direction: column;
          padding: 2rem 3rem;
-         margin: 2rem;
+         font-size: 14px;
+         margin: 0.5rem 5rem 2rem;
+         p {
+            z-index: 1;
+         }
+         ul {
+            padding: 1rem 1rem 1rem 2rem;
+            margin-bottom: 1rem;
+            background: ${colors.background};
+            width: fit-content;
+            border-radius: 10px;
+         }
       }
 
       button {

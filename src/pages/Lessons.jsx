@@ -3,14 +3,17 @@ import Navbar from '../components/Navbar';
 import image from '../assets/lessons.svg';
 import Button from '../components/Button';
 import styled from 'styled-components';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import arrow from '../assets/arrow-green.svg';
+import lock from '../assets/lock.svg';
 import { getLessonSiteData } from '../api/api';
 import Loading from '../components/Loading';
 import { AnimatePresence, motion } from 'framer-motion';
 import transitions from '../helpers/transitions';
 import { useGlobalContext } from '../context/global';
 import { routes } from '../routes';
+import clsx from 'clsx';
+import { colors } from '../style';
 
 const Lessons = () => {
    const [isLoading, setIsLoading] = useState(true);
@@ -27,8 +30,6 @@ const Lessons = () => {
          try {
             const response = await getLessonSiteData(username);
             if (response.data) {
-               //FIXME: Usuń
-               console.log('Lesson site data: ', response.data);
                setAllLessons(response.data.all_lessons);
                setUserLessons(response.data.all_users_lessons);
                setDailyGoal(response.data.words_to_learn);
@@ -79,20 +80,36 @@ const Lessons = () => {
                      <div className="big-box">
                         <h3>Wszystkie lekcje</h3>
                         <div className="lessons">
-                           {allLessons.map((l) => (
-                              <Link key={l?.lesson_id} to={`/lesson/${l?.lesson_id}`}>
-                                 <div className="lesson box">
-                                    <h2>{l?.lesson_id + 1}.</h2>
-                                    <div className="title">
-                                       <h3 className="no-margin">{l?.lesson_name}</h3>
-                                       <h5 className="no-margin">{l?.words_count} pojęć</h5>
+                           {allLessons.map((l) => {
+                              const perc = getLessonPercents(l?.lesson_id);
+                              return (
+                                 <button
+                                    key={l?.lesson_id}
+                                    onClick={() => history.push(`/lesson/${l?.lesson_id}`)}
+                                    disabled={l.lesson_id > lastLesson.lesson_id}
+                                 >
+                                    <div
+                                       className={clsx(
+                                          'lesson',
+                                          'box',
+                                          l.lesson_id > lastLesson.lesson_id && 'disabled',
+                                       )}
+                                    >
+                                       <h2>{l?.lesson_id + 1}.</h2>
+                                       <div className="title">
+                                          <h3 className="no-margin">{l?.lesson_name}</h3>
+                                          <h5 className="no-margin subtitle">{l?.words_count} pojęć</h5>
+                                       </div>
+                                       <h3 className={clsx('end', perc >= 70 && 'green')}>{perc || '0'}%</h3>
+                                       {l.lesson_id > lastLesson.lesson_id ? (
+                                          <img className="end" src={lock} alt="Arrow right" />
+                                       ) : (
+                                          <img className="end" src={arrow} alt="Arrow right" />
+                                       )}
                                     </div>
-                                    <h3 className="end">{getLessonPercents(l?.lesson_id) || '0'}%</h3>
-                                    {/*Kolumna z procentami*/}
-                                    <img className="end" src={arrow} alt="Arrow right" />
-                                 </div>
-                              </Link>
-                           ))}
+                                 </button>
+                              );
+                           })}
                         </div>
                      </div>
                   </Style>
@@ -143,6 +160,16 @@ const Style = styled.div`
          display: flex;
          flex-direction: column;
          gap: 1rem;
+         button {
+            background: none;
+            border: none;
+            outline: none;
+            cursor: pointer;
+         }
+      }
+      .disabled {
+         color: ${colors.gray1} !important;
+         cursor: default;
       }
 
       .lesson {
@@ -155,6 +182,10 @@ const Style = styled.div`
 
          .title {
             display: inline-block;
+         }
+
+         .subtitle {
+            text-align: left;
          }
 
          .end {

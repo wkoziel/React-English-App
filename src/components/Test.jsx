@@ -48,18 +48,21 @@ const Typing = ({ words = null, submitTest = null, defaultTime = 10 }) => {
       return () => clearInterval(timer);
    }, [time]); //eslint-disable-line
 
-   const checkInput = () => {
-      if (input.toLowerCase() === state.word.type) setCorrectAnswers(correctAnswers + 1);
+   const checkInput = async () => {
+      let correct = correctAnswers;
+      if (input.toLowerCase() === state.word.type) correct += 1;
+      setCorrectAnswers(correct);
+
       if (state.words[index])
          dispatch({
             type: actions.updateState,
             payload: { word: state.words[index] },
          });
 
-      if (index === state.words.length) submitTest({ correctAnswers, total: state.words.length });
-      else setIndex(index + 1);
       setTime(defaultTime);
       setInput('');
+      if (index === state.words.length) submitTest({ correctAnswers: correct, total: state.words.length });
+      else setIndex(index + 1);
    };
 
    return (
