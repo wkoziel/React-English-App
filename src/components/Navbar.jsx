@@ -5,9 +5,6 @@ import { routes } from '../routes';
 import { colors, fonts } from '../style';
 import { navLinks } from '../constants/data';
 import { useGlobalContext } from '../context/global';
-import Male from '../assets/avatar-male.svg';
-import Enby from '../assets/avatar-different.svg';
-import Female from '../assets/avatar-female.svg';
 import arrowDown from '../assets/arrow-down.svg';
 import { getUser } from '../api/api';
 

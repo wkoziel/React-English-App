@@ -14,6 +14,7 @@ import { motion } from 'framer-motion';
 import ChangeDailyGoal from '../components/ChangeDailyGoal';
 import ResetAccount from '../components/ResetAccount';
 import DeleteAccount from '../components/DeleteAccount';
+import EditAvatar from '../components/EditAvatar';
 import { routes } from '../routes';
 
 const EditProfile = () => {
@@ -75,7 +76,7 @@ const EditProfile = () => {
          case 0:
             return <EditUserData user={user} />;
          case 1:
-            return 'Zmiana avatara';
+            return <EditAvatar />;
          case 2:
             return <ChangePassword />;
          case 3:
