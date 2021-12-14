@@ -77,9 +77,11 @@ const SignUp = () => {
                   <div></div>
                   <img src={image1} alt="" />
                   <p>
-                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere.
-                     Praesent id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada
-                     fames ac turpis egestas.
+                     W obecnych czasach coraz bardziej odbiega się od tradycyjnych sposobów nauki, takich jak
+                     przeglądanie zapisanych notatek czy korzystanie ze słowników. <br />
+                     Uczniowie często decydują się na naukę online.
+                     <br /> Tutaj z pomocą przychodzi platforma LIMI, która oferuje atrakcyjne sposoby nauki dla
+                     każdego.
                   </p>
                </motion.div>
                <motion.div key="2-frame" {...transitions.opacity} className="right-side">
@@ -134,9 +136,8 @@ const SignUp = () => {
                   <div></div>
                   <img className="image2" src={image2} alt="" />
                   <p>
-                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere.
-                     Praesent id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada
-                     fames ac turpis egestas.
+                     Korzystaj z aplikacji mobilnej na dowolnym urządzeniu lub skorzystaj ze strony internetowej na
+                     dowolnej przeglądarce. Wybierz swoją ulubioną i ucz się nieważne, gdzie jesteś!
                   </p>
                </motion.div>
             </AnimatePresence>

@@ -30,8 +30,6 @@ const SingleLesson = () => {
             if (resLesson.data && resUser.data) {
                setLesson(resLesson.data);
                const perc = resUser.data.find((l) => l.lesson_id === Number.parseInt(id, 10));
-               console.log(perc);
-               console.log(resUser.data);
                if (perc) setPercentage(perc.percentage);
             }
          } catch (error) {
@@ -62,7 +60,6 @@ const SingleLesson = () => {
                               <h4>Nowych pojęć</h4>
                            </div>
                            <div className="text">
-                              {/* TODO: Procenty z API */}
                               <h2 className="purple">{percentage}%</h2>
                               <h4>Poziom opanowania</h4>
                            </div>
