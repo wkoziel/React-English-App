@@ -1,9 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import { useEffect } from 'react/cjs/react.development';
 import { activateAccount } from '../api/api';
 import Loading from '../components/Loading';
 import { routes } from '../routes';
+import { useEffect } from 'react';
 
 const EmailConfirm = () => {
    const queryParams = new URLSearchParams(window.location.search);
