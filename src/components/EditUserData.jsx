@@ -69,7 +69,7 @@ const EditUserData = ({ user = null }) => {
          />
          <div className="radiobuttons">
             <span>Płeć:</span>
-            <RadioButton label="Mężczyzna" value="M" name="gender" id="M" ref={register} checked />
+            <RadioButton label="Mężczyzna" value="M" name="gender" id="M" ref={register} />
             <RadioButton label="Kobieta" value="F" name="gender" id="F" ref={register} />
             <RadioButton label="Inna" value="N" name="gender" id="N" ref={register} />
          </div>

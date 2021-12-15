@@ -38,6 +38,8 @@ export const getUser = (login) => instance.get(`users/${login}`);
 
 export const getUserPhoto = (login) => instance.get(`users/get_photo/${login}`);
 
+export const userChangePhoto = (data) => instance.post('users/update_photo', data);
+
 export const getUsersWeek = (login) => instance.get(`userswords/week/${login}`);
 
 export const changeUserPassword = (data) => instance.post('users/update_password', data);
