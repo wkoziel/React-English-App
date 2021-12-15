@@ -11,28 +11,28 @@ const Step1 = () => {
             <div className="content">
                <h1>Witaj w powtórce</h1>
                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla dignissim posuere. Praesent
-                  id vulputate neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                  turpis egestas.
+                  Przygotowaliśmy dla Ciebie indywidualny zestaw słówek do nauki, bazując na tym czego dawno nie
+                  powtarzałeś. Wybierz odpowiednią dla ciebię opcję i kontynuuj naukę, która pozwoli ci utrwalić
+                  pojęcia.
                </p>
                <h5 className="green">Twój zestaw zawiera 54 pojęcia</h5>
             </div>
          </div>
          <div className="Input">
             <button type="button" className="option" onClick={() => {}}>
-               <h2>Szybka powrórka</h2>
+               <h2>Szybka powtórka</h2>
                <h3>10 pojęć</h3>
             </button>
             <button type="button" className="option" onClick={() => {}}>
-               <h2>Normalna powrórka</h2>
+               <h2>Normalna powtórka</h2>
                <h3>20 pojęć</h3>
             </button>
             <button type="button" className="option" onClick={() => {}}>
-               <h2>Wymagająca powrórka</h2>
+               <h2>Wymagająca powtórka</h2>
                <h3>30 pojęć</h3>
             </button>
             <button type="button" className="option" onClick={() => {}}>
-               <h2>Hardkorowa powrórka</h2>
+               <h2>Hardkorowa powtórka</h2>
                <h3>40 pojęć</h3>
             </button>
          </div>
@@ -64,6 +64,7 @@ const Style = styled.div`
          p {
             font-size: 1.5rem;
             color: ${colors.gray2};
+            padding-left: 1rem;
          }
 
          h5 {

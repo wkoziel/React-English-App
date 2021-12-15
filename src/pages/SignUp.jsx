@@ -73,7 +73,7 @@ const SignUp = () => {
          <Style className="container">
             <AnimatePresence>
                <motion.div key="1-frame" {...transitions.fromLeft} className="box">
-                  <h2>Dołącz do jedynej takiej platformy!</h2>
+                  <h2 className="pulse">Dołącz do jedynej takiej platformy!</h2>
                   <div></div>
                   <img src={image1} alt="" />
                   <p>
@@ -132,7 +132,7 @@ const SignUp = () => {
                   </form>
                </motion.div>
                <motion.div key="3-frame" {...transitions.fromLeft} className="box">
-                  <h2>Wypróbuj naszą aplikacje mobilną!</h2>
+                  <h2 className="pulseReversed">Wypróbuj naszą aplikacje mobilną!</h2>
                   <div></div>
                   <img className="image2" src={image2} alt="" />
                   <p>
