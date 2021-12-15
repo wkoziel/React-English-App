@@ -66,7 +66,7 @@ const Lessons = () => {
 
                      <div className="small-box box">
                         <h2>Kontynuuj naukę</h2>
-                        <div className="right circle">
+                        <div className="right circle pulse">
                            <h1 className="procent">
                               <CountUp end={lastLesson?.percentage || 0} duration={2} />%
                            </h1>

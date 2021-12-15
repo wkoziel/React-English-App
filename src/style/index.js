@@ -150,4 +150,29 @@ export const GlobalStyle = createGlobalStyle`
    .black{
       color: ${colors.black}
    }
+
+   //ANIMATIONS
+   @keyframes changeSize {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0.95);
+    }
+}
+
+.pulse {
+    animation-duration: 3s;
+    animation-name: changeSize;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.pulseReversed {
+    animation-duration: 3s;
+    animation-name: changeSize;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-direction: alternate-reverse;
+}
 `;
