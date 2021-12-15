@@ -19,8 +19,8 @@ const EditUserData = ({ user = null }) => {
    const { username } = useGlobalContext();
 
    const schema = yup.object().shape({
-      name: yup.string().required('Podaj swoje imię').max(10),
-      surname: yup.string().required('Podaj swoje nazwisko').max(10),
+      name: yup.string().required('Podaj swoje imię').max(20, 'Imię nie może być dłuższe niż 20 znaków'),
+      surname: yup.string().required('Podaj swoje nazwisko').max(30, 'Nazwisko nie może być dłuższe niż 30 znaków'),
       gender: yup.string(),
    });
 
