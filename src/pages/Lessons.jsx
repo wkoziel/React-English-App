@@ -14,6 +14,7 @@ import { useGlobalContext } from '../context/global';
 import { routes } from '../routes';
 import clsx from 'clsx';
 import { colors } from '../style';
+import CountUp from 'react-countup';
 
 const Lessons = () => {
    const [isLoading, setIsLoading] = useState(true);
@@ -66,7 +67,9 @@ const Lessons = () => {
                      <div className="small-box box">
                         <h2>Kontynuuj naukę</h2>
                         <div className="right circle">
-                           <h1 className="procent">{lastLesson?.percentage || '0'}%</h1>
+                           <h1 className="procent">
+                              <CountUp end={lastLesson?.percentage || 0} duration={2} />%
+                           </h1>
                         </div>
                         <div className="bottom button">
                            <Button
@@ -130,6 +133,11 @@ const Style = styled.div`
       grid-template-columns: 5fr 2.5fr;
       grid-template-rows: auto;
       padding: 1rem 1.5rem;
+      transition: all 0.2s;
+
+      &:hover {
+         transform: scale(1.01);
+      }
       .right {
          grid-row: span 2;
          margin: auto;
@@ -179,6 +187,11 @@ const Style = styled.div`
          align-items: center;
          justify-content: flex-start;
          gap: 0 0.5rem;
+         transition: all 0.2s;
+
+         &:hover {
+            transform: scale(1.01);
+         }
 
          .title {
             display: inline-block;

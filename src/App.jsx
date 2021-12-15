@@ -10,7 +10,7 @@ const HomePage = lazy(() => import('./pages/Home'));
 const SignInPage = lazy(() => import('./pages/SignIn'));
 const SignUpPage = lazy(() => import('./pages/SignUp'));
 const Lessons = lazy(() => import('./pages/Lessons'));
-const Repeat = lazy(() => import('./pages/Repeat'));
+const Repeat = lazy(() => import('./pages/Repeat/RepeatPage'));
 const Profile = lazy(() => import('./pages/Profile'));
 const SingleLesson = lazy(() => import('./pages/SingleLesson'));
 const Typing = lazy(() => import('./pages/TypingPage/TypingPage'));

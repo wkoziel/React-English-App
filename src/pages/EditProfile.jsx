@@ -10,12 +10,12 @@ import EditUserData from '../components/EditUserData';
 import { getUser } from '../api/api';
 import { useGlobalContext } from '../context/global';
 import Loading from '../components/Loading';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import ChangeDailyGoal from '../components/ChangeDailyGoal';
 import ResetAccount from '../components/ResetAccount';
 import DeleteAccount from '../components/DeleteAccount';
-import EditAvatar from '../components/EditAvatar';
-import { routes } from '../routes';
+import transitions from '../helpers/transitions';
+import FileUpload from '../components/FileUpload';
 
 const EditProfile = () => {
    const [step, setStep] = useState(0);
@@ -76,7 +76,7 @@ const EditProfile = () => {
          case 0:
             return <EditUserData user={user} />;
          case 1:
-            return <EditAvatar />;
+            return <FileUpload />;
          case 2:
             return <ChangePassword />;
          case 3:
@@ -91,28 +91,30 @@ const EditProfile = () => {
    };
 
    return (
-      <>
+      <AnimatePresence>
          <Navbar active={3} />
-         <Style className="container page">
-            {isLoading ? (
-               <Loading />
-            ) : (
-               <>
-                  <GoBack label="Powrót" />
-                  <div className="content">
-                     <div className="nav">
-                        {navlinks.map((l, i) => (
-                           <button key={i} type="button" className="white-box" onClick={() => setStep(i)}>
-                              <h5 className={clsx(step === i && 'active')}>{l}</h5>
-                           </button>
-                        ))}
+         <motion.div {...transitions.opacity}>
+            <Style className="container page">
+               {isLoading ? (
+                  <Loading />
+               ) : (
+                  <>
+                     <GoBack label="Powrót" />
+                     <div className="content">
+                        <div className="nav">
+                           {navlinks.map((l, i) => (
+                              <button key={i} type="button" className="white-box" onClick={() => setStep(i)}>
+                                 <h5 className={clsx(step === i && 'active')}>{l}</h5>
+                              </button>
+                           ))}
+                        </div>
+                        <div className="options white-box">{generateStep()}</div>
                      </div>
-                     <div className="options white-box">{generateStep()}</div>
-                  </div>
-               </>
-            )}
-         </Style>
-      </>
+                  </>
+               )}
+            </Style>
+         </motion.div>
+      </AnimatePresence>
    );
 };
 

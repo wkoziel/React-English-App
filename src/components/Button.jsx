@@ -4,9 +4,17 @@ import { colors, fonts } from '../style';
 import arrow from '../assets/arrow-green.svg';
 import whitearrow from '../assets/arrow-white.svg';
 
-const Button = ({ onClick = null, type = 'button', styles = {}, label = '', whiteArrow = false, noArrow = false }) => {
+const Button = ({
+   onClick = null,
+   type = 'button',
+   styles = {},
+   label = '',
+   whiteArrow = false,
+   noArrow = false,
+   disabled = false,
+}) => {
    return (
-      <StyledButton type={type} onClick={onClick} style={styles}>
+      <StyledButton type={type} onClick={onClick} style={styles} disabled={disabled}>
          <h4>{label}</h4>
          {!noArrow && (
             <>{whiteArrow ? <img src={whitearrow} alt="Arrow right" /> : <img src={arrow} alt="Arrow right" />}</>
@@ -33,6 +41,11 @@ const StyledButton = styled.button`
    }
    &:hover {
       transform: scale(1.01);
+   }
+
+   &:disabled {
+      border: 3px solid ${colors.gray2};
+      color: ${colors.gray2};
    }
 `;
 export default Button;
