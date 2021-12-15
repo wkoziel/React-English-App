@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import GoBack from '../components/GoBack';
@@ -11,7 +11,6 @@ import { motion } from 'framer-motion';
 import HeaderImage from '../assets/profile.svg';
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
-import { useEffect } from 'react/cjs/react.development';
 import { getUser, getUsersWeek } from '../api/api';
 import { useGlobalContext } from '../context/global';
 import Loading from '../components/Loading';
