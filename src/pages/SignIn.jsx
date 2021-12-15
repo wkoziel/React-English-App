@@ -61,7 +61,7 @@ const SignIn = () => {
          <Navbar />
          <Style className="container">
             <AnimatePresence>
-               <motion.div key="1-frame" {...transitions.opacity} className="box">
+               <motion.div key="1-frame" {...transitions.fromLeft} className="box">
                   <h2>Ucz się korzystając z jednej z wielu metod!</h2>
                   <div></div>
                   <img src={image1} alt="" />
@@ -71,7 +71,7 @@ const SignIn = () => {
                      wcześniej poznanej wiedzy.
                   </p>
                </motion.div>
-               <motion.div key="2-frame" {...transitions.opacity} className="right-side">
+               <motion.div key="2-frame" {...transitions.fromRight} className="right-side">
                   <form onSubmit={handleSubmit(onSubmit)}>
                      <h2 className="login">Zaloguj się</h2>
                      {message && <Error message={message} />}
@@ -99,7 +99,7 @@ const SignIn = () => {
                      </Link>
                   </form>
                </motion.div>
-               <motion.div key="3-frame" {...transitions.opacity} className="box">
+               <motion.div key="3-frame" {...transitions.fromLeft} className="box">
                   <h2>Wypróbuj naszą aplikacje mobilną!</h2>
                   <div></div>
                   <img className="image2" src={image2} alt="" />
