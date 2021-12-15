@@ -49,6 +49,15 @@ const Typing = ({ words = null, submitTest = null, defaultTime = 10 }) => {
    }, [time]); //eslint-disable-line
 
    const checkInput = async () => {
+      console.log(
+         'TEST',
+         ' typed: ',
+         input.toLowerCase(),
+         'correct: ',
+         state.word.type,
+         ' is correct?',
+         input.toLowerCase() === state.word.type,
+      );
       let correct = correctAnswers;
       if (input.toLowerCase() === state.word.type) correct += 1;
       setCorrectAnswers(correct);
