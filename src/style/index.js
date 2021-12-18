@@ -20,6 +20,7 @@ export const fonts = {
 };
 
 export const GlobalStyle = createGlobalStyle`
+
    // GLOBAL
    body{
       background-color: ${colors.background};

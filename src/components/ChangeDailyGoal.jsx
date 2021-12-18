@@ -30,7 +30,6 @@ const ChangeDailyGoal = ({ dailyGoal = null }) => {
    const onSubmit = (data) => {
       try {
          setIsLoading(true);
-         console.log(data);
          const response = updateDailyGoal({ login: username, daily_goal: data.dailyGoal });
          if (response.data) alert(response.data);
       } catch (error) {

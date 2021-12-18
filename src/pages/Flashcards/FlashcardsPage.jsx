@@ -59,7 +59,6 @@ const FlashcardsPage = () => {
       const submitWords = async () => {
          try {
             const response = await addLearnedWords({ login: username, word_ids: state.wordIDs });
-            // FIXME: Do usunięcia
             console.log(response.data);
          } catch (error) {
             console.log(error);
@@ -71,7 +70,6 @@ const FlashcardsPage = () => {
    const nextStep = () => dispatch({ type: actions.nextStep });
 
    const submitStep = (data) => {
-      console.log('Pobrane słowa', data);
       const wordIDs = state.data.map((w) => w.word_id);
       if (data.selectedLanguage === 0)
          dispatch({

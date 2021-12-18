@@ -16,6 +16,7 @@ import ResetAccount from '../components/ResetAccount';
 import DeleteAccount from '../components/DeleteAccount';
 import transitions from '../helpers/transitions';
 import FileUpload from '../components/FileUpload';
+import { navlinks } from '../constants/data';
 
 const EditProfile = () => {
    const [step, setStep] = useState(0);
@@ -28,11 +29,7 @@ const EditProfile = () => {
       const fetchData = async () => {
          try {
             const response = await getUser(username);
-            if (response.data) {
-               //FIXME: Usuń
-               console.log('User response data: ', response.data);
-               setUser(response.data);
-            }
+            if (response.data) setUser(response.data);
          } catch (error) {
             console.error(error);
          } finally {
@@ -41,35 +38,6 @@ const EditProfile = () => {
       };
       fetchData();
    }, []); //eslint-disable-line
-
-   useEffect(() => {
-      const fetchData = async () => {
-         try {
-            const response = await getUser(username);
-            if (response.data) {
-               //FIXME: Usuń
-               console.log('User response data: ', response.data);
-               setUser(response.data);
-            }
-         } catch (error) {
-            console.error(error);
-         } finally {
-            setIsLoading(false);
-         }
-      };
-      fetchData();
-   }, []); //eslint-disable-line
-
-   const onSubmit = () => {};
-
-   const navlinks = [
-      'Edytuj profil',
-      'Edytuj avatar',
-      'Zmień hasło',
-      'Zmień dzienny cel',
-      'Wyczyść dane konta',
-      'Usuń konto',
-   ];
 
    const generateStep = () => {
       switch (step) {

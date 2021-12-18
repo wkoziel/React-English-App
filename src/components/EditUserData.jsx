@@ -39,16 +39,12 @@ const EditUserData = ({ user = null }) => {
       try {
          setIsLoading(true);
          const { name, surname, gender } = data;
-         console.log({ login: username, name, surname, gender });
          const response = updateUserProfile({ login: username, name, surname, gender });
-         if (response.data) {
-            console.log(response.data?.status);
-         }
+         if (response.data) showModal('Edycja profilu', 'Wprowadzone przez Ciebie dane zostały uaktualnione');
       } catch (error) {
          console.log(error);
       } finally {
          history.push(routes.profile);
-         showModal('Edycja profilu', 'Wprowadzone przez Ciebie dane zostały uaktualnione');
       }
    };
 
@@ -74,7 +70,7 @@ const EditUserData = ({ user = null }) => {
             <span>Płeć:</span>
             <RadioButton label="Mężczyzna" value="M" name="gender" id="M" ref={register} />
             <RadioButton label="Kobieta" value="F" name="gender" id="F" ref={register} />
-            <RadioButton label="Inna" value="N" name="gender" id="N" ref={register} />
+            <RadioButton label="Nie chce podawać" value="N" name="gender" id="N" ref={register} />
          </div>
          <Button label={clsx(isLoading ? 'Wysyłanie...' : 'Wyślij')} noArrow type="submit" />
       </form>

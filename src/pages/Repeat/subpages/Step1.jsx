@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { fonts, colors } from '../../../style';
 import RepeatImage from '../../../assets/repeat.svg';
 import RadioButton from '../../../components/RadioButton';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
 const Step1 = ({ setQuantity = null, nextStep = null, setLanguage = null }) => {

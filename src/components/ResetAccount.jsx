@@ -18,7 +18,6 @@ const ResetAccount = () => {
 
    const onClick = async () => {
       try {
-         console.log('resetuj');
          const response = await resetAccount({ login: username });
          if (response.data) showModal('Resetowanie konta', 'Twoje konto zostało pomyślnie zresetowane');
       } catch (error) {
