@@ -57,6 +57,7 @@ const TypingPage = () => {
       const submitWords = async () => {
          try {
             const response = await addLearnedWords({ login: username, word_ids: state.wordIDs });
+            if (response.data) console.log(response.data);
          } catch (error) {
             console.log(error);
          }

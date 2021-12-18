@@ -16,7 +16,7 @@ import ResetAccount from '../components/ResetAccount';
 import DeleteAccount from '../components/DeleteAccount';
 import transitions from '../helpers/transitions';
 import FileUpload from '../components/FileUpload';
-import { navLinks } from '../constants/data';
+import { navlinks } from '../constants/data';
 
 const EditProfile = () => {
    const [step, setStep] = useState(0);
