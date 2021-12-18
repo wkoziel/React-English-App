@@ -8,6 +8,9 @@ env:
   AZURE_WEBAPP_NAME: ducklingapp    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: 'build'      # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '14.x'                # set this to the node version to use
+  REACT_APP_API: ${{ secrets.REACT_APP_API }}
+  REACT_APP_KEY: ${{ secrets.REACT_APP_KEY }}
+  
 
 jobs:
   build-and-deploy:
@@ -33,6 +36,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        app-settings-json: '${{ secrets.APP_SETTINGS }}'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
