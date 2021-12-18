@@ -26,8 +26,8 @@ const Navbar = ({ logo = 'Duckling', active = null }) => {
             setIsLoading(false);
          }
       };
-      fetchData();
-   }, [username]); //eslint-disable-line
+      if (username) fetchData();
+   }, [username]);
 
    return (
       <Style>

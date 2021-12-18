@@ -28,7 +28,6 @@ const Step1 = ({ onSubmit = null }) => {
             <div className="Main box">
                <h1>Rozpocznij naukę przez wpisywanie!</h1>
                <div className="cols">
-                  <img src={Typing} alt="" />
                   <div className="settings">
                      <RadioButtons
                         label="Język pisania:"
@@ -86,6 +85,7 @@ const Style = styled.div`
       align-items: center;
       justify-content: space-between;
       padding: 1rem 3rem;
+      background: url(${Typing}) no-repeat 5% 50% ${colors.white};
       .cols,
       .settings {
          display: grid;
@@ -95,6 +95,8 @@ const Style = styled.div`
       .settings {
          border: 3px solid ${colors.green};
          border-radius: 20px;
+         grid-column: 2;
+         background: ${colors.white};
       }
 
       button {

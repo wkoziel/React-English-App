@@ -1,42 +1,64 @@
 import React from 'react';
 import styled from 'styled-components';
-import GoBack from '../../../components/GoBack';
 import { fonts, colors } from '../../../style';
 import RepeatImage from '../../../assets/repeat.svg';
+import RadioButton from '../../../components/RadioButton';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 
-const Step1 = () => {
+const Step1 = ({ setQuantity = null, nextStep = null, setLanguage = null }) => {
+   const onClick = (q) => {
+      setQuantity(q);
+   };
+
+   const onSubmit = (data) => {
+      nextStep(data.language);
+   };
+
+   const { handleSubmit, register } = useForm({
+      mode: 'onChange',
+   });
+
    return (
-      <Style className="container page">
-         <div className="Main white-box">
-            <div className="content">
-               <h1>Witaj w powtórce</h1>
-               <p>
-                  Przygotowaliśmy dla Ciebie indywidualny zestaw słówek do nauki, bazując na tym czego dawno nie
-                  powtarzałeś. Wybierz odpowiednią dla ciebię opcję i kontynuuj naukę, która pozwoli ci utrwalić
-                  pojęcia.
-               </p>
-               <h5 className="green">Twój zestaw zawiera 54 pojęcia</h5>
+      <form onSubmit={handleSubmit(onSubmit)}>
+         <Style className="container page">
+            <div className="Main white-box">
+               <div className="content">
+                  <h1>Witaj w powtórce</h1>
+                  <p>
+                     Przygotowaliśmy dla Ciebie indywidualny zestaw słówek do nauki, bazując na tym czego dawno nie
+                     powtarzałeś. Wybierz odpowiednią dla ciebię opcję i kontynuuj naukę, która pozwoli ci utrwalić
+                     pojęcia.
+                  </p>
+                  <h5 className="green">Twój zestaw zawiera 54 pojęcia</h5>
+                  <div className="radiobuttons">
+                     <p>Język wprowadzania:</p>
+                     <RadioButton label="Angielski" value={0} name="language" id="english" ref={register} checked />
+                     <RadioButton label="Polski" value={1} name="language" id="polish" ref={register} />
+                  </div>
+               </div>
             </div>
-         </div>
-         <div className="Input">
-            <button type="button" className="option" onClick={() => {}}>
-               <h2>Szybka powtórka</h2>
-               <h3>10 pojęć</h3>
-            </button>
-            <button type="button" className="option" onClick={() => {}}>
-               <h2>Normalna powtórka</h2>
-               <h3>20 pojęć</h3>
-            </button>
-            <button type="button" className="option" onClick={() => {}}>
-               <h2>Wymagająca powtórka</h2>
-               <h3>30 pojęć</h3>
-            </button>
-            <button type="button" className="option" onClick={() => {}}>
-               <h2>Hardkorowa powtórka</h2>
-               <h3>40 pojęć</h3>
-            </button>
-         </div>
-      </Style>
+            <div className="Input">
+               <button type="submit" className="option" onClick={() => onClick(10)}>
+                  <h2>Szybka powtórka</h2>
+                  <h3>10 pojęć</h3>
+               </button>
+               <button type="submit" className="option" onClick={() => onClick(20)}>
+                  <h2>Normalna powtórka</h2>
+                  <h3>20 pojęć</h3>
+               </button>
+               <button type="submit" className="option" onClick={() => onClick(30)}>
+                  <h2>Wymagająca powtórka</h2>
+                  <h3>30 pojęć</h3>
+               </button>
+               <button type="submit" className="option" onClick={() => onClick(40)}>
+                  <h2>Hardkorowa powtórka</h2>
+                  <h3>40 pojęć</h3>
+               </button>
+            </div>
+         </Style>
+      </form>
    );
 };
 
@@ -112,6 +134,16 @@ const Style = styled.div`
          &:hover {
             border-left: 20px solid ${colors.green};
          }
+      }
+   }
+
+   .radiobuttons {
+      display: flex;
+      align-items: center;
+      p {
+         margin: 0;
+         color: ${colors.black} !important;
+         font-size: 1.25rem !important;
       }
    }
 `;

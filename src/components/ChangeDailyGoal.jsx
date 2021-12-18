@@ -8,6 +8,7 @@ import { useGlobalContext } from '../context/global';
 import { updateDailyGoal } from '../api/api';
 import { useHistory } from 'react-router-dom';
 import { routes } from '../routes';
+import { useModalContext } from './Modal';
 
 const ChangeDailyGoal = ({ dailyGoal = null }) => {
    const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +16,8 @@ const ChangeDailyGoal = ({ dailyGoal = null }) => {
    const history = useHistory();
 
    const { username } = useGlobalContext();
+   const { showModal } = useModalContext();
+
    const schema = yup.object().shape({
       name: yup.number(),
    });
@@ -35,6 +38,7 @@ const ChangeDailyGoal = ({ dailyGoal = null }) => {
       } finally {
          setIsLoading(false);
          history.push(routes.lessons);
+         showModal('Zmiana dziennego celu', 'Wprowadzony przez Ciebie dzienny cel został uaktualniony.');
       }
    };
 

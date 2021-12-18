@@ -4,6 +4,7 @@ import { activateAccount } from '../api/api';
 import Loading from '../components/Loading';
 import { routes } from '../routes';
 import { useEffect } from 'react';
+import { useModalContext } from '../components/Modal';
 
 const EmailConfirm = () => {
    const queryParams = new URLSearchParams(window.location.search);
@@ -12,11 +13,13 @@ const EmailConfirm = () => {
 
    const history = useHistory();
 
+   const { showModal } = useModalContext();
+
    useEffect(() => {
       const sendToken = async () => {
          try {
             const response = await activateAccount(token);
-            if (response.data) alert(response.data.status);
+            if (response.data) showModal('Potwierdzanie adresu email', response.data.status);
          } catch (error) {
             console.log(error);
          } finally {

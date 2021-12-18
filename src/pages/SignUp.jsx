@@ -19,12 +19,15 @@ import Error from '../components/Error';
 import { registerStatus } from '../constants/data';
 import { useHistory } from 'react-router';
 import RadioButton from '../components/RadioButton';
+import { useModalContext } from '../components/Modal';
 
 const SignUp = () => {
    const [isLoading, setIsLoading] = useState(false);
    const [message, setMessage] = useState('');
 
    const history = useHistory();
+
+   const { showModal } = useModalContext();
 
    const schema = yup.object().shape({
       login: yup
@@ -53,7 +56,10 @@ const SignUp = () => {
             if (response.data.status) {
                const { status } = response.data;
                if (status === registerStatus.success) {
-                  alert('Aktywuj swoje konto z użyciem maila.');
+                  showModal(
+                     'Aktywuj swoje konto',
+                     'Na podany adres email wysłany został link aktywacyjny. Aktywuj konto aby móc się zalogować',
+                  );
                   history.push(routes.signIn);
                } else setMessage(status);
             }
@@ -80,8 +86,8 @@ const SignUp = () => {
                      W obecnych czasach coraz bardziej odbiega się od tradycyjnych sposobów nauki, takich jak
                      przeglądanie zapisanych notatek czy korzystanie ze słowników. <br />
                      Uczniowie często decydują się na naukę online.
-                     <br /> Tutaj z pomocą przychodzi platforma LIMI, która oferuje atrakcyjne sposoby nauki dla
-                     każdego.
+                     <br /> Tutaj z pomocą przychodzi platforma <strong className="green">Duckling</strong>,
+                     <br /> która oferuje atrakcyjne sposoby nauki dla każdego.
                   </p>
                </motion.div>
                <motion.div key="2-frame" {...transitions.fromRight} className="right-side">
@@ -136,8 +142,9 @@ const SignUp = () => {
                   <div></div>
                   <img className="image2" src={image2} alt="" />
                   <p>
-                     Korzystaj z aplikacji mobilnej na dowolnym urządzeniu lub skorzystaj ze strony internetowej na
-                     dowolnej przeglądarce. Wybierz swoją ulubioną i ucz się nieważne, gdzie jesteś!
+                     Korzystaj z <strong className="green">aplikacji mobilnej</strong> na dowolnym urządzeniu lub
+                     skorzystaj ze strony internetowej na dowolnej przeglądarce. Wybierz swoją ulubioną i ucz się
+                     nieważne, gdzie jesteś!
                   </p>
                </motion.div>
             </AnimatePresence>

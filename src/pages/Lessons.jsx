@@ -72,6 +72,9 @@ const Lessons = () => {
                            </h1>
                         </div>
                         <div className="bottom button">
+                           <h4>
+                              Tutaj <span className="green">ostatnio</span> skończyłeś naukę:
+                           </h4>
                            <Button
                               label={`Lekcja ${lastLesson?.lesson_id + 1 || 1}`}
                               onClick={() => history.push(routes?.singleLesson.replace(':id', lastLesson?.lesson_id))}
@@ -134,6 +137,12 @@ const Style = styled.div`
       grid-template-rows: auto;
       padding: 1rem 1.5rem;
       transition: all 0.2s;
+
+      .bottom {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+      }
 
       &:hover {
          transform: scale(1.01);

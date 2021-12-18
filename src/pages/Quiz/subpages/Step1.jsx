@@ -30,7 +30,7 @@ const Step1 = ({ onSubmit = null }) => {
                   <img src={image} alt="" />
                   <div className="settings">
                      <RadioButtons
-                        label="Język pisania:"
+                        label="Język wprowadzany:"
                         options={languageOptions}
                         selected={selectedLanguage}
                         onChange={(e) => setSelectedLanguage(e.target.value)}

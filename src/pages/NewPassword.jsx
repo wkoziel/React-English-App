@@ -14,6 +14,7 @@ import clsx from 'clsx';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { colors, fonts } from '../style';
+import { useModalContext } from '../components/Modal';
 
 const NewPassword = () => {
    const queryParams = new URLSearchParams(window.location.search);
@@ -22,6 +23,8 @@ const NewPassword = () => {
    const [isLoading, setIsLoading] = useState(false);
 
    const history = useHistory();
+
+   const { showModal } = useModalContext();
 
    const schema = yup.object().shape({
       mail: yup.string().required('Podaj swój adres email'),
@@ -40,7 +43,7 @@ const NewPassword = () => {
             const { mail, password1 } = data;
             console.log('Reset data:', { mail, password: password1 });
             const response = await sendNewPassword(token, { mail, password: password1 });
-            if (response.data) alert(response.data.status);
+            if (response.data) showModal('Przywracanie hasła', response.data.status);
          } catch (error) {
             console.log(error);
          } finally {

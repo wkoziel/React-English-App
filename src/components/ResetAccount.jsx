@@ -6,11 +6,13 @@ import { resetAccount } from '../api/api';
 import { useGlobalContext } from '../context/global';
 import { useHistory } from 'react-router-dom';
 import { routes } from '../routes';
+import { useModalContext } from './Modal';
 
 const ResetAccount = () => {
    const [isButton, setIsButton] = useState(false);
 
    const { username } = useGlobalContext();
+   const { showModal } = useModalContext();
 
    const history = useHistory();
 
@@ -18,7 +20,7 @@ const ResetAccount = () => {
       try {
          console.log('resetuj');
          const response = await resetAccount({ login: username });
-         if (response.data) alert(response.data.status);
+         if (response.data) showModal('Resetowanie konta', 'Twoje konto zostało pomyślnie zresetowane');
       } catch (error) {
          console.log(error);
       } finally {

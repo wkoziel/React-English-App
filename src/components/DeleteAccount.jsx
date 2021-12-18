@@ -6,19 +6,20 @@ import { deleteAccount } from '../api/api';
 import { useGlobalContext } from '../context/global';
 import { useHistory } from 'react-router-dom';
 import { routes } from '../routes';
+import { useModalContext } from './Modal';
 
 const DeleteAccount = () => {
    const [isButton, setIsButton] = useState(false);
 
    const { username } = useGlobalContext();
+   const { showModal } = useModalContext();
 
    const history = useHistory();
 
    const onClick = () => {
       try {
-         console.log('usun');
          const response = deleteAccount(username);
-         if (response.data) alert(response.data.status);
+         if (response.data) showModal('Usuwanie konta', 'Twoje konto zostało pomyślnie usunięte');
       } catch (error) {
          console.log(error);
       } finally {
