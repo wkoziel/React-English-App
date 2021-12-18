@@ -25,10 +25,9 @@ const Step1 = ({ onSubmit = null }) => {
          <div className="Main box">
             <h1>Rozpocznij naukę z pomocą fiszek!</h1>
             <div className="cols">
-               <img src={image} alt="" />
                <div className="settings">
                   <RadioButtons
-                     label="Pierwszy język:"
+                     label="Język na odwrocie:"
                      options={languageOptionsFlashcards}
                      selected={selectedLanguage}
                      onChange={(e) => setSelectedLanguage(e.target.value)}
@@ -80,6 +79,8 @@ const Style = styled.div`
       align-items: center;
       justify-content: space-between;
       padding: 1rem 3rem;
+      background: url(${image}) no-repeat 0% 50% ${colors.white};
+
       .cols,
       .settings {
          display: grid;
@@ -87,8 +88,10 @@ const Style = styled.div`
       }
 
       .settings {
+         grid-column: 2;
          border: 3px solid ${colors.green};
          border-radius: 20px;
+         background: ${colors.white};
       }
 
       button {

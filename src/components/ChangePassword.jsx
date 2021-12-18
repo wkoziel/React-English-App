@@ -8,9 +8,11 @@ import Button from '../components/Button';
 import clsx from 'clsx';
 import { changeUserPassword } from '../api/api';
 import { useGlobalContext } from '../context/global';
+import { useModalContext } from './Modal';
 
 const ChangePassword = () => {
    const { username } = useGlobalContext();
+   const { showModal } = useModalContext();
 
    const [message, setMessage] = useState('');
    const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +33,7 @@ const ChangePassword = () => {
             const { password1 } = data;
             console.log('Reset data:', { login: username, password: password1 });
             const response = await changeUserPassword({ login: username, password: password1 });
-            if (response.data) alert(response.data.status);
+            if (response.data) showModal('Zmiana hasła', 'Wprowadzone przez Ciebie hasło zostało uaktualnione');
          } catch (error) {
             console.log(error);
          } finally {

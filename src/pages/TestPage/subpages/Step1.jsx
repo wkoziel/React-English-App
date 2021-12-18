@@ -30,7 +30,7 @@ const Step1 = ({ onSubmit = null }) => {
                         fiszek i wpisywania.
                      </p>
                      <ul>
-                        <p style={{ margin: '2px 0', fontWeight: 'bold' }}>Pamiętaj, że:</p>
+                        <span style={{ margin: '2px 0', fontWeight: 'bold' }}>Pamiętaj, że:</span>
                         <li>Na wpisanie słówka masz tylko 10 sekund,</li>
                         <li>Aby zaliczyć lekcję, musisz odpowiedzieć poprawnie na każde pytanie,</li>
                         <li>Po zakończonym teście możesz zobaczyć, ile poprawnych odpowiedzi udzieliłeś,</li>
@@ -39,7 +39,7 @@ const Step1 = ({ onSubmit = null }) => {
                      <p>Jednak nie bój się, test możesz powtórzyć tyle razy, ile będzie to potrzebne :)</p>
                      <p style={{ fontWeight: 'bold' }}>Powodzenia!</p>
                   </div>
-                  <img src={Test} alt="" />
+                  {/* <img src={Test} alt="" /> */}
                </div>
                <Button label="Rozpocznij" noArrow onClick={() => onSubmit()} />
             </div>
@@ -72,20 +72,17 @@ const Style = styled.div`
       align-items: center;
       justify-content: space-between;
       padding: 0.5rem 1rem;
+      p {
+         background-color: white;
+         width: fit-content;
+      }
       .cols {
          position: relative;
          display: grid;
          grid-template-columns: 1fr;
          align-items: center;
          justify-content: center;
-         img {
-            position: absolute;
-            width: 500px;
-            right: 4rem;
-            bottom: 2rem;
-            z-index: 0;
-            text-overflow: ellipsis;
-         }
+         background: url(${Test}) no-repeat 100% 80%;
       }
 
       .settings {

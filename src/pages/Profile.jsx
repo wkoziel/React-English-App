@@ -14,8 +14,9 @@ import { routes } from '../routes';
 import { getUser, getUsersWeek } from '../api/api';
 import { useGlobalContext } from '../context/global';
 import Loading from '../components/Loading';
-import { days } from '../constants/data';
+import { days, tempAchivements } from '../constants/data';
 import CountUp from 'react-countup';
+import Achivement from '../assets/achivement.svg';
 
 const Profile = () => {
    const [user, setUser] = useState({});
@@ -29,9 +30,6 @@ const Profile = () => {
          try {
             const [responseUser, responseWords] = await Promise.all([getUser(username), getUsersWeek(username)]);
             if (responseUser.data && responseWords.data) {
-               //FIXME: Usuń
-               console.log('User response data: ', responseUser.data);
-               console.log('User week response data: ', responseWords.data);
                setUser(responseUser.data);
                setUserWeek(responseWords.data);
             }
@@ -44,6 +42,15 @@ const Profile = () => {
       fetchData();
    }, []); //eslint-disable-line
 
+   const formatDate = (date) => {
+      const formatter = new Intl.DateTimeFormat('pl', {
+         day: 'numeric',
+         month: 'long',
+         year: 'numeric',
+      });
+      return formatter.format(new Date()); // 23 lipca 2016
+   };
+
    return (
       <>
          <Navbar active={3} />
@@ -52,7 +59,7 @@ const Profile = () => {
          ) : (
             <AnimatePresence>
                <motion.div {...transitions.opacity}>
-                  <div style={{ margin: '0.25rem 0 0.25rem 5rem' }}>
+                  <div style={{ margin: '0.5rem 0 0.25rem 5rem' }}>
                      <GoBack label="Powrót" />
                   </div>
                   <Style className="page container">
@@ -64,13 +71,24 @@ const Profile = () => {
                                  {user?.name} {user?.surname}
                               </h1>
                               <h4>@{user?.login}</h4>
-                              <h5>{user?.created.slice(0, -12)}</h5>
+                              <h5>Dołączono: {formatDate(user?.created)}</h5>
                            </div>
                         </div>
                         <div className="achivements">
-                           <Link to={routes.editProfile}>
-                              <span className="edit">Edytuj profil</span>
+                           <Link className="edit" to={routes.editProfile}>
+                              <span>Edytuj profil</span>
                            </Link>
+                           {tempAchivements.map((a, i) => (
+                              <div
+                                 className="achivement"
+                                 style={{ background: `url(${Achivement}) 100% 50% no-repeat ${colors.background}` }}
+                              >
+                                 <div>
+                                    <h3 className="green">{a.title}</h3>
+                                    <p>{a.desc}</p>
+                                 </div>
+                              </div>
+                           ))}
                         </div>
                      </div>
                      <div className="right">
@@ -99,6 +117,7 @@ const Profile = () => {
                            <h5>Twój tydzień</h5>
                            <div className="white-box">
                               <Bar
+                                 height={250}
                                  data={{
                                     labels: Object.keys(userWeek).map((d) => days[new Date(d).getDay()]),
                                     datasets: [
@@ -123,6 +142,7 @@ const Profile = () => {
                                     ],
                                  }}
                                  options={{
+                                    maintainAspectRatio: true,
                                     plugins: {
                                        legend: {
                                           display: false,
@@ -211,11 +231,30 @@ const Style = styled.div`
    }
 
    .achivements {
+      margin-top: 3rem;
       position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 1rem 1rem;
+      padding: 0 2rem 2rem;
 
+      .achivement {
+         border-radius: 10px;
+         display: flex;
+         /* justify-content: space-around; */
+         align-items: center;
+         background-color: ${colors.background};
+         padding: 0 1rem;
+         position: relative;
+         min-height: 150px;
+         & > div {
+            width: 65%;
+         }
+      }
       .edit {
          position: absolute;
-         top: -2rem;
+         top: -4rem;
          right: 1rem;
          text-decoration: underline;
          color: ${colors.green};
@@ -255,7 +294,6 @@ const Style = styled.div`
       max-width: 400px;
       & > div {
          display: flex;
-         min-height: 220px;
          align-items: center;
       }
    }

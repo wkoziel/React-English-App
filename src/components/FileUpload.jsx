@@ -10,6 +10,7 @@ import { getUserPhoto, userChangePhoto } from '../api/api';
 import clsx from 'clsx';
 import { routes } from '../routes';
 import { useHistory } from 'react-router-dom';
+import { useModalContext } from './Modal';
 
 const url = 'https://limistorage.blob.core.windows.net/profile-pics/';
 
@@ -21,6 +22,8 @@ const FileUpload = () => {
    const [userPhoto, setUserPhoto] = useState({});
 
    const history = useHistory();
+
+   const { showModal } = useModalContext();
 
    const ref = useRef();
 
@@ -68,7 +71,8 @@ const FileUpload = () => {
       } catch (error) {
          console.log(error);
       } finally {
-         history.go(routes.profile);
+         history.push(routes.profile);
+         showModal('Zmiana avatara', 'Wysłane przez Ciebie zdjęcie zostało uaktualnione');
       }
    };
 

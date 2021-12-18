@@ -71,13 +71,16 @@ const Quiz = () => {
    };
 
    const submitStep = (data) => {
-      //FIXME: Do usuniecia
-      console.log('sumbit', data);
       const wordIDs = state.data.map((w) => w.word_id);
       if (data.selectedLanguage === 0)
          dispatch({
             type: actions.prepareData,
-            payload: { data: prepareLearnData(state.data, true), selectedTimes: data.selectedTimes + 1, wordIDs },
+            payload: {
+               data: prepareLearnData(state.data, true),
+               selectedLanguage: data.selectedLanguage,
+               selectedTimes: data.selectedTimes + 1,
+               wordIDs,
+            },
          });
       else
          dispatch({

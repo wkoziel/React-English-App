@@ -66,9 +66,10 @@ const SignIn = () => {
                   <div></div>
                   <img src={image1} alt="" />
                   <p>
-                     Skorzystaj z trzech atrakcyjnych sposobów nauki: fiszek, wpisywania oraz quizu. Potwierdzone
-                     naukowo zostało, że gdy na pytania odpowiada się z pamięci, mózg pobudzany jest do przywoływania
-                     wcześniej poznanej wiedzy.
+                     Skorzystaj z trzech atrakcyjnych sposobów nauki:{' '}
+                     <strong className="green">fiszek, wpisywania</strong> oraz <strong className="green">quizu</strong>
+                     . Potwierdzone naukowo zostało, że gdy na pytania odpowiada się z pamięci, mózg pobudzany jest do
+                     przywoływania wcześniej poznanej wiedzy.
                   </p>
                </motion.div>
                <motion.div key="2-frame" {...transitions.fromRight} className="right-side">
@@ -102,11 +103,11 @@ const SignIn = () => {
                <motion.div key="3-frame" {...transitions.fromLeft} className="box">
                   <h2 className="pulseReversed">Wypróbuj naszą aplikacje mobilną!</h2>
                   <div></div>
-                  <img className="image2" src={image2} alt="" pulse />
+                  <img className="image2" src={image2} alt="" />
                   <p>
                      Jedziesz pociągiem i chcesz przetestować zdobytą wiedzę? Nie ma nic prostszego! Zapomnij o wożeniu
-                     ciężkich zeszytów z języka angielskiego. Teraz w każdej chwili możesz uruchomić aplikację mobilną i
-                     kontynuować zaczętą wcześniej naukę.
+                     ciężkich zeszytów z języka angielskiego. Teraz w każdej chwili możesz uruchomić{' '}
+                     <strong className="green">aplikację mobilną</strong> i kontynuować zaczętą wcześniej naukę.
                   </p>
                </motion.div>
             </AnimatePresence>

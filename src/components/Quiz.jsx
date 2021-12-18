@@ -24,7 +24,7 @@ const reducer = (state, action) => {
          return new Error('No matching action');
    }
 };
-const Quiz = ({ words = null, times = 0, nextStep = null, setCorrect = null }) => {
+const Quiz = ({ words = null, times = 0, nextStep = null, setCorrect = null, submitResult = null }) => {
    const [state, dispatch] = useReducer(reducer, initialState);
    const [displayedWords, setDisplayedWords] = useState([]);
    const [showAnswers, setShowAnswers] = useState(false);
@@ -74,8 +74,12 @@ const Quiz = ({ words = null, times = 0, nextStep = null, setCorrect = null }) =
       }
 
       let nextWord = state.words.find((word) => word.id > state.word.id && state.word.learned === false);
-      if (nextWord === undefined || nextWord === state.word)
-         nextWord = state.words.find((word) => word.learned === false);
+      if (nextWord === undefined || nextWord === state.word) {
+         if (submitResult) {
+            submitResult(state.words);
+            return;
+         } else nextWord = state.words.find((word) => word.learned === false);
+      }
 
       setTimeout(() => {
          dispatch({

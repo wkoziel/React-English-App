@@ -13,10 +13,13 @@ import styled from 'styled-components';
 import { colors, fonts } from '../style';
 import { remindPassword } from '../api/api';
 import { useHistory } from 'react-router';
+import { useModalContext } from '../components/Modal';
 
 const ForgottenPassword = () => {
    const [isLoading, setIsLoading] = useState(false);
    const [message, setMessage] = useState('');
+
+   const { showModal } = useModalContext();
 
    const history = useHistory();
 
@@ -35,7 +38,7 @@ const ForgottenPassword = () => {
          if (response.data.status) {
             const { status } = response.data;
             if (status === 'Wysłano mail') {
-               alert('Email z linkiem został wysłany na podany email');
+               showModal('Zapomniane hasło', 'Email z linkiem został wysłany na podany przez ciebie email');
                history.push(routes.signIn);
             } else setMessage(status);
          }

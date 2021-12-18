@@ -8,6 +8,7 @@ import { useState } from 'react';
 import RadioButton from '../components/RadioButton';
 import { updateUserProfile } from '../api/api';
 import { useGlobalContext } from '../context/global';
+import { useModalContext } from '../components/Modal';
 import { useHistory } from 'react-router-dom';
 import { routes } from '../routes';
 
@@ -17,6 +18,7 @@ const EditUserData = ({ user = null }) => {
    const history = useHistory();
 
    const { username } = useGlobalContext();
+   const { showModal } = useModalContext();
 
    const schema = yup.object().shape({
       name: yup.string().required('Podaj swoje imię').max(20, 'Imię nie może być dłuższe niż 20 znaków'),
@@ -46,6 +48,7 @@ const EditUserData = ({ user = null }) => {
          console.log(error);
       } finally {
          history.push(routes.profile);
+         showModal('Edycja profilu', 'Wprowadzone przez Ciebie dane zostały uaktualnione');
       }
    };
 

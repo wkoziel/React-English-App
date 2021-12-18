@@ -5,6 +5,7 @@ import { GlobalStyle } from './style';
 import Loading from './components/Loading';
 import { ContextProvider } from './context/global';
 import AuthWrapper from './components/AuthWrapper';
+import Modal from './components/Modal';
 
 const HomePage = lazy(() => import('./pages/Home'));
 const SignInPage = lazy(() => import('./pages/SignIn'));
@@ -28,28 +29,30 @@ const App = () => (
       <Suspense fallback={<Loading />}>
          <GlobalStyle />
          <ContextProvider>
-            <Switch>
-               <Route path={routes.home} component={HomePage} exact />
-               <Route path={routes.signIn} component={SignInPage} />
-               <Route path={routes.signUp} component={SignUpPage} />
-               <Route path={routes.emailConfirm} component={EmailConfirm} />
-               <Route path={routes.forgottenPassword} component={ForgottenPassword} />
-               <Route path={routes.sendNewPassword} component={SendNewPassword} />
+            <Modal>
+               <Switch>
+                  <Route path={routes.home} component={HomePage} exact />
+                  <Route path={routes.signIn} component={SignInPage} />
+                  <Route path={routes.signUp} component={SignUpPage} />
+                  <Route path={routes.emailConfirm} component={EmailConfirm} />
+                  <Route path={routes.forgottenPassword} component={ForgottenPassword} />
+                  <Route path={routes.sendNewPassword} component={SendNewPassword} />
 
-               <AuthWrapper>
-                  <Route path={routes.lessons} component={Lessons} />
-                  <Route path={routes.repeat} component={Repeat} />
-                  <Route path={routes.profile} component={Profile} />
-                  <Route path={routes.singleLesson} component={SingleLesson} exact />
-                  <Route path={routes.typing} component={Typing} />
-                  <Route path={routes.quiz} component={Quiz} />
-                  <Route path={routes.flashcards} component={Flashcards} />
-                  <Route path={routes.test} component={Test} />
-                  <Route path={routes.editProfile} component={EditProfile} />
-               </AuthWrapper>
+                  <AuthWrapper>
+                     <Route path={routes.lessons} component={Lessons} />
+                     <Route path={routes.repeat} component={Repeat} />
+                     <Route path={routes.profile} component={Profile} />
+                     <Route path={routes.singleLesson} component={SingleLesson} exact />
+                     <Route path={routes.typing} component={Typing} />
+                     <Route path={routes.quiz} component={Quiz} />
+                     <Route path={routes.flashcards} component={Flashcards} />
+                     <Route path={routes.test} component={Test} />
+                     <Route path={routes.editProfile} component={EditProfile} />
+                  </AuthWrapper>
 
-               <Route path="*" component={ErrorPage} />
-            </Switch>
+                  <Route path="*" component={ErrorPage} />
+               </Switch>
+            </Modal>
          </ContextProvider>
       </Suspense>
    </BrowserRouter>
