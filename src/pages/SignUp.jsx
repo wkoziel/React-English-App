@@ -186,7 +186,6 @@ const Style = styled.div`
       }
 
       p {
-         padding-top: 1rem;
          font-size: 1.25rem;
          color: ${colors.gray2};
          align-self: center;

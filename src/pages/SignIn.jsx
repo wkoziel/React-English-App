@@ -148,7 +148,6 @@ const Style = styled.div`
       }
 
       p {
-         padding-top: 1rem;
          font-size: 1.25rem;
          color: ${colors.gray3};
          align-self: center;
