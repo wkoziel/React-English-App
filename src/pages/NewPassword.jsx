@@ -41,7 +41,6 @@ const NewPassword = () => {
          try {
             setIsLoading(true);
             const { mail, password1 } = data;
-            console.log('Reset data:', { mail, password: password1 });
             const response = await sendNewPassword(token, { mail, password: password1 });
             if (response.data) showModal('Przywracanie hasła', response.data.status);
          } catch (error) {

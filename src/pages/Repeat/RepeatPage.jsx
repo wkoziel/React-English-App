@@ -60,9 +60,7 @@ const TestPage = () => {
    };
 
    const submitStep = (selectedLanguage) => {
-      console.log('wybrany jezyk', selectedLanguage);
       if (Number.parseInt(selectedLanguage) === 1) {
-         console.log('opcja 1');
          dispatch({
             type: actions.prepareData,
             payload: {

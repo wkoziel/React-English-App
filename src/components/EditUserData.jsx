@@ -39,16 +39,12 @@ const EditUserData = ({ user = null }) => {
       try {
          setIsLoading(true);
          const { name, surname, gender } = data;
-         console.log({ login: username, name, surname, gender });
          const response = updateUserProfile({ login: username, name, surname, gender });
-         if (response.data) {
-            console.log(response.data?.status);
-         }
+         if (response.data) showModal('Edycja profilu', 'Wprowadzone przez Ciebie dane zostały uaktualnione');
       } catch (error) {
          console.log(error);
       } finally {
          history.push(routes.profile);
-         showModal('Edycja profilu', 'Wprowadzone przez Ciebie dane zostały uaktualnione');
       }
    };
 

@@ -57,3 +57,12 @@ export const tempAchivements = [
       url: 'sdsds',
    },
 ];
+
+export const navlinks = [
+   'Edytuj profil',
+   'Edytuj avatar',
+   'Zmień hasło',
+   'Zmień dzienny cel',
+   'Wyczyść dane konta',
+   'Usuń konto',
+];
