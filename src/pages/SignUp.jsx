@@ -52,6 +52,7 @@ const SignUp = () => {
       try {
          if (data.password === data.repeatpassword) {
             setIsLoading(true);
+            console.log(data);
             const response = await signUp(data);
             if (response.data.status) {
                const { status } = response.data;
@@ -127,9 +128,9 @@ const SignUp = () => {
                      />
                      <div className="radiobuttons">
                         <p>Płeć:</p>
-                        <RadioButton label="Mężczyzna" value={0} name="gender" id="male" ref={register} checked />
-                        <RadioButton label="Kobieta" value={1} name="gender" id="male" ref={register} />
-                        <RadioButton label="Nie chce podawać" value={2} name="gender" id="male" ref={register} />
+                        <RadioButton label="Mężczyzna" value="M" name="gender" id="male" ref={register} checked />
+                        <RadioButton label="Kobieta" value="F" name="gender" id="male" ref={register} />
+                        <RadioButton label="Nie chce podawać" value="N" name="gender" id="male" ref={register} />
                      </div>
                      <Button label={clsx(isLoading ? 'Rejestracja...' : 'Zarejestruj się')} noArrow type="submit" />
                      <Link to={routes.signIn}>
