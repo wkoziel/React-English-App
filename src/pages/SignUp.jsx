@@ -129,7 +129,7 @@ const SignUp = () => {
                         <p>Płeć:</p>
                         <RadioButton label="Mężczyzna" value={0} name="gender" id="male" ref={register} checked />
                         <RadioButton label="Kobieta" value={1} name="gender" id="male" ref={register} />
-                        <RadioButton label="Inna" value={2} name="gender" id="male" ref={register} />
+                        <RadioButton label="Nie chce podawać" value={2} name="gender" id="male" ref={register} />
                      </div>
                      <Button label={clsx(isLoading ? 'Rejestracja...' : 'Zarejestruj się')} noArrow type="submit" />
                      <Link to={routes.signIn}>

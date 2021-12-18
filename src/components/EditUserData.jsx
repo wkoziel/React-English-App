@@ -74,7 +74,7 @@ const EditUserData = ({ user = null }) => {
             <span>Płeć:</span>
             <RadioButton label="Mężczyzna" value="M" name="gender" id="M" ref={register} />
             <RadioButton label="Kobieta" value="F" name="gender" id="F" ref={register} />
-            <RadioButton label="Inna" value="N" name="gender" id="N" ref={register} />
+            <RadioButton label="Nie chce podawać" value="N" name="gender" id="N" ref={register} />
          </div>
          <Button label={clsx(isLoading ? 'Wysyłanie...' : 'Wyślij')} noArrow type="submit" />
       </form>
