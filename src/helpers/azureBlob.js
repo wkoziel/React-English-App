@@ -4,6 +4,7 @@ import { getSASToken } from '../api/api';
 const containerName = process.env.REACT_APP_CONTAINERNAME;
 const storageAccountName = process.env.REACT_APP_STORAGENAME;
 
+// eslint-disable-next-line
 const getBlobsInContainer = async (containerClient) => {
    const returnedBlobUrls = [];
    // eslint-disable-next-line

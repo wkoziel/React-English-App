@@ -83,13 +83,13 @@ const SingleLesson = () => {
                                  styles={{ width: '100%' }}
                               />
                               <Button
-                                 label="Wpisywanie"
-                                 onClick={() => history.push(location.pathname + '/typing')}
+                                 label="Quiz"
+                                 onClick={() => history.push(location.pathname + '/quiz')}
                                  styles={{ width: '100%' }}
                               />
                               <Button
-                                 label="Quiz"
-                                 onClick={() => history.push(location.pathname + '/quiz')}
+                                 label="Wpisywanie"
+                                 onClick={() => history.push(location.pathname + '/typing')}
                                  styles={{ width: '100%' }}
                               />
                            </div>

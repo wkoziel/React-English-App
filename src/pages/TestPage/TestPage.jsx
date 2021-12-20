@@ -22,7 +22,7 @@ const actions = {
 const reducer = (state, action) => {
    switch (action.type) {
       case actions.nextStep:
-         return { ...state, step: state.step + 1 };
+         return { ...state, step: action.payload };
       case actions.loadData:
          return { ...state, data: action.payload };
       case actions.prepareData:
@@ -70,7 +70,7 @@ const TestPage = () => {
          const response = await testCompleted({ login: username, percentage, lesson_id: Number.parseInt(id) });
          if (response.data) {
             setStats({ ...data, percentage });
-            dispatch({ type: actions.nextStep });
+            dispatch({ type: actions.nextStep, payload: 2 });
          }
       } catch (error) {
          console.log(error);

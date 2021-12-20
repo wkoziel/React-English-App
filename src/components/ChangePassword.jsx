@@ -18,8 +18,8 @@ const ChangePassword = () => {
    const [isLoading, setIsLoading] = useState(false);
 
    const schema = yup.object().shape({
-      password1: yup.string().required('Podaj nowe hasło'),
-      password2: yup.string().required('Powtórz nowe hasło'),
+      password1: yup.string().required('Podaj nowe hasło').min(8, 'Hasło musi zawierać conajmniej 8 znaków'),
+      password2: yup.string().required('Powtórz nowe hasło').min(8, 'Hasło musi zawierać conajmniej 8 znaków'),
    });
 
    const { handleSubmit, register } = useForm({

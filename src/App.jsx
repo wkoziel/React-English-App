@@ -7,7 +7,7 @@ import { ContextProvider } from './context/global';
 import AuthWrapper from './components/AuthWrapper';
 import Modal from './components/Modal';
 
-const HomePage = lazy(() => import('./pages/Home'));
+const HomePage = lazy(() => import('./pages/index.jsx'));
 const SignInPage = lazy(() => import('./pages/SignIn'));
 const SignUpPage = lazy(() => import('./pages/SignUp'));
 const Lessons = lazy(() => import('./pages/Lessons'));

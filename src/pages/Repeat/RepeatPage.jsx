@@ -8,7 +8,7 @@ import { prepareLearnData } from '../../helpers';
 import Loading from '../../components/Loading';
 import { useGlobalContext } from '../../context/global';
 import transitions from '../../helpers/transitions';
-import { getLessonWords } from '../../api/api';
+import { getRepeatWords, getRepeatWordsCount } from '../../api/api';
 
 const initialState = {
    step: 0,
@@ -35,16 +35,17 @@ const reducer = (state, action) => {
 
 const TestPage = () => {
    const [state, dispatch] = useReducer(reducer, initialState);
-   const [isLoading, setIsLoading] = useState(false);
    const { username } = useGlobalContext();
    const [wordsQuantity, setWordsQuantity] = useState(0);
    const [stats, setStats] = useState([]);
+   const [isLoading, setIsLoading] = useState(true);
+   const [repeatCount, setRepeatCount] = useState(0);
 
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await getLessonWords(0);
-            if (response.data) dispatch({ type: actions.loadData, payload: response.data });
+            const response = await getRepeatWordsCount(username);
+            if (response.data) setRepeatCount(response.data.words_number);
          } catch (error) {
             console.error(error);
          } finally {
@@ -59,7 +60,22 @@ const TestPage = () => {
       dispatch({ type: actions.nextStep });
    };
 
-   const submitStep = (selectedLanguage) => {
+   const submitStep = async (selectedLanguage) => {
+      try {
+         setIsLoading(true);
+         const params = new URLSearchParams([
+            ['login', username],
+            ['n', wordsQuantity],
+         ]);
+         const response = await getRepeatWords(params);
+         console.log(response.data);
+         if (response.data) await dispatch({ type: actions.loadData, payload: response.data });
+      } catch (error) {
+         console.error(error);
+      } finally {
+         setIsLoading(false);
+      }
+
       if (Number.parseInt(selectedLanguage) === 1) {
          dispatch({
             type: actions.prepareData,
@@ -81,7 +97,7 @@ const TestPage = () => {
          case 0:
             return (
                <motion.div {...transitions.opacity} key="step-1">
-                  <Step1 setQuantity={setWordsQuantity} nextStep={submitStep} />
+                  <Step1 setQuantity={setWordsQuantity} nextStep={submitStep} words={repeatCount} />
                </motion.div>
             );
          case 1:
