@@ -4,6 +4,8 @@ import image from '../assets/congratulations.svg';
 import Button from './Button';
 import { colors } from '../style';
 import { useHistory, useLocation } from 'react-router';
+import CountUp from 'react-countup';
+import { routes } from '../routes';
 
 const Congratulations = ({ test = false, correct = null, total = null, percentage = null }) => {
    const loc = useLocation();
@@ -11,23 +13,31 @@ const Congratulations = ({ test = false, correct = null, total = null, percentag
    return (
       <Style>
          <div className="circle">
-            <h1 className="text-3">{test ? percentage : 100}%</h1>
+            <h1 className="text-3 pulse">
+               <CountUp end={test ? percentage : 100} duration={2} />%
+            </h1>
          </div>
          {test ? (
             <div className="stats-box white-box">
                <h1>Gratulacje!</h1>
                <div className="stats">
-                  <h2 className="green">{correct}</h2>
+                  <h2 className="green">
+                     <CountUp end={correct} duration={1} />
+                  </h2>
                   <p>Poprawnych odpowiedzi</p>
-                  <h2 className="red">{total - correct}</h2>
+                  <h2 className="red">
+                     <CountUp end={total - correct} duration={1} />
+                  </h2>
                   <p>Błędnych odpowiedzi</p>
-                  <h2 className="purple">{total}</h2>
+                  <h2 className="purple">
+                     <CountUp end={total} duration={1} />
+                  </h2>
                   <p>Wszystkich słówek</p>
                </div>
             </div>
          ) : (
             <div className="grid white-box">
-               <div>
+               <div className="pulse">
                   <h1>Gratulacje!</h1>
                   <h4>Udało ci się zakończyć naukę!</h4>
                </div>
@@ -36,7 +46,8 @@ const Congratulations = ({ test = false, correct = null, total = null, percentag
          )}
 
          <div className="buttons">
-            <Button label="Powtórz naukę!" noArrow onClick={() => history.go(loc.pathname)} />
+            {!test && <Button label="Powtórz naukę!" noArrow onClick={() => history.go(loc.pathname)} />}
+            {test && <Button label="Wszysktie lekcje" noArrow onClick={() => history.push(routes.lessons)} />}
             <Button label="Powrót do lekcji" noArrow onClick={() => history.goBack()} />
          </div>
       </Style>

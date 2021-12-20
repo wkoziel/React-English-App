@@ -23,11 +23,11 @@ const actions = {
 const reducer = (state, action) => {
    switch (action.type) {
       case actions.nextStep:
-         return { ...state, step: state.step + 1 };
+         return { ...state, step: action.payload };
       case actions.loadData:
          return { ...state, data: action.payload };
       case actions.prepareData:
-         return { ...state, ...action.payload, step: state.step + 1 };
+         return { ...state, ...action.payload, step: 1 };
       default:
          throw Error('No matching action');
    }
@@ -89,9 +89,7 @@ const TypingPage = () => {
          });
    };
 
-   const nextStep = () => {
-      dispatch({ type: actions.nextStep });
-   };
+   const nextStep = () => dispatch({ type: actions.nextStep, payload: 2 });
 
    const renderStep = (step) => {
       switch (step) {

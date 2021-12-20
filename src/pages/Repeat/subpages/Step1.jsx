@@ -5,7 +5,7 @@ import RepeatImage from '../../../assets/repeat.svg';
 import RadioButton from '../../../components/RadioButton';
 import { useForm } from 'react-hook-form';
 
-const Step1 = ({ setQuantity = null, nextStep = null, setLanguage = null }) => {
+const Step1 = ({ setQuantity = null, nextStep = null, setLanguage = null, words = null }) => {
    const onClick = (q) => {
       setQuantity(q);
    };
@@ -29,7 +29,7 @@ const Step1 = ({ setQuantity = null, nextStep = null, setLanguage = null }) => {
                      powtarzałeś. Wybierz odpowiednią dla ciebię opcję i kontynuuj naukę, która pozwoli ci utrwalić
                      pojęcia.
                   </p>
-                  <h5 className="green">Twój zestaw zawiera 54 pojęcia</h5>
+                  <h5 className="green">Twój zestaw zawiera {words} pojęć</h5>
                   <div className="radiobuttons">
                      <p>Język wprowadzania:</p>
                      <RadioButton label="Angielski" value={0} name="language" id="english" ref={register} checked />
@@ -38,21 +38,65 @@ const Step1 = ({ setQuantity = null, nextStep = null, setLanguage = null }) => {
                </div>
             </div>
             <div className="Input">
-               <button type="submit" className="option" onClick={() => onClick(10)}>
-                  <h2>Szybka powtórka</h2>
-                  <h3>10 pojęć</h3>
+               <button
+                  type="submit"
+                  className={`${words < 10 && 'disabled'} option`}
+                  onClick={() => onClick(10)}
+                  disabled={words < 10}
+               >
+                  {words < 10 ? (
+                     <h3>Niewystarczająca ilość przerobionych pojęć</h3>
+                  ) : (
+                     <>
+                        <h2>Szybka powtórka</h2>
+                        <h3>10 pojęć</h3>
+                     </>
+                  )}
                </button>
-               <button type="submit" className="option" onClick={() => onClick(20)}>
-                  <h2>Normalna powtórka</h2>
-                  <h3>20 pojęć</h3>
+               <button
+                  type="submit"
+                  className={`${words < 20 && 'disabled'} option`}
+                  onClick={() => onClick(20)}
+                  disabled={words < 20}
+               >
+                  {words < 20 ? (
+                     <h3>Niewystarczająca ilość przerobionych pojęć</h3>
+                  ) : (
+                     <>
+                        <h2>Normalna powtórka</h2>
+                        <h3>20 pojęć</h3>
+                     </>
+                  )}
                </button>
-               <button type="submit" className="option" onClick={() => onClick(30)}>
-                  <h2>Wymagająca powtórka</h2>
-                  <h3>30 pojęć</h3>
+               <button
+                  type="submit"
+                  className={`${words < 30 && 'disabled'} option`}
+                  onClick={() => onClick(30)}
+                  disabled={words < 30}
+               >
+                  {words < 30 ? (
+                     <h3>Niewystarczająca ilość przerobionych pojęć</h3>
+                  ) : (
+                     <>
+                        <h2>Wymagająca powtórka</h2>
+                        <h3>30 pojęć</h3>
+                     </>
+                  )}
                </button>
-               <button type="submit" className="option" onClick={() => onClick(40)}>
-                  <h2>Hardkorowa powtórka</h2>
-                  <h3>40 pojęć</h3>
+               <button
+                  type="submit"
+                  className={`${words < 40 && 'disabled'} option`}
+                  onClick={() => onClick(40)}
+                  disabled={words < 40}
+               >
+                  {words < 40 ? (
+                     <h3>Niewystarczająca ilość przerobionych pojęć</h3>
+                  ) : (
+                     <>
+                        <h2>Hardkorowa powtórka</h2>
+                        <h3>40 pojęć</h3>
+                     </>
+                  )}
                </button>
             </div>
          </Style>
@@ -135,6 +179,14 @@ const Style = styled.div`
       }
    }
 
+   .disabled {
+      border-left: 1px solid ${colors.gray1} !important;
+      h2,
+      h3 {
+         color: ${colors.gray1} !important;
+         font-size: 1.5rem !important;
+      }
+   }
    .radiobuttons {
       display: flex;
       align-items: center;

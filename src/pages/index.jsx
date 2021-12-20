@@ -1,13 +1,17 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
+import styled from 'styled-components';
 
 const Home = () => {
    return (
       <>
          <Navbar active={0} />
-         <h1 style={{ textAlign: 'center', marginTop: '15rem' }}>Strona główna już wkrótce</h1>
       </>
    );
 };
+
+const Container = styled.div`
+   height: 100vh;
+`;
 
 export default Home;

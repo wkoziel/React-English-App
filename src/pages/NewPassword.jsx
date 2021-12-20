@@ -28,8 +28,8 @@ const NewPassword = () => {
 
    const schema = yup.object().shape({
       mail: yup.string().required('Podaj swój adres email'),
-      password1: yup.string().required('Podaj nowe hasło'),
-      password2: yup.string().required('Podaj nowe hasło'),
+      password1: yup.string().required('Podaj nowe hasło').min(8, 'Hasło musi zawierać conajmniej 8 znaków'),
+      password2: yup.string().required('Podaj nowe hasło').min(8, 'Hasło musi zawierać conajmniej 8 znaków'),
    });
 
    const { handleSubmit, register } = useForm({
