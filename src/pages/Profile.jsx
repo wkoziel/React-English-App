@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 import HeaderImage from '../assets/profile.svg';
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
-import { getUser, getUsersWeek } from '../api/api';
+import { fetchUserProfile, getUser, getUsersWeek } from '../api/api';
 import { useGlobalContext } from '../context/global';
 import Loading from '../components/Loading';
 import { days, tempAchivements } from '../constants/data';
@@ -21,6 +21,7 @@ import Achivement from '../assets/achivement.svg';
 const Profile = () => {
    const [user, setUser] = useState({});
    const [userWeek, setUserWeek] = useState([]);
+   const [userStats, setUserStats] = useState({});
    const [isLoading, setIsLoading] = useState(true);
 
    const { username } = useGlobalContext();
@@ -28,10 +29,11 @@ const Profile = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const [responseUser, responseWords] = await Promise.all([getUser(username), getUsersWeek(username)]);
-            if (responseUser.data && responseWords.data) {
-               setUser(responseUser.data);
-               setUserWeek(responseWords.data);
+            const response = await fetchUserProfile(username);
+            if (response.data) {
+               setUser(response.data.user);
+               setUserWeek(response.data.daily_words);
+               setUserStats(response.data.stats);
             }
          } catch (error) {
             console.error(error);
@@ -42,15 +44,6 @@ const Profile = () => {
       fetchData();
    }, []); //eslint-disable-line
 
-   const formatDate = (date) => {
-      const formatter = new Intl.DateTimeFormat('pl', {
-         day: 'numeric',
-         month: 'long',
-         year: 'numeric',
-      });
-      return formatter.format(new Date()); // 23 lipca 2016
-   };
-
    return (
       <>
          <Navbar active={3} />
@@ -58,7 +51,7 @@ const Profile = () => {
             <Loading />
          ) : (
             <AnimatePresence>
-               <motion.div {...transitions.opacity}>
+               <motion.div {...transitions.opacity} key="profile-1">
                   <div style={{ margin: '0.5rem 0 0.25rem 5rem' }}>
                      <GoBack label="Powrót" />
                   </div>
@@ -71,7 +64,7 @@ const Profile = () => {
                                  {user?.name} {user?.surname}
                               </h1>
                               <h4>@{user?.login}</h4>
-                              <h5>Dołączono: {formatDate(user?.created)}</h5>
+                              <h5>Dołączono: {new Date(user?.created).toLocaleDateString()}</h5>
                            </div>
                         </div>
                         <div className="achivements">
@@ -96,19 +89,19 @@ const Profile = () => {
                            <h5>Twoje statystyki</h5>
                            <div className="white-box">
                               <h3 className="green">
-                                 <CountUp end={135} duration={2} />
+                                 <CountUp end={userStats?.words_count} duration={2} />
                               </h3>
                               <h5>Poznanych pojęć</h5>
                            </div>
                            <div className="white-box">
                               <h3 className="yellow">
-                                 <CountUp end={15} duration={2} />
+                                 <CountUp end={userStats?.lessons_count} duration={2} />
                               </h3>
                               <h5>Przerobionych lekcji</h5>
                            </div>
                            <div className="white-box">
                               <h3 className="purple">
-                                 <CountUp end={28} duration={2} />
+                                 <CountUp end={userStats?.repeats_count} duration={2} />
                               </h3>
                               <h5>Zrobionych powtórek</h5>
                            </div>
@@ -242,14 +235,16 @@ const Style = styled.div`
       .achivement {
          border-radius: 10px;
          display: flex;
-         /* justify-content: space-around; */
          align-items: center;
          background-color: ${colors.background};
          padding: 0 1rem;
          position: relative;
-         min-height: 150px;
+         min-height: 165px;
+         & > * {
+            background-color: ${colors.background};
+         }
          & > div {
-            width: 65%;
+            width: 60%;
          }
       }
       .edit {

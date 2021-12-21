@@ -61,7 +61,7 @@ const EditProfile = () => {
    return (
       <AnimatePresence>
          <Navbar active={3} />
-         <motion.div {...transitions.opacity}>
+         <motion.div {...transitions.opacity} key="edit-1">
             <Style className="container page">
                {isLoading ? (
                   <Loading />
