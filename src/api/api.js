@@ -46,6 +46,8 @@ export const changeUserPassword = (data) => instance.post('users/update_password
 
 export const updateUserProfile = (data) => instance.post('users/update_user', data);
 
+export const fetchUserProfile = (login) => instance.get(`users/site/${login}`);
+
 export const updateDailyGoal = (data) => instance.post('users/update_daily_goal', data);
 
 export const deleteAccount = (login) => instance.delete(`/users/delete/${login}`);
@@ -57,3 +59,5 @@ export const getSASToken = () => instance.get('/users/create_sas_token');
 export const getRepeatWords = (params) => instance.get('userswords/repeat', { params });
 
 export const getRepeatWordsCount = (login) => instance.get(`userswords/repeat/${login}`);
+
+export const deleteUserPhoto = (data) => instance.post(`/users/delete_photo`, data);

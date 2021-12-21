@@ -27,17 +27,16 @@ const ChangeDailyGoal = ({ dailyGoal = null }) => {
       defaultValues: { dailyGoal },
    });
 
-   const onSubmit = (data) => {
+   const onSubmit = async (data) => {
       try {
          setIsLoading(true);
-         const response = updateDailyGoal({ login: username, daily_goal: data.dailyGoal });
-         if (response.data) alert(response.data);
+         const response = await updateDailyGoal({ login: username, daily_goal: data.dailyGoal });
+         if (response.data) showModal('Zmiana dziennego celu', response.data.status);
       } catch (error) {
          console.log(error);
       } finally {
          setIsLoading(false);
          history.push(routes.lessons);
-         showModal('Zmiana dziennego celu', 'Wprowadzony przez Ciebie dzienny cel został uaktualniony.');
       }
    };
 

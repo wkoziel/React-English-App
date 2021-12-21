@@ -35,12 +35,12 @@ const EditUserData = ({ user = null }) => {
       defaultValues: { ...user },
    });
 
-   const onSubmit = (data) => {
+   const onSubmit = async (data) => {
       try {
          setIsLoading(true);
          const { name, surname, gender } = data;
-         const response = updateUserProfile({ login: username, name, surname, gender });
-         if (response.data) showModal('Edycja profilu', 'Wprowadzone przez Ciebie dane zostały uaktualnione');
+         const response = await updateUserProfile({ login: username, name, surname, gender });
+         if (response.data) showModal('Edycja profilu', response.data.status);
       } catch (error) {
          console.log(error);
       } finally {

@@ -19,7 +19,7 @@ const DeleteAccount = () => {
    const onClick = () => {
       try {
          const response = deleteAccount(username);
-         if (response.data) showModal('Usuwanie konta', 'Twoje konto zostało pomyślnie usunięte');
+         if (response.data) showModal('Usuwanie konta', response.data.status);
       } catch (error) {
          console.log(error);
       } finally {

@@ -4,7 +4,7 @@ import uploadFileToBlob from '../helpers/azureBlob';
 import styled from 'styled-components';
 import { colors } from '../style';
 import Button from '../components/Button';
-import { getUserPhoto, userChangePhoto } from '../api/api';
+import { deleteUserPhoto, getUserPhoto, userChangePhoto } from '../api/api';
 import clsx from 'clsx';
 import { routes } from '../routes';
 import { useHistory } from 'react-router-dom';
@@ -41,8 +41,14 @@ const FileUpload = () => {
 
    const [uploading, setUploading] = useState(false);
    const [inputKey, setInputKey] = useState(Math.random().toString(36));
+   const [error, setError] = useState('');
 
    const onFileChange = (e) => {
+      setError('');
+      if (!['jpg', 'png', 'jpeg'].includes(e.target.files[0].name.split('.')[1])) {
+         setError('Zły format pliku');
+         return;
+      }
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.onabort = () => console.error('file reading was aborted');
@@ -64,13 +70,23 @@ const FileUpload = () => {
          setFileSelected(null);
          setUploading(false);
          setInputKey(Math.random().toString(36));
-         const response = userChangePhoto({ login: username, photo: `${url}${username}_profilepic.jpeg` });
-         if (response.data) alert(response.data.status);
+         const response = await userChangePhoto({ login: username, photo: `${url}${username}_profilepic.jpeg` });
+         if (response.data) showModal('Zmiana avatara', response.data.status);
       } catch (error) {
          console.log(error);
       } finally {
          history.push(routes.profile);
-         showModal('Zmiana avatara', 'Wysłane przez Ciebie zdjęcie zostało uaktualnione');
+      }
+   };
+
+   const changeToDefault = async () => {
+      try {
+         const response = await deleteUserPhoto({ login: username });
+         if (response.data) showModal('Usuwanie awatara', response.data.status);
+      } catch (error) {
+         console.log(error);
+      } finally {
+         history.push(routes.profile);
       }
    };
 
@@ -81,6 +97,7 @@ const FileUpload = () => {
          <div>
             <img src={fileSelected?.binary || userPhoto} alt="Zdjęcie użytkownika" />
             <div>
+               <h5 className="red">{error}</h5>
                <h5>{fileSelected?.file?.name || 'Nie wybrano żadnego zdjęcia'}</h5>
                <button className="fileBtn" type="button" onClick={() => ref.current.click()}>
                   Dodaj nowy plik
@@ -93,6 +110,9 @@ const FileUpload = () => {
                />
             </div>
          </div>
+         <button onClick={() => changeToDefault()}>
+            <h5>Przywróć domyślnego awatara</h5>
+         </button>
 
          <input type="file" onChange={onFileChange} key={inputKey || ''} ref={ref} style={{ display: 'none' }} />
       </Style>
@@ -104,6 +124,14 @@ const Style = styled.div`
    flex-direction: column;
    justify-content: center;
    align-items: center;
+
+   & > button {
+      margin-top: 1rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      text-decoration: underline;
+   }
 
    & > div {
       display: flex;

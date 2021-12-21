@@ -32,7 +32,9 @@ const ChangePassword = () => {
             setIsLoading(true);
             const { password1 } = data;
             const response = await changeUserPassword({ login: username, password: password1 });
-            if (response.data) showModal('Zmiana hasła', 'Wprowadzone przez Ciebie hasło zostało uaktualnione');
+            if (response.data.status === 'Hasło zostało zmienione')
+               showModal('Zmiana hasła', 'Wprowadzone przez Ciebie hasło zostało uaktualnione');
+            else showModal('Zmiana hasła', 'Nie udało się zmienić hasła');
          } catch (error) {
             console.log(error);
          } finally {

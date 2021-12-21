@@ -37,7 +37,7 @@ const ForgottenPassword = () => {
          const response = await remindPassword(data);
          if (response.data.status) {
             const { status } = response.data;
-            if (status === 'Wysłano mail') {
+            if (status) {
                showModal('Zapomniane hasło', 'Email z linkiem został wysłany na podany przez ciebie email');
                history.push(routes.signIn);
             } else setMessage(status);

@@ -58,6 +58,7 @@ const Background = styled.div`
 const ModalWrapper = styled(motion.div)`
    width: 45vw;
    height: 45vh;
+   min-height: 400px;
    background-color: ${colors.white};
    position: fixed;
    top: 40%;
