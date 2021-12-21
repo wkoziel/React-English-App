@@ -6,6 +6,11 @@ import BGGreen from '../assets/bg-2.svg';
 import BGRed from '../assets/bg-3.svg';
 import WomanImg from '../assets/landing-1.svg';
 import MobileImg from '../assets/mobile.svg';
+import Wojtek from '../assets/wojtek.svg';
+import Doma from '../assets/doma.svg';
+import Piotrek from '../assets/piotrek.svg';
+import Tatiana from '../assets/tatiana.svg';
+
 import WebImg from '../assets/web.svg';
 import { colors, fonts } from '../style';
 
@@ -40,45 +45,45 @@ const Home = () => {
                      </p>
                      <p>
                         <div />
-                        Ucz się poprzez zapamiętywanie i zgadywanie rewersów kart
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, beatae.
                      </p>
                      <p>
                         <div />
-                        Ucz się poprzez zapamiętywanie i zgadywanie rewersów kart
-                     </p>
-                  </TableBlock>
-                  <TableBlock>
-                     <div className="title">
-                        <h5>Fiszki</h5>
-                     </div>
-                     <p>
-                        <div />
-                        Ucz się poprzez zapamiętywanie i zgadywanie rewersów kart
-                     </p>
-                     <p>
-                        <div />
-                        Ucz się poprzez zapamiętywanie i zgadywanie rewersów kart
-                     </p>
-                     <p>
-                        <div />
-                        Ucz się poprzez zapamiętywanie i zgadywanie rewersów kart
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci, quod!
                      </p>
                   </TableBlock>
                   <TableBlock>
                      <div className="title">
-                        <h5>Fiszki</h5>
+                        <h5>Wpisywanie</h5>
                      </div>
                      <p>
                         <div />
-                        Ucz się poprzez zapamiętywanie i zgadywanie rewersów kart
+                        Ucz sie przez wpisywanie definicji słowek bezpośrednio do aplikacji
                      </p>
                      <p>
                         <div />
-                        Ucz się poprzez zapamiętywanie i zgadywanie rewersów kart
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, eaque!
                      </p>
                      <p>
                         <div />
-                        Ucz się poprzez zapamiętywanie i zgadywanie rewersów kart
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem, dolorem?
+                     </p>
+                  </TableBlock>
+                  <TableBlock>
+                     <div className="title">
+                        <h5>Quiz</h5>
+                     </div>
+                     <p>
+                        <div />
+                        Ucz się za pomocą quizu, w którzym wybierasz jedną z dostępnych definicji
+                     </p>
+                     <p>
+                        <div />
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, veritatis.
+                     </p>
+                     <p>
+                        <div />
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente, ab!
                      </p>
                   </TableBlock>
                </div>
@@ -99,7 +104,9 @@ const Home = () => {
             </GreenBgContainer>
             <OurContainer>
                <OurTable style={{ background: `${colors.yellow}` }}>
-                  <div className="avatar"></div>
+                  <div className="avatar">
+                     <img src={Wojtek} alt="Wojtek" />
+                  </div>
                   <h4>Wojciech Kozieł</h4>
                   <p>
                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil hic molestias rerum suscipit rem
@@ -107,7 +114,9 @@ const Home = () => {
                   </p>
                </OurTable>
                <OurTable style={{ background: `${colors.green}` }}>
-                  <div className="avatar"></div>
+                  <div className="avatar">
+                     <img src={Doma} alt="Dominika" />
+                  </div>
                   <h4>Dominika Limanówka</h4>
                   <p>
                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil hic molestias rerum suscipit rem
@@ -115,7 +124,9 @@ const Home = () => {
                   </p>
                </OurTable>
                <OurTable style={{ background: '#FD6584' }}>
-                  <div className="avatar"></div>
+                  <div className="avatar">
+                     <img src={Piotrek} alt="Piotrek" />
+                  </div>
                   <h4>Piotr Hadam</h4>
                   <p>
                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil hic molestias rerum suscipit rem
@@ -123,7 +134,9 @@ const Home = () => {
                   </p>
                </OurTable>
                <OurTable style={{ background: `${colors.purple}` }}>
-                  <div className="avatar"></div>
+                  <div className="avatar">
+                     <img src={Tatiana} alt="Tatiana" />
+                  </div>
                   <h4>Tatiana Cieślar</h4>
                   <p>
                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil hic molestias rerum suscipit rem
@@ -142,7 +155,7 @@ const BgWhite = styled.div`
 `;
 
 const YellowBgContainer = styled.div`
-   background: url(${BGYellow}) 0% 50% no-repeat;
+   background: url(${BGYellow}) 50% 70% no-repeat;
    height: 1000px;
 `;
 
@@ -217,7 +230,7 @@ const TableBlock = styled.div`
    width: calc(100% / 3 - 200px);
    background: ${colors.background};
    position: relative;
-   padding: 4rem 1rem 2rem;
+   padding: 4rem 1rem 0.25rem;
    border-radius: 15px;
    transition: all 0.2s;
 
@@ -273,6 +286,10 @@ const OurTable = styled.div`
    border-radius: 15px;
    color: white;
    height: 250px;
+   h4 {
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+   }
 
    .avatar {
       background-color: inherit;
@@ -284,6 +301,9 @@ const OurTable = styled.div`
       top: -40px;
       left: 50%;
       transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
    }
 `;
 
