@@ -139,7 +139,7 @@ const Style = styled.div`
       background: rgba(20, 223, 176, 0.4);
       padding: 3rem;
       border-radius: 2rem;
-      max-width: 800px;
+      max-width: 700px;
       width: 100%;
 
       img:nth-child(1) {
@@ -152,6 +152,7 @@ const Style = styled.div`
          display: flex;
          flex-direction: column;
          justify-content: space-around;
+         overflow: hidden;
          align-items: center;
       }
    }

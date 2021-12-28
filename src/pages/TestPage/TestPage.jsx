@@ -64,6 +64,8 @@ const TestPage = () => {
       });
    };
 
+   useEffect(() => {}, [state.step]);
+
    const submitTest = async (data) => {
       const percentage = Math.round((data.correctAnswers / data.total) * 100, 0);
       try {

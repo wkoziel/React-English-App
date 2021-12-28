@@ -10,11 +10,12 @@ import Duck from '../assets/duck.svg';
 import arrowDown from '../assets/arrow-down.svg';
 
 const Navbar = ({ logo = 'Duckling', active = null }) => {
-   const [userPhoto, setUserPhoto] = useState({});
+   const [userPhoto, setUserPhoto] = useState('');
    const { isAuth, logout, username } = useGlobalContext();
    const [showDropdown, setShowDropdown] = useState(false);
    const [isLoading, setIsLoading] = useState(true);
 
+   //eslint-disable-next-line
    useEffect(() => {
       const fetchData = async () => {
          try {
@@ -26,13 +27,13 @@ const Navbar = ({ logo = 'Duckling', active = null }) => {
             setIsLoading(false);
          }
       };
-      if (username) fetchData();
+      fetchData();
    }, [username]);
 
    return (
       <Style>
          <div className="flex">
-            <Link to={routes.home} className="logo-duck">
+            <Link to={isAuth ? routes.lessons : routes.home} className="logo-duck">
                <div className="logo">
                   <img src={Duck} alt="Kaczka" />
                   {logo}

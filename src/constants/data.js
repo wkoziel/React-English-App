@@ -25,39 +25,6 @@ export const navLinks = [
 
 export const days = ['Ndz', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob'];
 
-export const tempAchivements = [
-   {
-      title: 'Tytuł',
-      desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit.',
-      url: 'sdsds',
-   },
-   {
-      title: 'Tytuł',
-      desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit.',
-      url: 'sdsds',
-   },
-   {
-      title: 'Tytuł',
-      desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit.',
-      url: 'sdsds',
-   },
-   {
-      title: 'Tytuł',
-      desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit.',
-      url: 'sdsds',
-   },
-   {
-      title: 'Tytuł',
-      desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit.',
-      url: 'sdsds',
-   },
-   {
-      title: 'Tytuł',
-      desc: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit.',
-      url: 'sdsds',
-   },
-];
-
 export const navlinks = [
    'Edytuj profil',
    'Edytuj avatar',

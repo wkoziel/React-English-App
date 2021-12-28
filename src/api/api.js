@@ -60,4 +60,6 @@ export const getRepeatWords = (params) => instance.get('userswords/repeat', { pa
 
 export const getRepeatWordsCount = (login) => instance.get(`userswords/repeat/${login}`);
 
+export const sendRepeatWords = (data) => instance.post('userswords/add_repeats', data);
+
 export const deleteUserPhoto = (data) => instance.post(`/users/delete_photo`, data);

@@ -11,17 +11,17 @@ import { motion } from 'framer-motion';
 import HeaderImage from '../assets/profile.svg';
 import { Link } from 'react-router-dom';
 import { routes } from '../routes';
-import { fetchUserProfile, getUser, getUsersWeek } from '../api/api';
+import { fetchUserProfile } from '../api/api';
 import { useGlobalContext } from '../context/global';
 import Loading from '../components/Loading';
-import { days, tempAchivements } from '../constants/data';
+import { days } from '../constants/data';
 import CountUp from 'react-countup';
-import Achivement from '../assets/achivement.svg';
 
 const Profile = () => {
    const [user, setUser] = useState({});
    const [userWeek, setUserWeek] = useState([]);
    const [userStats, setUserStats] = useState({});
+   const [userAchievements, setUserAchievements] = useState([]);
    const [isLoading, setIsLoading] = useState(true);
 
    const { username } = useGlobalContext();
@@ -34,6 +34,7 @@ const Profile = () => {
                setUser(response.data.user);
                setUserWeek(response.data.daily_words);
                setUserStats(response.data.stats);
+               setUserAchievements(response.data.achievements);
             }
          } catch (error) {
             console.error(error);
@@ -51,7 +52,7 @@ const Profile = () => {
             <Loading />
          ) : (
             <AnimatePresence>
-               <motion.div {...transitions.opacity} key="profile-1">
+               <motion.div {...transitions.opacity} key={new Date().getTime()}>
                   <div style={{ margin: '0.5rem 0 0.25rem 5rem' }}>
                      <GoBack label="Powrót" />
                   </div>
@@ -71,15 +72,14 @@ const Profile = () => {
                            <Link className="edit" to={routes.editProfile}>
                               <span>Edytuj profil</span>
                            </Link>
-                           {tempAchivements.map((a, i) => (
-                              <div
-                                 className="achivement"
-                                 style={{ background: `url(${Achivement}) 100% 50% no-repeat ${colors.background}` }}
-                              >
+                           {!!userAchievements.length || <h3 className="message green">Nie masz jeszcze osiągnięć</h3>}
+                           {userAchievements.map((a, i) => (
+                              <div className="achivement" key={i}>
                                  <div>
-                                    <h3 className="green">{a.title}</h3>
-                                    <p>{a.desc}</p>
+                                    <h3 className="green">{a.achievement_displayed}!</h3>
+                                    <p>{a.description}</p>
                                  </div>
+                                 <img src={a.image} alt="" />
                               </div>
                            ))}
                         </div>
@@ -232,19 +232,32 @@ const Style = styled.div`
       gap: 1rem 1rem;
       padding: 0 2rem 2rem;
 
+      .message {
+         position: absolute;
+         top: 20%;
+         left: 50%;
+         transform: translateX(-50%);
+      }
+
       .achivement {
          border-radius: 10px;
          display: flex;
          align-items: center;
+         justify-content: space-around;
          background-color: ${colors.background};
          padding: 0 1rem;
          position: relative;
-         min-height: 165px;
-         & > * {
-            background-color: ${colors.background};
+         min-height: 140px;
+         h3,
+         h5 {
+            margin: 0.5rem 0;
          }
          & > div {
-            width: 60%;
+            width: 80%;
+            background-color: ${colors.background};
+         }
+         & > img {
+            width: 25%;
          }
       }
       .edit {

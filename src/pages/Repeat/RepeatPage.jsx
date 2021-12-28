@@ -8,7 +8,7 @@ import { prepareLearnData } from '../../helpers';
 import Loading from '../../components/Loading';
 import { useGlobalContext } from '../../context/global';
 import transitions from '../../helpers/transitions';
-import { getRepeatWords, getRepeatWordsCount } from '../../api/api';
+import { getRepeatWords, getRepeatWordsCount, sendRepeatWords } from '../../api/api';
 
 const initialState = {
    step: 0,
@@ -55,9 +55,16 @@ const TestPage = () => {
       fetchData();
    }, []); //eslint-disable-line
 
-   const submitResult = (data) => {
+   const submitResult = async (data) => {
       setStats(data);
+      const word_ids = data.filter((w) => w.learned).map((w) => w.old_id);
       dispatch({ type: actions.nextStep });
+      try {
+         const response = await sendRepeatWords({ login: username, word_ids });
+         if (response.data) console.log(response.data.status);
+      } catch (error) {
+         console.log(error);
+      }
    };
 
    const submitStep = async (selectedLanguage) => {
@@ -68,28 +75,28 @@ const TestPage = () => {
             ['n', wordsQuantity],
          ]);
          const response = await getRepeatWords(params);
-         console.log(response.data);
-         if (response.data) await dispatch({ type: actions.loadData, payload: response.data });
+         if (response.data) {
+            await dispatch({ type: actions.loadData, payload: response.data });
+            if (Number.parseInt(selectedLanguage) === 1) {
+               dispatch({
+                  type: actions.prepareData,
+                  payload: {
+                     data: prepareLearnData(response.data, true),
+                  },
+               });
+            } else
+               dispatch({
+                  type: actions.prepareData,
+                  payload: {
+                     data: prepareLearnData(response.data, false),
+                  },
+               });
+         }
       } catch (error) {
          console.error(error);
       } finally {
          setIsLoading(false);
       }
-
-      if (Number.parseInt(selectedLanguage) === 1) {
-         dispatch({
-            type: actions.prepareData,
-            payload: {
-               data: prepareLearnData(state.data, true),
-            },
-         });
-      } else
-         dispatch({
-            type: actions.prepareData,
-            payload: {
-               data: prepareLearnData(state.data, false),
-            },
-         });
    };
 
    const renderStep = (step) => {
