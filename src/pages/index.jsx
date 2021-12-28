@@ -10,15 +10,19 @@ import Wojtek from '../assets/wojtek.svg';
 import Doma from '../assets/doma.svg';
 import Piotrek from '../assets/piotrek.svg';
 import Tatiana from '../assets/tatiana.svg';
-
+import { routes } from '../routes';
 import WebImg from '../assets/web.svg';
 import { colors, fonts } from '../style';
+import { useHistory } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import transitions from '../helpers/transitions';
 
 const Home = () => {
+   const history = useHistory();
    return (
-      <>
+      <AnimatePresence>
          <Navbar active={0} />
-         <BgWhite>
+         <BgWhite {...transitions.opacity} key="bg-1">
             <YellowBgContainer>
                <YellowContainer>
                   <div className="header">
@@ -26,7 +30,9 @@ const Home = () => {
                         Witaj w <span className="green">Duckling</span>
                      </h1>
                      <h5>Jedynej takiej aplikacji do nauki angielskiego</h5>
-                     <Button className="pulse">Rozpocznij!</Button>
+                     <Button className="pulse" onClick={() => history.push(routes.signUp)}>
+                        Rozpocznij!
+                     </Button>
                   </div>
                   <WomanImage src={WomanImg} alt="Kobieta" className="pulseReversed" />
                </YellowContainer>
@@ -39,17 +45,19 @@ const Home = () => {
                      <div className="title">
                         <h5>Fiszki</h5>
                      </div>
+
                      <p>
-                        <div />
+                        <span />
                         Ucz się poprzez zapamiętywanie i zgadywanie rewersów kart
                      </p>
+
                      <p>
-                        <div />
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, beatae.
+                        <span />
+                        Metoda polecana jest do rozpoczęcia nauki z danej kategorii
                      </p>
                      <p>
-                        <div />
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci, quod!
+                        <span />
+                        Dzięki swojej prostocie pozwala na łatwe zapamiętywanie nowopoznanych pojęć
                      </p>
                   </TableBlock>
                   <TableBlock>
@@ -57,16 +65,14 @@ const Home = () => {
                         <h5>Wpisywanie</h5>
                      </div>
                      <p>
-                        <div />
-                        Ucz sie przez wpisywanie definicji słowek bezpośrednio do aplikacji
+                        <span />
+                        Ucz sie przez wpisywanie pełnych definicji słówek bezpośrednio do aplikacji z wykorzystaniem
+                        klawiatury
                      </p>
                      <p>
-                        <div />
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, eaque!
-                     </p>
-                     <p>
-                        <div />
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem, dolorem?
+                        <span />
+                        Metoda ta wymusza duże zaangażowanie osoby uczącej się co sprawia, że poznane pojęcia dobrze
+                        zapadają w pamięć
                      </p>
                   </TableBlock>
                   <TableBlock>
@@ -74,16 +80,13 @@ const Home = () => {
                         <h5>Quiz</h5>
                      </div>
                      <p>
-                        <div />
-                        Ucz się za pomocą quizu, w którzym wybierasz jedną z dostępnych definicji
+                        <span />
+                        Ucz się za pomocą quizu, w którzym wybierasz jedną z czterech wyświetlanych definicji
+                        wylosowanych z danej lekcji
                      </p>
                      <p>
-                        <div />
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, veritatis.
-                     </p>
-                     <p>
-                        <div />
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente, ab!
+                        <span />
+                        Metoda pozwala w łatwy sposób odświeżyć poznane wcześniej słówka i kontynuować naukę
                      </p>
                   </TableBlock>
                </div>
@@ -92,14 +95,14 @@ const Home = () => {
                <PlatformContainer>
                   <h1>Wersja mobilna</h1>
                   <img src={MobileImg} alt="Kobieta z telefonem" />
-                  <p>Na systemy XYZ, XYZ i XYZ</p>
+                  <p>Na systemy Andorid oraz iOS.</p>
                   <Button>Pobierz</Button>
                </PlatformContainer>
                <PlatformContainer>
                   <h1>Wersja mobilna</h1>
                   <img src={WebImg} alt="Mężczyzna na ekranie komputera" />
-                  <p>Dostępna w każdej przeglądarce</p>
-                  <Button>Rejestracja</Button>
+                  <p>Dostępna w każdej przeglądarce.</p>
+                  <Button onClick={() => history.push(routes.signUp)}>Rejestracja</Button>
                </PlatformContainer>
             </GreenBgContainer>
             <OurContainer>
@@ -108,9 +111,10 @@ const Home = () => {
                      <img src={Wojtek} alt="Wojtek" />
                   </div>
                   <h4>Wojciech Kozieł</h4>
+                  <h5>Web app &amp; Design</h5>
                   <p>
-                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil hic molestias rerum suscipit rem
-                     praesentium expedita nam ab officia impedit!
+                     Projekt interfejsu użytkownika oraz development aplikacji webowej Duckling z wykorzystaniem
+                     biblioteki ReactJS.
                   </p>
                </OurTable>
                <OurTable style={{ background: `${colors.green}` }}>
@@ -118,9 +122,10 @@ const Home = () => {
                      <img src={Doma} alt="Dominika" />
                   </div>
                   <h4>Dominika Limanówka</h4>
+                  <h5>Mobile app &amp; Design</h5>
                   <p>
-                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil hic molestias rerum suscipit rem
-                     praesentium expedita nam ab officia impedit!
+                     Projekt interfejsu użytkownika oraz development aplikacji mobilnej Duckling z wykorzystaniem języka
+                     Flutter.
                   </p>
                </OurTable>
                <OurTable style={{ background: '#FD6584' }}>
@@ -128,29 +133,25 @@ const Home = () => {
                      <img src={Piotrek} alt="Piotrek" />
                   </div>
                   <h4>Piotr Hadam</h4>
-                  <p>
-                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil hic molestias rerum suscipit rem
-                     praesentium expedita nam ab officia impedit!
-                  </p>
+                  <h5>Backend &amp; Security</h5>
+                  <p>Projekt bazy danych oraz implementacja REST API z wykorzystaniem platformy Microsoft Azure.</p>
                </OurTable>
                <OurTable style={{ background: `${colors.purple}` }}>
                   <div className="avatar">
                      <img src={Tatiana} alt="Tatiana" />
                   </div>
                   <h4>Tatiana Cieślar</h4>
-                  <p>
-                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil hic molestias rerum suscipit rem
-                     praesentium expedita nam ab officia impedit!
-                  </p>
+                  <h5>Backend &amp; Content</h5>
+                  <p>Przygotowanie zbioru danych do nauki oraz rejestracja i zabezpieczenie API w chmurze.</p>
                </OurTable>
             </OurContainer>
             <RedBgContainer></RedBgContainer>
          </BgWhite>
-      </>
+      </AnimatePresence>
    );
 };
 
-const BgWhite = styled.div`
+const BgWhite = styled(motion.div)`
    background-color: white;
 `;
 
@@ -249,7 +250,7 @@ const TableBlock = styled.div`
       border-radius: 15px;
    }
 
-   p div {
+   p span {
       background-color: ${colors.green};
       width: 10px;
       height: 10px;
@@ -288,7 +289,16 @@ const OurTable = styled.div`
    height: 250px;
    h4 {
       font-size: 1.4rem;
-      margin-bottom: 1.2rem;
+      margin: 1rem 0 0;
+   }
+   h5 {
+      font-size: 1.2rem;
+      margin: 0.25rem;
+      font-weight: 500;
+   }
+   p {
+      font-weight: 500;
+      font-size: 1.1rem;
    }
 
    .avatar {

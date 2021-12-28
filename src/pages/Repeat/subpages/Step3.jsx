@@ -4,8 +4,10 @@ import GoBack from '../../../components/GoBack';
 import LessonTitle from '../../../components/LessonTitle';
 import transitions from '../../../helpers/transitions';
 import { routes } from '../../../routes';
+import Congratulations from '../../../components/Congratulations';
 
 const Step3 = ({ data = null }) => {
+   const correct = data.filter((w) => w.learned).length;
    return (
       <motion.div {...transitions.opacity} key="typing-3">
          <Style>
@@ -18,12 +20,12 @@ const Step3 = ({ data = null }) => {
                </div>
                <div className="Top"></div>
                <div className="Main white-box">
-                  {data.map((w) => (
-                     <h5>
-                        {w.type} / {w.display}
-                        {w.correct > 1 ? ' Dobrze' : ' Źle'}
-                     </h5>
-                  ))}
+                  <Congratulations
+                     test
+                     correct={correct}
+                     total={data.length}
+                     percentage={(correct / data.length) * 100}
+                  />
                </div>
             </div>
          </Style>

@@ -17,6 +17,7 @@ export const prepareLearnData = (data, typePolish) =>
            type: word.polish,
            correct: 0,
            learned: false,
+           old_id: word.word_id,
         }))
       : data.map((word, index) => ({
            id: index,
@@ -24,4 +25,5 @@ export const prepareLearnData = (data, typePolish) =>
            type: word.english,
            correct: 0,
            learned: false,
+           old_id: word.word_id,
         }));
