@@ -31,10 +31,10 @@ const Step1 = ({ onSubmit = null }) => {
                      </p>
                      <ul>
                         <span style={{ margin: '2px 0', fontWeight: 'bold' }}>Pamiętaj, że:</span>
-                        <li>Na wpisanie słówka masz tylko 10 sekund,</li>
-                        <li>Aby zaliczyć lekcję, musisz odpowiedzieć poprawnie na każde pytanie,</li>
+                        <li>Na wpisanie słówka masz 30 sekund,</li>
+                        <li>Aby zaliczyć lekcję, musisz odpowiedzieć poprawnie na większość pytań,</li>
                         <li>Po zakończonym teście możesz zobaczyć, ile poprawnych odpowiedzi udzieliłeś,</li>
-                        <li>Dopiero gdy zaliczysz test w 100%, możesz przejść do nauki kolejnej lekcji.</li>
+                        <li>Dopiero gdy zaliczysz test w 70%, możesz przejść do nauki kolejnej lekcji.</li>
                      </ul>
                      <p>Jednak nie bój się, test możesz powtórzyć tyle razy, ile będzie to potrzebne :)</p>
                      <p style={{ fontWeight: 'bold' }}>Powodzenia!</p>
