@@ -99,7 +99,7 @@ const Home = () => {
                   <Button>Pobierz</Button>
                </PlatformContainer>
                <PlatformContainer>
-                  <h1>Wersja mobilna</h1>
+                  <h1>Wersja webowa</h1>
                   <img src={WebImg} alt="Mężczyzna na ekranie komputera" />
                   <p>Dostępna w każdej przeglądarce.</p>
                   <Button onClick={() => history.push(routes.signUp)}>Rejestracja</Button>
