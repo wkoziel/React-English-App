@@ -1,7 +1,8 @@
 # Project Name
 
-> Outline a brief description of your project.
-> Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
+> Application for learning English that allows you to learn using one of the three methods: flashcards, quiz and writing.<br/>
+> Project was created by us as part of an engineering project.<br/>
+> Live demo [_here_](https://duckling-demo.netlify.app/). <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
 
@@ -27,22 +28,22 @@
 
 ## Technologies Used
 
--  React - version 17.0.2
--  React Router Dom - version 7.20.4
--  Azure Storage Blob- version 12.8.0
--  Hookform Resolvers - version 2.8.3
--  Axios - version 0.24.0
--  Chart.js - version 3.6.2
--  dotenv - version 10.0.0
--  framer-motion - version 4.1.17
--  clsx - version 1.1.1
--  React Chart.js 2 - version 4.0.0
--  Countup - version 6.1.0
--  React Loader Spinner - version 4.0.0
--  Sass - version 1.43.4
--  Sass Loader - version 12.3.0
--  Styled-components - version 5.3.1
--  yup - version 0.32.11
+-  **React** - version 17.0.2
+-  **React Router Dom** - version 7.20.4
+-  **Azure Storage Blob**- version 12.8.0
+-  **Hookform Resolvers** - version 2.8.3
+-  **Axios** - version 0.24.0
+-  **Chart.js** - version 3.6.2
+-  **dotenv** - version 10.0.0
+-  **framer-motion** - version 4.1.17
+-  **clsx** - version 1.1.1
+-  **React Chart.js 2** - version 4.0.0
+-  **Countup** - version 6.1.0
+-  **React Loader Spinner** - version 4.0.0
+-  **Sass** - version 1.43.4
+-  **Sass Loader** - version 12.3.0
+-  **Styled-component**s - version 5.3.1
+-  **yup** - version 0.32.11
 
 ## Features
 
