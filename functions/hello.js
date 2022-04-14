@@ -1,4 +1,4 @@
-exports.handler = (event, context) => {
+exports.handler = async (event, context) => {
    console.log('To działa');
    return {
       statusCode: 200,
