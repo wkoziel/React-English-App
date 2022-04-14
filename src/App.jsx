@@ -49,8 +49,6 @@ const App = () => (
                      <Route path={routes.test} component={Test} />
                      <Route path={routes.editProfile} component={EditProfile} />
                   </AuthWrapper>
-
-                  <Route path="*" component={ErrorPage} />
                </Switch>
             </Modal>
          </ContextProvider>
