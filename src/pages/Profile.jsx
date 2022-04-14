@@ -16,6 +16,7 @@ import { useGlobalContext } from '../context/global';
 import Loading from '../components/Loading';
 import { days } from '../constants/data';
 import CountUp from 'react-countup';
+import { profileData } from '../data/profile';
 
 const Profile = () => {
    const [user, setUser] = useState({});
@@ -29,13 +30,10 @@ const Profile = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await fetchUserProfile(username);
-            if (response.data) {
-               setUser(response.data.user);
-               setUserWeek(response.data.daily_words);
-               setUserStats(response.data.stats);
-               setUserAchievements(response.data.achievements);
-            }
+            setUser(profileData.user);
+            setUserWeek(profileData.daily_words);
+            setUserStats(profileData.stats);
+            setUserAchievements(profileData.achievements);
          } catch (error) {
             console.error(error);
          } finally {

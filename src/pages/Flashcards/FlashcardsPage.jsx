@@ -10,6 +10,7 @@ import { prepareLearnData } from '../../helpers';
 import Loading from '../../components/Loading';
 import { useGlobalContext } from '../../context/global';
 import transitions from '../../helpers/transitions';
+import { lessonWordsData } from '../../data/lessons';
 
 const initialState = {
    step: 0,
@@ -44,8 +45,7 @@ const FlashcardsPage = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await getLessonWords(id);
-            if (response.data) dispatch({ type: actions.loadData, payload: response.data });
+            dispatch({ type: actions.loadData, payload: lessonWordsData });
          } catch (error) {
             console.error(error);
          } finally {

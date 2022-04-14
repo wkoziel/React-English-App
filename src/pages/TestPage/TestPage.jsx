@@ -9,6 +9,7 @@ import { getLessonWords, testCompleted } from '../../api/api';
 import { useParams } from 'react-router';
 import Loading from '../../components/Loading';
 import { useGlobalContext } from '../../context/global';
+import { lessonWordsData } from '../../data/lessons';
 const initialState = {
    step: 0,
 };
@@ -42,8 +43,7 @@ const TestPage = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await getLessonWords(id);
-            if (response.data) dispatch({ type: actions.loadData, payload: response.data });
+            dispatch({ type: actions.loadData, payload: lessonWordsData });
          } catch (error) {
             console.error(error);
          } finally {
@@ -69,11 +69,8 @@ const TestPage = () => {
    const submitTest = async (data) => {
       const percentage = Math.round((data.correctAnswers / data.total) * 100, 0);
       try {
-         const response = await testCompleted({ login: username, percentage, lesson_id: Number.parseInt(id) });
-         if (response.data) {
-            setStats({ ...data, percentage });
-            dispatch({ type: actions.nextStep, payload: 2 });
-         }
+         setStats({ ...data, percentage });
+         dispatch({ type: actions.nextStep, payload: 2 });
       } catch (error) {
          console.log(error);
       }

@@ -26,12 +26,13 @@ const SingleLesson = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const [resLesson, resUser] = await Promise.all([getLessonData(id), getUserLessons(username)]);
-            if (resLesson.data && resUser.data) {
-               setLesson(resLesson.data);
-               const perc = resUser.data.find((l) => l.lesson_id === Number.parseInt(id, 10));
-               if (perc) setPercentage(perc.percentage);
-            }
+            setLesson({
+               words_count: 5,
+               lesson_name: 'Przykładowa lekcja',
+               description:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper sit amet ipsum vel maximus. Suspendisse ullamcorper purus vel vestibulum efficitur. Praesent bibendum luctus eleifend. Vivamus et justo ipsum. Praesent placerat felis elit, facilisis placerat sem ullamcorper ac. Praesent eu purus justo.',
+            });
+            setPercentage(100);
          } catch (error) {
             console.error(error);
          } finally {
@@ -69,7 +70,7 @@ const SingleLesson = () => {
                         </div>
                         <div className="lesson box">
                            <h1>
-                              Lekcja {lesson.lesson_id + 1} <span className="green">{lesson.lesson_name}</span>
+                              Lekcja {4} <span className="green">{lesson.lesson_name}</span>
                            </h1>
                            <h4>{lesson.description}</h4>
                            <img src={bird} alt="" />

@@ -17,6 +17,7 @@ import DeleteAccount from '../components/DeleteAccount';
 import transitions from '../helpers/transitions';
 import FileUpload from '../components/FileUpload';
 import { navlinks } from '../constants/data';
+import { profileData } from '../data/profile';
 
 const EditProfile = () => {
    const [step, setStep] = useState(0);
@@ -28,8 +29,7 @@ const EditProfile = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await getUser(username);
-            if (response.data) setUser(response.data);
+            setUser(profileData.user);
          } catch (error) {
             console.error(error);
          } finally {

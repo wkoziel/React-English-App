@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import { routes } from '../routes';
 import { useHistory } from 'react-router-dom';
 import { useModalContext } from './Modal';
+import avatar from '../assets/avatar-female.svg';
 
 const url = 'https://limistorage.blob.core.windows.net/profile-pics/';
 
@@ -17,7 +18,7 @@ const FileUpload = () => {
    const [fileSelected, setFileSelected] = useState(null);
    const [file, setFile] = useState(null);
    const [isLoading, setIsLoading] = useState(true);
-   const [userPhoto, setUserPhoto] = useState({});
+   const [userPhoto, setUserPhoto] = useState(avatar);
 
    const history = useHistory();
 

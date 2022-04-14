@@ -3,20 +3,23 @@ import styled from 'styled-components';
 import { colors } from '../style';
 import clsx from 'clsx';
 
-const TextInput = React.forwardRef(({ type = 'text', label = '', placeholder = '', name = '', error = null }, ref) => {
-   return (
-      <Style>
-         <label className={clsx(error && 'error')}>{label}:</label>
-         <input
-            className={clsx(error && 'error')}
-            {...ref(name, { required: true })}
-            type={type}
-            placeholder={placeholder}
-         ></input>
-         <span>{error}</span>
-      </Style>
-   );
-});
+const TextInput = React.forwardRef(
+   ({ value, type = 'text', label = '', placeholder = '', name = '', error = null }, ref) => {
+      return (
+         <Style>
+            <label className={clsx(error && 'error')}>{label}:</label>
+            <input
+               className={clsx(error && 'error')}
+               {...ref(name, { required: true })}
+               type={type}
+               placeholder={placeholder}
+               value={value}
+            ></input>
+            <span>{error}</span>
+         </Style>
+      );
+   },
+);
 
 const Style = styled.div`
    display: flex;

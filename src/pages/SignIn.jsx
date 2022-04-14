@@ -20,11 +20,14 @@ import Error from '../components/Error';
 import { useState } from 'react';
 import { Redirect } from 'react-router';
 import clsx from 'clsx';
+import { useModalContext } from '../components/Modal';
+import { useEffect } from 'react';
 
 const SignIn = () => {
    const { logIn, isAuth } = useGlobalContext();
    const [isLoading, setIsLoading] = useState(false);
    const [message, setMessage] = useState('');
+   const { showModal } = useModalContext();
 
    const schema = yup.object().shape({
       login: yup.string().required('Podaj swój login'),
@@ -42,18 +45,23 @@ const SignIn = () => {
    const onSubmit = async (data) => {
       try {
          setIsLoading(true);
-         const response = await signIn(data);
-         if (response.data.status) {
-            const { status } = response.data;
-            if (status === loginStatus.success) logIn(data.login);
-            else setMessage(status);
-         }
+         if (data.login === 'user' && data.password === '12345678') logIn(data.login);
+         else setMessage('Nie udało się zalogować do aplikacji');
       } catch (error) {
          console.error(error);
       } finally {
          setIsLoading(false);
       }
    };
+
+   useEffect(
+      () =>
+         showModal(
+            'Witaj w wersji Demo!',
+            'W celu udostępnienia wersji live naszej aplikacji utworzyliśmy jej wersję z wykorzystaniem statycznych danych.',
+         ),
+      [],
+   );
 
    return (
       <>
@@ -82,6 +90,7 @@ const SignIn = () => {
                         label="Login"
                         placeholder="Wprowadź login"
                         error={errors?.login?.message}
+                        value="user"
                      />
                      <TextInput
                         ref={register}
@@ -90,6 +99,7 @@ const SignIn = () => {
                         placeholder="Wprowadź hasło"
                         type="password"
                         error={errors?.password?.message}
+                        value="12345678"
                      />
                      <div className="flex">
                         <Link to={routes.forgottenPassword}>Zapomniałem hasła</Link>

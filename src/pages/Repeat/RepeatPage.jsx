@@ -9,6 +9,7 @@ import Loading from '../../components/Loading';
 import { useGlobalContext } from '../../context/global';
 import transitions from '../../helpers/transitions';
 import { getRepeatWords, getRepeatWordsCount, sendRepeatWords } from '../../api/api';
+import { lessonWordsData } from '../../data/lessons';
 
 const initialState = {
    step: 0,
@@ -44,8 +45,8 @@ const TestPage = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await getRepeatWordsCount(username);
-            if (response.data) setRepeatCount(response.data.words_number);
+            getRepeatWordsCount(lessonWordsData);
+            setRepeatCount(30);
          } catch (error) {
             console.error(error);
          } finally {
@@ -74,21 +75,21 @@ const TestPage = () => {
             ['login', username],
             ['n', wordsQuantity],
          ]);
-         const response = await getRepeatWords(params);
-         if (response.data) {
-            await dispatch({ type: actions.loadData, payload: response.data });
+         const response = lessonWordsData;
+         if (response) {
+            await dispatch({ type: actions.loadData, payload: response });
             if (Number.parseInt(selectedLanguage) === 1) {
                dispatch({
                   type: actions.prepareData,
                   payload: {
-                     data: prepareLearnData(response.data, true),
+                     data: prepareLearnData(response, true),
                   },
                });
             } else
                dispatch({
                   type: actions.prepareData,
                   payload: {
-                     data: prepareLearnData(response.data, false),
+                     data: prepareLearnData(response, false),
                   },
                });
          }

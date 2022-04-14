@@ -56,7 +56,7 @@ const Step1 = ({ setQuantity = null, nextStep = null, setLanguage = null, words 
                <button
                   type="submit"
                   className={`${words < 20 && 'disabled'} option`}
-                  onClick={() => onClick(20)}
+                  onClick={() => onClick(10)}
                   disabled={words < 20}
                >
                   {words < 20 ? (
@@ -71,7 +71,7 @@ const Step1 = ({ setQuantity = null, nextStep = null, setLanguage = null, words 
                <button
                   type="submit"
                   className={`${words < 30 && 'disabled'} option`}
-                  onClick={() => onClick(30)}
+                  onClick={() => onClick(10)}
                   disabled={words < 30}
                >
                   {words < 30 ? (
@@ -86,7 +86,7 @@ const Step1 = ({ setQuantity = null, nextStep = null, setLanguage = null, words 
                <button
                   type="submit"
                   className={`${words < 40 && 'disabled'} option`}
-                  onClick={() => onClick(40)}
+                  onClick={() => onClick(10)}
                   disabled={words < 40}
                >
                   {words < 40 ? (

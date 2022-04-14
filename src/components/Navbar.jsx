@@ -8,9 +8,10 @@ import { useGlobalContext } from '../context/global';
 import { getUserPhoto } from '../api/api';
 import Duck from '../assets/duck.svg';
 import arrowDown from '../assets/arrow-down.svg';
+import avatar from '../assets/avatar-female.svg';
 
 const Navbar = ({ logo = 'Duckling', active = null }) => {
-   const [userPhoto, setUserPhoto] = useState('');
+   const [userPhoto, setUserPhoto] = useState(avatar);
    const { isAuth, logout, username } = useGlobalContext();
    const [showDropdown, setShowDropdown] = useState(false);
    const [isLoading, setIsLoading] = useState(true);

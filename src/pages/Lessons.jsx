@@ -15,6 +15,7 @@ import { routes } from '../routes';
 import clsx from 'clsx';
 import { colors } from '../style';
 import CountUp from 'react-countup';
+import { allLessonsData, userLessonsData } from '../data/lessons';
 
 const Lessons = () => {
    const [isLoading, setIsLoading] = useState(true);
@@ -29,13 +30,10 @@ const Lessons = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await getLessonSiteData(username);
-            if (response.data) {
-               setAllLessons(response.data.all_lessons);
-               setUserLessons(response.data.all_users_lessons);
-               setDailyGoal(response.data.words_to_learn);
-               setLastLesson(response.data.last_lesson);
-            }
+            setAllLessons(allLessonsData);
+            setUserLessons(userLessonsData);
+            setDailyGoal(30);
+            setLastLesson({ percentage: 0 });
          } catch (error) {
             console.error(error);
          } finally {
@@ -76,8 +74,8 @@ const Lessons = () => {
                               Tutaj <span className="green">ostatnio</span> skończyłeś naukę:
                            </h4>
                            <Button
-                              label={`Lekcja ${lastLesson?.lesson_id + 1 || 1}`}
-                              onClick={() => history.push(routes?.singleLesson.replace(':id', lastLesson?.lesson_id))}
+                              label={`Lekcja ${4}`}
+                              onClick={() => history.push(routes?.singleLesson.replace(':id', 3))}
                            />
                         </div>
                      </div>

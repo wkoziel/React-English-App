@@ -9,6 +9,7 @@ import { getLessonWords, addLearnedWords } from '../../api/api';
 import { AnimatePresence } from 'framer-motion';
 import Loading from '../../components/Loading';
 import { useGlobalContext } from '../../context/global';
+import { lessonWordsData } from '../../data/lessons';
 
 const initialState = {
    step: 0,
@@ -42,8 +43,7 @@ const Quiz = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await getLessonWords(id);
-            if (response.data) dispatch({ type: actions.loadData, payload: response.data });
+            dispatch({ type: actions.loadData, payload: lessonWordsData });
          } catch (error) {
             console.error(error);
          } finally {
