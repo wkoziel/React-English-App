@@ -1,7 +1,7 @@
 exports.handler = async (event, context) => {
-   console.log('To działa');
+   const lessons = [{ id: 0 }, { id: 1 }];
    return {
       statusCode: 200,
-      body: 'Hello world!',
+      body: JSON.stringify(lessons),
    };
 };
