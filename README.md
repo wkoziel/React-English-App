@@ -1,30 +1,29 @@
-# Project Name
+# Duckling - App for learning English
 
 > Application for learning English that allows you to learn using one of the three methods: flashcards, quiz and writing.<br/>
-> Project was created by us as part of an engineering project.<br/>
-> Live demo [_here_](https://duckling-demo.netlify.app/). <!-- If you have the project hosted somewhere, include the link here. -->
+> Project was created by us as part of an engineering project.<br/><br/>
+> Live demo verion [_here_](https://duckling-demo.netlify.app/). <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
 
--  [General Info](#general-information)
+-  [Screenshots](#screenshots)
 -  [Technologies Used](#technologies-used)
 -  [Features](#features)
--  [Screenshots](#screenshots)
--  [Setup](#setup)
--  [Usage](#usage)
 -  [Project Status](#project-status)
 -  [Room for Improvement](#room-for-improvement)
--  [Acknowledgements](#acknowledgements)
 -  [Contact](#contact)
-<!-- * [License](#license) -->
 
-## General Information
+## Screenshots
 
--  Provide general information about your project here.
--  What problem does it (intend to) solve?
--  What is the purpose of your project?
--  Why did you undertake it?
-<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
+![image](https://user-images.githubusercontent.com/44378819/164254252-7638f594-01ff-42a6-9a3b-402817a4c8d6.png)
+![image](https://user-images.githubusercontent.com/44378819/164254289-0feb1a56-6d2b-40c8-8980-377a2539599b.png)
+![image](https://user-images.githubusercontent.com/44378819/164254326-66ac980e-3398-4c71-a5da-d7d40293160e.png)
+![image](https://user-images.githubusercontent.com/44378819/164254350-d280dfe0-9aa9-4e28-aadb-ea547f592973.png)
+![image](https://user-images.githubusercontent.com/44378819/164254417-4f99f3d5-9ce6-4017-ace1-060349e77a9b.png)
+![image](https://user-images.githubusercontent.com/44378819/164254445-f3334bec-771c-4bd2-97b7-f8a5e90ebd31.png)
+![image](https://user-images.githubusercontent.com/44378819/164254466-ecaf3942-2ba9-42aa-aa1e-64245f05dd8d.png)
+![image](https://user-images.githubusercontent.com/44378819/164254494-c0aebf9f-d778-40bb-b71e-447927c8bc2f.png)
+![image](https://user-images.githubusercontent.com/44378819/164254523-96b4b7c8-6739-47ff-9d97-6ccaa0948861.png)
 
 ## Technologies Used
 
@@ -49,61 +48,35 @@
 
 List the ready features here:
 
--  Awesome feature 1
--  Awesome feature 2
--  Awesome feature 3
+-  User system with their own profile
+-  The ability to view and learn lessons divided into categories
+-  The method of learning with the use of a card system
+-  The method of learning by entering definitions of words
+-  Learning method through a quiz with words definitions
+-  A test that measures the progress of a given lesson
+-  A system that allows for the repetition of long-known words
+-  User profile view with statistics and achievements
+-  Ability to edit user data in settings
 
-## Screenshots
-
-![Example screenshot](./img/screenshot.png)
-
-<!-- If you have screenshots you'd like to share, include them here. -->
-
-## Setup
-
-What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
-
-Proceed to describe how to install / setup one's local environment / get started with the project.
-
-## Usage
-
-How does one go about using it?
-Provide various use cases and code examples here.
-
-`write-your-code-here`
 
 ## Project Status
 
-Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are no longer working on it, provide reasons why.
+Project is: _complete_ 
 
 ## Room for Improvement
-
-Include areas you believe need improvement / could be improved. Also add TODOs for future development.
-
 Room for improvement:
+-   Expanding the mechanism of the level of knowledge of a word, changing it depending on the number of repetitions, mistakes and time from learning
+-   Dependence of the time in which words appear as intended for revision to the degree of their knowledge
+-   Improving the test mechanism by allowing synonyms and typos
+-   Adding a new vocabulary learning method based on the popular memory game
+-   Implementing the possibility of interaction between users - adding them to your network of friends, joining groups and creating rankings that, as an element of healthy competition, will motivate users to develop their language skills
+-   Adding the option to set a daily study reminder using push notifications in the mobile application
 
--  Improvement to be done 1
--  Improvement to be done 2
-
-To do:
-
--  Feature to be added 1
--  Feature to be added 2
-
-## Acknowledgements
-
-Give credit here.
-
--  This project was inspired by...
--  This project was based on [this tutorial](https://www.example.com).
--  Many thanks to...
 
 ## Contact
+Created by our team - Feel free to contact us!
+- [@wkoziel](https://github.com/wkoziel) - Web app
+- [@xlimiii](https://github.com/xlimiii) - Mobile app
+- [@PiotrHadam](https://github.com/PiotrHadam) - API & Security
+- [@23tania](https://github.com/23tania) - API & Security
 
-Created by [@flynerdpl](https://www.flynerd.pl/) - feel free to contact me!
-
-<!-- Optional -->
-<!-- ## License -->
-<!-- This project is open source and available under the [... License](). -->
-
-<!-- You don't have to include all sections - just the one's relevant to your project -->
