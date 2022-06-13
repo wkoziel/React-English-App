@@ -75,8 +75,8 @@ Room for improvement:
 
 ## Contact
 Created by our team - Feel free to contact us!
-- [@wkoziel](https://github.com/wkoziel) - Web app
-- [@xlimiii](https://github.com/xlimiii) - Mobile app
+- [@wkoziel](https://github.com/wkoziel) - Designe & Web app development
+- [@xlimiii](https://github.com/xlimiii) - Designe & Mobile app development
 - [@PiotrHadam](https://github.com/PiotrHadam) - API & Security
 - [@23tania](https://github.com/23tania) - API & Security
 
